@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
+<!-- above set at the top of the file will set     -->
+<!-- the browser's rendering engine into           -->
+<!-- "Quirks Mode". Replacing this declaration     -->
+<!-- with a "Standards Mode" doctype is supported, -->
+<!-- but may lead to some differences in layout.   -->
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Hello App Engine</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;" />
+    <link rel="stylesheet" href="sencha/resources/css/touch-charts-demo.css" type="text/css">
+
+    <title>Area Chart</title>
+    <script type="text/javascript" src="sencha/sencha-touch-debug.js"></script>
+    <script type="text/javascript" src="sencha/touch-charts-debug.js"></script>
+    <script type="text/javascript" src="mockupjs/linechart.js"></script>
+    <script type="text/javascript" src="mockupjs/barchart.js"></script>
+    <script type="text/javascript" src="mockupjs/pseudoorgchart.js"></script>
+    
+    <style type="text/css">
+    	.wrapper{
+		    zoom:1;
+		}
+		
+		.fixedLeft{
+		    float:left;
+		    width:500px;
+		    height:100%;
+		}
+		
+		.fixedRight{
+		    float:left;
+		    width:500px;
+		    height:100%;
+		}
+		.flexCenter{
+		    background: red;
+		    overflow:hidden;
+		    zoom:1;
+		    height:100%;
+		}
+		
+		.linechartareea {
+			margin:5px;
+			width: 450px;
+			height:450px;
+			border: 1px solid;
+			background: lightgray;
+		
+		}
+		
+		.orgchartarea {
+			margin:600px 5px 5px 5px;
+			width: 450px;
+			height:450px;
+			border: 1px solid;	
+		},
+		
+		.welltablearea {
+			margin:505px 5px 5px 5px;
+			width: 450px;
+			height:450px;
+			border: 1px solid;	
+			background:red;	
+		},
+		
+		.stackedbarchartarea {
+			margin:5px 5px 5px 5px;
+			width: 450px;
+			height:450px;
+			border: 1px solid;
+			background: orange;	
+		}
+		
+		
+    </style>
+  </head>
+
+  <body>
+  	<div class="wrapper">
+	  	<div class="fixedLeft">
+	  		<div class="stackedbarchartarea" id="barchart"></div>
+	  		<div class="welltablearea"></div>
+	  	</div>
+	  		
+	  	
+	     <div class="fixedRight">
+	     	<div class="linechartareea" id="linechart"></div>
+	     </div>
+	     <div style="clear:both;"></div>
+	     <div class="orgchartarea" id="orgchart">
+	     
+	     </div>
+     </div>
+     
+  </body>
+</html>

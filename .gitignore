@@ -1,0 +1,9 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*/war/sample.log
+*/war/WEB-INF/appengine-generated/local_db.bin
+*/war/WEB-INF/appengine-generated/
