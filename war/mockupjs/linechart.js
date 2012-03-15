@@ -76,7 +76,8 @@ Ext.setup({
                 animate: true,
                 shadow: true,
                 legend: {
-                    position: 'right'
+                    position: 'right',
+                    dock: 'true'
                 },
                interactions: [{
                 type: 'panzoom',

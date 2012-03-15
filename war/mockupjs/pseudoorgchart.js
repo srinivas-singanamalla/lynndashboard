@@ -172,7 +172,7 @@ Ext.create('Ext.Window', {
 			
 			var getPsuedoOrgBoxesSpriteArray = function(all, gas, oil, natgas) {
 				var spritesArray = [];
-				var bbox = {x: 50, y: 50, w:300, h:200};
+				var bbox = {x: 100, y: 50, w:250, h:200};
 				var pad = 10;
 				spritesArray.push(getSpritesArray({
 		        	x: bbox.x,
