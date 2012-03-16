@@ -1,6 +1,6 @@
 Ext.define("LDB.view.Main", {
     extend: 'Ext.tab.Panel',
-    requires: ['Ext.data.JsonStore', 'Ext.TitleBar', 'LDB.view.Dashboard', 'Ext.chart.Panel', 'LDB.view.DBAreaChart'],
+    requires: ['Ext.data.JsonStore', 'Ext.TitleBar', 'LDB.view.Dashboard', 'Ext.chart.Panel', 'LDB.view.DBAreaChart', 'LDB.view.PseudoOrgChart'],
     
     config: {
         tabBarPosition: 'bottom',
@@ -20,8 +20,7 @@ Ext.define("LDB.view.Main", {
                 	flex: 1
                 },
                 {
-                	xtype: 'panel',
-                	html: 'dadkaldadk;adka',
+                	xtype: 'porgchart',
                 	flex: 2
                 }
                 ]
