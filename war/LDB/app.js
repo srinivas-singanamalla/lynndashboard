@@ -28,7 +28,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('LDB.view.DBAreaChart', {}));
+        Ext.Viewport.add(Ext.create('LDB.view.Main', {}));
     },
 
     onUpdated: function() {

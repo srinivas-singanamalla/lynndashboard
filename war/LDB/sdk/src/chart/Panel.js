@@ -19,6 +19,7 @@ Ext.define('Ext.chart.Panel', {
     },
 
     constructor: function (config) {
+    	console.log("u are here in the constructor");
         var ui = config.ui || 'dark',
             toolbar = {
             xtype: 'panel',
@@ -51,6 +52,7 @@ Ext.define('Ext.chart.Panel', {
     },
 
     initialize: function (config) {
+    	console.log("initialize in the chartpanel");
         var me = this,
             headerPanel;
         me.callParent(arguments);
@@ -61,6 +63,7 @@ Ext.define('Ext.chart.Panel', {
     },
 
     updateTitle: function (title) {
+    	console.log("title chart is " + title);
         this.getItems().get(0).getItems().get(0).setTitle(title);
     },
 
@@ -70,9 +73,12 @@ Ext.define('Ext.chart.Panel', {
 
     applyChart: function (chart, currentChart) {
         if (chart !== currentChart) {
+        	console.log("u are here chart not current chart");
             chart = Ext.factory(chart, 'Ext.chart.Chart', currentChart);
         }
+        
         if (!currentChart) {
+        	console.log("adding chart");
             this.add(chart);
         }
         return chart;
