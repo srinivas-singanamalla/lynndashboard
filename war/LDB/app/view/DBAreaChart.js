@@ -1,3 +1,11 @@
+Date.prototype.monthNames = [
+    "Jan", "Feb", "Mar",
+    "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep",
+    "Oct", "Nov", "Dec"
+];
+
+
 window.generateData = function(n, floor) {
 	var data = [], i;
 
@@ -5,7 +13,7 @@ window.generateData = function(n, floor) {
 
 	for (i = 0; i < (n || 12); i++) {
 		data.push({
-			name : 'Jan',// Date.monthNames[i % 12],
+			name : new Date().monthNames[i % 12],
 			2003 : Math.floor(Math.max((Math.random() * 100), floor)),
 			2004 : Math.floor(Math.max((Math.random() * 100), floor)),
 			2005 : Math.floor(Math.max((Math.random() * 100), floor)),
