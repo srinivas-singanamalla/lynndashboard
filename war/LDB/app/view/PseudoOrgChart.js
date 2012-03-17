@@ -3,16 +3,7 @@ Ext.define("LDB.view.PseudoOrgChart", {
 	xtype : 'porgchart',
 	requires : [ 'Ext.draw.Sprite', 'Ext.draw.Component',
 			'Ext.fx.Parser', 'Ext.fx.Sprite' , 'Ext.draw.Surface', 'Ext.draw.engine.Canvas', 'Ext.draw.CompositeSprite'],
-/*
-	config : {
-		autoSize : true,
-		title : 'Area Chart Test',
-		width : 450,
-		height : 450
-	},
-*/
-			
-			
+
 	constructor : function(config) {
 		
 		var getTrianglePath = function(x, y, h) {
@@ -159,7 +150,7 @@ Ext.define("LDB.view.PseudoOrgChart", {
 		};
 		
 		var drawComponent = Ext.create('Ext.draw.Component', {
-        	width: 450,
+			width: 450,
         	height: 450
         });
         

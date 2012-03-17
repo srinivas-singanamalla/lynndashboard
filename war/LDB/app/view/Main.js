@@ -9,10 +9,10 @@ Ext.define("LDB.view.Main", {
             {
             	title: 'Dashboard',
         		iconCls:'home',
-        		autoHeight: true,
+//        		height: '100%',
             	xtype: 'container',
             	layout: {
-            		type: 'hbox',
+            		type: 'vbox',
             		align: 'middle',
             		pack: 'center'
             	},
@@ -22,6 +22,7 @@ Ext.define("LDB.view.Main", {
                     title: 'Lynn Dashboard'
                 },
                 {
+                	layout: 'hbox',
 	                items: [{
 	                		xtype: 'dbareachart',
 	                		flex: 1
@@ -32,6 +33,7 @@ Ext.define("LDB.view.Main", {
 	                	}]
                  },
                  {
+                	layout: 'hbox', 
  	                items: [{
  	                		xtype: 'dbbarchart',
  	                		flex: 1

@@ -27,13 +27,13 @@ window.store1 = Ext.create('Ext.data.JsonStore',
 Ext.define("LDB.view.DBBarChart", {
 	extend : 'Ext.Panel',
 	xtype : 'dbbarchart',
-	requires : [ 'Ext.chart.Panel', 'Ext.chart.axis.Numeric',
+	requires : [ 'Ext.chart.series.Column', 'Ext.chart.Panel', 'Ext.chart.axis.Numeric',
 			'Ext.chart.axis.Category', 'Ext.chart.series.Area',
 			'Ext.data.JsonStore', 'Ext.chart.theme.Theme', 'Ext.chart.theme.MarkerStyle', 'Ext.chart.theme.LabelStyle',
 			'Ext.chart.theme.Style', 'Ext.chart.theme.Base',
-			'Ext.chart.theme.Demo', 'Ext.chart.Toolbar', 'Ext.draw.Sprite',
-			'Ext.fx.Parser', 'Ext.fx.Sprite' , 'Ext.draw.Surface', 'Ext.draw.engine.Canvas', 'Ext.draw.CompositeSprite',
-			'Ext.draw.engine.ImageExporter' ],
+			'Ext.chart.theme.Demo', 'Ext.chart.Toolbar', 'Ext.fx.Parser', 'Ext.draw.Sprite',
+			 'Ext.fx.Sprite' , 'Ext.draw.Surface', 'Ext.draw.engine.Canvas', 'Ext.draw.CompositeSprite',
+			'Ext.draw.engine.ImageExporter', 'Ext.chart.theme.TitleStyle' ],
 /*
 	config : {
 		autoSize : true,
@@ -43,14 +43,15 @@ Ext.define("LDB.view.DBBarChart", {
 	},
 */
 	constructor : function(config) {
+		
 		var chart = Ext.create('Ext.chart.Chart', {
-			themeCls : 'area1',
+			themeCls : 'bar1',
 			theme : 'Demo',
 			store : window.store1,
 			width : 450,
 			height : 450,
 			autoSize : true,
-			title : 'Area Chart Test',
+			title : 'Bar Chart',
 			animate : true,
 			legend : {
 				position : {
@@ -59,28 +60,138 @@ Ext.define("LDB.view.DBBarChart", {
 				},
 				labelFont : '20px Arial'
 			},
-			axes : [
-					{
-						type : 'Numeric',
-						position : 'left',
-						fields : [ '2003', '2004', '2005', '2006', '2007',
-								'2008', '2009' ],
-						title : 'Number of Hits',
-						minimum : 0,
-						adjustMinimumByMajorUnit : 0
-					}, {
-						type : 'Category',
-						position : 'bottom',
-						fields : [ 'name' ],
-						title : 'Month of the Year'
-					} ]
-		
-			, series: [ { type: 'area', highlight: false, axis: 'left', xField:
-				'name', yField: ['2003', '2004', '2005', '2006', '2007', '2008',
-		  '2009'] } ]
+			axes: [{
+                type: 'Numeric',
+                position: 'bottom',
+                fields: ['2008', '2009', '2010'],
+                label: {
+                    renderer: function(v) {
+                        return v.toFixed(0);
+                    }
+                },
+                title: 'Number of Hits',
+                minimum: 0
+            },
+            {
+                type: 'Category',
+                position: 'left',
+                fields: ['name'],
+                title: 'Month of the Year'
+            }],
+            series: [{
+                type: 'column',
+                xField: 'name',
+                yField: ['2008', '2009', '2010'],
+                axis: 'bottom',
+                highlight: true,
+                showInLegend: true
+            }]
 		 
 		});
 
+		/*
+		var chart = Ext.create('Ext.chart.Panel', {
+            title: 'Bar Chart',
+            fullscreen: false,
+            width: 450,
+            height: 450,
+            
+            items: {
+                cls: 'bar1',
+                theme: 'Demo',
+                store: store1,
+                animate: true,
+                shadow: false,
+                legend: {
+                    position: {
+                        portrait: 'right',
+                        landscape: 'top'
+                    },
+                    labelFont: '17px Arial'
+                },
+                interactions: [{
+                    type: 'reset'
+                },
+                {
+                    type: 'togglestacked'
+                },
+                {
+                    type: 'panzoom',
+                    axes: {
+                        left: {}
+                    }
+                },
+                {
+                    type: 'iteminfo',
+                    gesture: 'taphold',
+                    panel: {
+                        dockedItems: [{
+                            dock: 'top',
+                            xtype: 'toolbar',
+                            title: 'Details'
+                        }],
+
+                        html: 'Testing'
+                    },
+                    listeners: {
+                        'show': function(me, item, panel) {
+                            panel.update('<ul><li><b>Month:</b> ' + item.value[0] + '</li><li><b>Value: </b> ' + item.value[1] + '</li></ul>');
+                        }
+                    }
+                },
+                {
+                    type:'itemcompare',
+                    offset: {
+                        x: -10
+                    },
+                    listeners: {
+                        'show': function(interaction) {
+                            var val1 = interaction.item1.value,
+                                val2 = interaction.item2.value;
+
+                            chartPanel.descriptionPanel.setTitle(val1[0] + ' to ' + val2[0] + ' : ' + Math.round((val2[1] - val1[1]) / val1[1] * 100) + '%');
+                            chartPanel.headerPanel.setActiveItem(1, {
+                                type: 'slide',
+                                direction: 'left'
+                            });
+                        },
+                        'hide': function() {
+                            chartPanel.headerPanel.setActiveItem(0, {
+                                type: 'slide',
+                                direction: 'right'
+                            });
+                        }
+                    }
+                }],
+                axes: [{
+                    type: 'Numeric',
+                    position: 'bottom',
+                    fields: ['2008', '2009', '2010'],
+                    label: {
+                        renderer: function(v) {
+                            return v.toFixed(0);
+                        }
+                    },
+                    title: 'Number of Hits',
+                    minimum: 0
+                },
+                {
+                    type: 'Category',
+                    position: 'left',
+                    fields: ['name'],
+                    title: 'Month of the Year'
+                }],
+                series: [{
+                    type: 'column',
+                    xField: 'name',
+                    yField: ['2008', '2009', '2010'],
+                    axis: 'bottom',
+                    highlight: true,
+                    showInLegend: true
+                }]
+            }
+        });
+*/
 		config.items = [ chart ];
 		this.callParent([ config ]);
 	}
