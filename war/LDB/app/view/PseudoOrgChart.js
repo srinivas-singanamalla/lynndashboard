@@ -158,61 +158,22 @@ Ext.define("LDB.view.PseudoOrgChart", {
 			return spritesArray;
 		};
 		
-		var drawComponent = new Ext.draw.Component({
+		var drawComponent = Ext.create('Ext.draw.Component', {
         	width: 450,
         	height: 450
         });
         
-        var drawPanel = new Ext.Panel({
-            fullscreen: false,
+        var drawPanel = Ext.create('Ext.Panel', {
             title: 'Yellow Circle',
+            width: 450,
+        	height: 450,
             items: drawComponent
           });
-        
-        
+                
         drawComponent.surface.setStyle('text-align', 'center');
         drawComponent.surface.setStyle('border', '1px solid blue');	        
         drawComponent.surface.add(getPsuedoOrgBoxesSpriteArray({}, {}, {}, {}));
-        drawComponent.surface.renderFrame();
-        
-		/*
-		var chart = Ext.create('Ext.chart.Chart', {
-			themeCls : 'area1',
-			theme : 'Demo',
-			store : window.store1,
-			width : 450,
-			height : 450,
-			autoSize : true,
-			title : 'Area Chart Test',
-			animate : true,
-			legend : {
-				position : {
-					portrait : 'right',
-					landscape : 'bottom'
-				},
-				labelFont : '20px Arial'
-			},
-			axes : [
-					{
-						type : 'Numeric',
-						position : 'left',
-						fields : [ '2003', '2004', '2005', '2006', '2007',
-								'2008', '2009' ],
-						title : 'Number of Hits',
-						minimum : 0,
-						adjustMinimumByMajorUnit : 0
-					}, {
-						type : 'Category',
-						position : 'bottom',
-						fields : [ 'name' ],
-						title : 'Month of the Year'
-					} ]
-		
-			, series: [ { type: 'area', highlight: false, axis: 'left', xField:
-				'name', yField: ['2003', '2004', '2005', '2006', '2007', '2008',
-		  '2009'] } ]
-		 
-		});*/
+        drawComponent.surface.renderFrame();        		
 
 		config.items = [ drawPanel ];
 		this.callParent([ config ]);

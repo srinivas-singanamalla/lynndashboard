@@ -11,7 +11,7 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
-    views: ['Main', 'Dashboard', 'DBAreaChart', 'PseudoOrgChart'],
+    views: ['Main', 'Dashboard', 'DBAreaChart', 'PseudoOrgChart', 'DBBarChart'],
 
     icon: {
         57: 'resources/icons/Icon.png',

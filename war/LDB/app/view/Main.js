@@ -1,34 +1,51 @@
 Ext.define("LDB.view.Main", {
     extend: 'Ext.tab.Panel',
-    requires: ['Ext.data.JsonStore', 'Ext.TitleBar', 'LDB.view.Dashboard', 'Ext.chart.Panel', 'LDB.view.DBAreaChart', 'LDB.view.PseudoOrgChart'],
+    requires: ['Ext.data.JsonStore', 'Ext.TitleBar', 'LDB.view.Dashboard', 
+               'Ext.chart.Panel', 'LDB.view.DBAreaChart', 'LDB.view.PseudoOrgChart', 'LDB.view.DBBarChart'],
     
     config: {
         tabBarPosition: 'bottom',
-        
         items: [
             {
             	title: 'Dashboard',
         		iconCls:'home',
-            	xtype: 'panel',
-            	layout: 'hbox',
+        		autoHeight: true,
+            	xtype: 'container',
+            	layout: {
+            		type: 'hbox',
+            		align: 'middle',
+            		pack: 'center'
+            	},
                 items: [{
                     docked: 'top',
                     xtype: 'titlebar',
-                    title: 'Welcome to Sencha Touch 2'
-                }, {
-                	xtype: 'dbareachart',
-                	flex: 1
+                    title: 'Lynn Dashboard'
                 },
                 {
-                	xtype: 'porgchart',
-                	flex: 2
-                }
+	                items: [{
+	                		xtype: 'dbareachart',
+	                		flex: 1
+	                	},
+	                	{
+	                		xtype: 'porgchart',
+	                		flex: 1
+	                	}]
+                 },
+                 {
+ 	                items: [{
+ 	                		xtype: 'dbbarchart',
+ 	                		flex: 1
+ 	                	},
+ 	                	{
+ 	                		xtype: 'porgchart',
+ 	                		flex: 1
+ 	                	}]
+                  }
                 ]
             },
             {
                 title: 'Get Started',
                 iconCls: 'action',
-                
                 items: [
                     {
                         docked: 'top',
