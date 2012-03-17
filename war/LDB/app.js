@@ -2,6 +2,9 @@
 Ext.Loader.setPath({
     'Ext': 'sdk/src'
 });
+Ext.Loader.setConfig({
+	enabled: true
+});
 //</debug>
 
 Ext.application({
@@ -22,7 +25,14 @@ Ext.application({
     
     phoneStartupScreen: 'resources/loading/Homescreen.jpg',
     tabletStartupScreen: 'resources/loading/Homescreen~ipad.jpg',
-
+/*
+    viewport: {
+    	layout: {
+			   type:'vbox',
+			   align: 'center'
+			}
+    },
+*/   
     launch: function() {
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();

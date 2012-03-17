@@ -28,7 +28,7 @@ Ext.define("LDB.view.DBBarChart", {
 	extend : 'Ext.Panel',
 	xtype : 'dbbarchart',
 	requires : [ 'Ext.chart.series.Column', 'Ext.chart.Panel', 'Ext.chart.axis.Numeric',
-			'Ext.chart.axis.Category', 'Ext.chart.series.Area',
+			'Ext.chart.axis.Category', 'Ext.chart.series.Area', 'Ext.chart.Legend', 'Ext.chart.theme.GridStyle', 'Ext.chart.theme.OddStyle',
 			'Ext.data.JsonStore', 'Ext.chart.theme.Theme', 'Ext.chart.theme.MarkerStyle', 'Ext.chart.theme.LabelStyle',
 			'Ext.chart.theme.Style', 'Ext.chart.theme.Base',
 			'Ext.chart.theme.Demo', 'Ext.chart.Toolbar', 'Ext.fx.Parser', 'Ext.draw.Sprite',
