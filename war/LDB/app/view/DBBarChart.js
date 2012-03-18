@@ -5,7 +5,7 @@ window.generateData = function(n, floor) {
 
 	for (i = 0; i < (n || 12); i++) {
 		data.push({
-			name : 'Jan',// Date.monthNames[i % 12],
+			name : new Date().monthNames[i % 12],
 			2003 : Math.floor(Math.max((Math.random() * 100), floor)),
 			2004 : Math.floor(Math.max((Math.random() * 100), floor)),
 			2005 : Math.floor(Math.max((Math.random() * 100), floor)),
@@ -62,8 +62,8 @@ Ext.define("LDB.view.DBBarChart", {
 			},
 			axes: [{
                 type: 'Numeric',
-                position: 'bottom',
-                fields: ['2008', '2009', '2010'],
+                position: 'left',
+                fields: ['2003', '2004', '2005', '2006', '2007', '2008', '2009'],
                 label: {
                     renderer: function(v) {
                         return v.toFixed(0);
@@ -74,15 +74,15 @@ Ext.define("LDB.view.DBBarChart", {
             },
             {
                 type: 'Category',
-                position: 'left',
+                position: 'bottom',
                 fields: ['name'],
                 title: 'Month of the Year'
             }],
             series: [{
                 type: 'column',
                 xField: 'name',
-                yField: ['2008', '2009', '2010'],
-                axis: 'bottom',
+                yField: ['2003', '2004', '2005', '2006', '2007', '2008', '2009'],
+                axis: 'left',
                 highlight: true,
                 showInLegend: true
             }]
