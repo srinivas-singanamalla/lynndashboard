@@ -25,27 +25,8 @@ Ext.define("LDB.view.Main", {
 	                    title: 'Well Profitability Dashboard'
 	                },
 	                {
-	                	layout: 'hbox',
-		                items: [{
-		                		xtype: 'dbareachart',
-		                		flex: 1
-		                	},
-		                	{
-		                		xtype: 'porgchart',
-		                		flex: 1
-		                	}]
-	                 },
-	                 {
-	                	layout: 'hbox', 
-	 	                items: [{
-	 	                		xtype: 'dbbarchart',
-	 	                		flex: 1
-	 	                	},
-	 	                	{
-	 	                		xtype: 'dblinechart',
-	 	                		flex: 1
-	 	                	}]
-	                  }
+	                	xtype: 'dbcarousel'
+	                }
                 ]
             },
             {

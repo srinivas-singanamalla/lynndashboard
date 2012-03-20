@@ -2,7 +2,7 @@ Ext.define("LDB.view.PseudoOrgChart", {
 	extend : 'Ext.Panel',
 	xtype : 'porgchart',
 	requires : [ 'Ext.draw.Sprite', 'Ext.draw.Component',
-			'Ext.fx.Parser', 'Ext.fx.Sprite' , 'Ext.draw.Surface', 'Ext.draw.engine.Canvas', 'Ext.draw.CompositeSprite'],
+			/*'Ext.fx.Parser', 'Ext.fx.Sprite' ,*/ 'Ext.draw.Surface', 'Ext.draw.engine.Canvas', 'Ext.draw.CompositeSprite'],
 
 	constructor : function(config) {
 		

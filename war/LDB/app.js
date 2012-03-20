@@ -14,7 +14,7 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
-    views: ['Main', 'Dashboard', 'DBAreaChart', 'PseudoOrgChart', 'DBBarChart', 'DBLineChart'],
+    views: ['Main', 'Dashboard', 'DBAreaChart', 'PseudoOrgChart', 'DBBarChart', 'DBLineChart', 'DashboardCarousal'],
 
     icon: {
         57: 'resources/icons/Icon.png',
@@ -38,7 +38,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('LDB.view.Main', {}));
+        Ext.Viewport.add(Ext.create('LDB.view.DashboardCarousal', {}));
     },
 
     onUpdated: function() {
