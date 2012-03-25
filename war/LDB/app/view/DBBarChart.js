@@ -1,13 +1,16 @@
 Ext.define("LDB.view.DBBarChart", {
 	extend : 'Ext.Panel',
 	xtype : 'dbbarchart',
+	/*
 	requires : [ 'Ext.chart.series.Column', 'Ext.chart.Panel', 'Ext.chart.axis.Numeric',
 			'Ext.chart.axis.Category', 'Ext.chart.series.Area', 'Ext.chart.Legend', 'Ext.chart.theme.GridStyle', 'Ext.chart.theme.OddStyle',
 			'Ext.data.JsonStore', 'Ext.chart.theme.Theme', 'Ext.chart.theme.MarkerStyle', 'Ext.chart.theme.LabelStyle',
 			'Ext.chart.theme.Style', 'Ext.chart.theme.Base',
 			'Ext.chart.theme.Demo', 'Ext.chart.Toolbar',  'Ext.draw.Sprite',
 			 'Ext.fx.Parser', 'Ext.fx.Sprite' , 'Ext.draw.Surface', 'Ext.draw.engine.Canvas', 'Ext.draw.CompositeSprite',
-			'Ext.draw.engine.ImageExporter', 'Ext.chart.theme.TitleStyle' ],
+			'Ext.draw.engine.ImageExporter', 'Ext.chart.theme.TitleStyle', 'Ext.chart.theme.EvenStyle' ],
+			*/
+	requires: ['Ext.chart.Chart'],
 /*
 	config : {
 		autoSize : true,

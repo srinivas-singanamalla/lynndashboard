@@ -1,17 +1,19 @@
 //<debug>
+
 Ext.Loader.setPath({
     'Ext': 'sdk/src'
 });
 Ext.Loader.setConfig({
 	enabled: true
 });
+
 //</debug>
 
 Ext.application({
     name: 'LDB',
 
     requires: [
-        'Ext.MessageBox'
+        'Ext.MessageBox', 'Ext.ComponentQuery'
     ],
 
     views: ['Main', 'Dashboard', 'DBAreaChart', 'PseudoOrgChart', 'DBBarChart', 'DBLineChart', 'DashboardCarousal'],
@@ -37,6 +39,7 @@ Ext.application({
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
+        
         // Initialize the main view
         Ext.Viewport.add(Ext.create('LDB.view.DashboardCarousal', {}));
     },

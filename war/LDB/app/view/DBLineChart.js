@@ -12,14 +12,17 @@ Date.prototype.monthNames = [
 Ext.define("LDB.view.DBLineChart", {
 	extend : 'Ext.Panel',
 	xtype : 'dblinechart',
+	/*
 	requires : [ 'Ext.chart.Panel', 'Ext.chart.axis.Numeric',
 			'Ext.chart.axis.Category', 'Ext.chart.series.Line', 'Ext.chart.Legend', 'Ext.chart.theme.GridStyle', 'Ext.chart.theme.OddStyle',
 			'Ext.data.JsonStore', 'Ext.chart.theme.Theme', 'Ext.chart.theme.MarkerStyle', 'Ext.chart.theme.LabelStyle',
 			'Ext.chart.theme.Style', 'Ext.chart.theme.Base', 'Ext.chart.axis.Axis',
-			'Ext.chart.theme.Demo', 'Ext.chart.Toolbar', /*'Ext.fx.Sprite',*/ 'Ext.draw.Sprite',
-			/*'Ext.fx.Parser', */ , 'Ext.draw.Surface', 'Ext.draw.engine.Canvas', 'Ext.draw.CompositeSprite',
+			'Ext.chart.theme.Demo', 'Ext.chart.Toolbar', 'Ext.fx.Sprite', 'Ext.draw.Sprite',
+			'Ext.fx.Parser' , 'Ext.draw.Surface', 'Ext.draw.engine.Canvas', 'Ext.draw.CompositeSprite',
 			'Ext.draw.engine.ImageExporter',
 			'Ext.chart.interactions.Manager'],
+			*/
+	requires: ['Ext.chart.Chart'],
 /*
 	config : {
 		autoSize : true,
