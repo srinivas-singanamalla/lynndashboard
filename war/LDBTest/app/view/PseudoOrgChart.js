@@ -3,7 +3,69 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 	xtype : 'porgchart',
 	
 	config: {
-		autoSize: true
+		autoSize: true,
+		
+		gradients: [{
+            'id': 'v-1',
+            'angle': 0,
+            stops: {
+                0: {
+                    color: 'rgb(212, 40, 40)'
+                },
+                100: {
+                    color: 'rgb(117, 14, 14)'
+                }
+            }
+        },
+        {
+            'id': 'v-2',
+            'angle': 0,
+            stops: {
+                0: {
+                    color: 'rgb(180, 216, 42)'
+                },
+                100: {
+                    color: 'rgb(94, 114, 13)'
+                }
+            }
+        },
+        {
+            'id': 'v-3',
+            'angle': 0,
+            stops: {
+                0: {
+                    color: 'rgb(43, 221, 115)'
+                },
+                100: {
+                    color: 'rgb(14, 117, 56)'
+                }
+            }
+        },
+        {
+            'id': 'v-4',
+            'angle': 0,
+            stops: {
+                0: {
+                    color: 'rgb(45, 117, 226)'
+                },
+                100: {
+                    color: 'rgb(14, 56, 117)'
+                }
+            }
+        },
+        {
+            'id': 'v-5',
+            'angle': 0,
+            stops: {
+                0: {
+                    color: 'rgb(187, 45, 222)'
+                },
+                100: {
+                    color: 'rgb(85, 10, 103)'
+                }
+            }
+        }]
+
 	},
 	
 	constructor : function(config) {
@@ -32,12 +94,16 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         this.myNewFunction();
     },*/
     
+	
+	
     initialize: function() {
     	
     	var me = this,
         viewBox = me.getViewBox(),
         autoSize = me.getAutoSize(),
         bbox, items, width, height, x, y;
+    	me.setWidth(1000);
+    	me.setHeight(450);
     	
     	LDBTest.view.PseudoOrgChart.superclass.initialize.apply(this, arguments);
     	
@@ -49,7 +115,9 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 			var x = sconfig.x, y = sconfig.y, w = sconfig.w, h = sconfig.h;
 			var tc = sconfig.topColor, bc = sconfig.bottomColor;
 			var ttext = sconfig.topText, ctext = sconfig.centerText, btext = sconfig.bottomText;
+			var tf = sconfig.topTextFont || "", cf = sconfig.centerTextFont || "", bf = sconfig.bottomTextFont || "", ff = sconfig.forecastFont || "";
 			var fv = sconfig.forecastVal;
+			var textGroup = 'textGroup';
 			return [
 			        {
 			        	type: 'rect',
@@ -58,7 +126,7 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
                         fill: 'white',
                         stroke: 'black',
                         x: x,
-                        y: y,
+                        y: y
 			        },
 			        
 			        {
@@ -77,16 +145,20 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
                         x: x + 0.5*w,
                         y: y + 0.125*h,
                         text: ttext,
+                        font: tf,
+                        group: textGroup,
+                        'text-anchor': 'center'
                     },
-                    
                     {
                         type: 'text',
                         fill: 'black',
-                        x: x + 10,
+                        x: x + 0.5*w,
                         y: y + 0.5*h,
                         text: ctext,
+                        font: cf,
+                        group: textGroup,
+                        'text-anchor': 'center'
                     },
-                    
                     {
 			        	type: 'rect',
                         width: w,
@@ -96,38 +168,40 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
                         x: x,
                         y: y + 0.75*h,
 			        },
-			        
 			        {
                         type: 'text',
                         fill: 'black',
                         stroke: 'black',
-                        x: x + 10,
+                        x: x + 0.5*w,
                         y: y + 0.833*h,
-                        text: btext
-                    }, 
-                    
+                        text: btext,
+                        font: bf,
+                        group: textGroup,
+                        'text-anchor': 'center'
+                    },
+                    /*
                     {
                     	type: 'path',
                     	stroke: 'black',
                     	fill: fv > 0 ? 'green' : 'red',
-                    	path: getTrianglePath(x+10, y + 0.91*h, 10)	
-                    },
-                    
+                    	path: getTrianglePath(x+0.5*w, y + 0.91*h, 10)	
+                    },*/
                     {
                     	type: 'text',
                     	fill: fv > 0 ? 'green' : 'red',
                         stroke: 'black',
-                        x: x + 10 + 20,
+                        font: ff,
+                        x: x + 0.5*w,
                         y: y + 0.91*h,
-                        text: fv
-                    }
-			        
-			        ];
+                        text: fv,
+                        group: textGroup,
+                        'text-anchor': 'center'
+                    }];
 		};
 		
 		var getPsuedoOrgBoxesSpriteArray = function(all, gas, oil, natgas) {
 			var spritesArray = [];
-			var bbox = {x: 100, y: 50, w:250, h:200};
+			var bbox = {x: 200, y: 0, w:500, h:200};
 			var pad = 10;
 			spritesArray.push(getSpritesArray({
 	        	x: bbox.x,
@@ -139,46 +213,62 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 	        	topText: 'Daily Average Volume',
 	        	centerText: '2,253 MCFed',
 	        	bottomText: 'From Forecast',
-	        	forecastVal: 450
+	        	forecastVal: 450,
+	        	topTextFont: 'bold 12px Arial',
+	        	centerTextFont: 'bold italic 14px Arial',
+	        	bottomTextFont: 'bold 12px Arial',
+	        	forecastFont: 'bold 12px Arial'
 	        }));
 			
 			spritesArray.push(getSpritesArray({
 	        	x: bbox.x - 0.25*bbox.w - pad,
-	        	y: bbox.y + bbox.h + pad,
+	        	y: bbox.y + bbox.h + 2*pad,
 	        	w: 0.5*bbox.w,
-	        	h: 0.5*bbox.h,
+	        	h: 0.75*bbox.h,
 	        	topColor: 'red',
 	        	bottomColor: 'white',
 	        	topText: 'Gas',
 	        	centerText: '1,296 MCFed',
 	        	bottomText: 'From Forecast',
-	        	forecastVal: 50
+	        	forecastVal: 50,
+	        	topTextFont: 'bold 12px Arial',
+	        	centerTextFont: 'bold italic 14px Arial',
+	        	bottomTextFont: 'bold 12px Arial',
+	        	forecastFont: 'bold 12px Arial'
 	        }));
 			
 			spritesArray.push(getSpritesArray({
 	        	x: bbox.x + 0.25*bbox.w,
-	        	y: bbox.y + bbox.h + pad,
+	        	y: bbox.y + bbox.h + 2*pad,
 	        	w: 0.5*bbox.w,
-	        	h: 0.5*bbox.h,
+	        	h: 0.75*bbox.h,
 	        	topColor: 'green',
 	        	bottomColor: 'white',
 	        	topText: 'Gas',
 	        	centerText: '1,286 BbLd',
 	        	bottomText: 'From Forecast',
-	        	forecastVal: 50
+	        	forecastVal: 50,
+	        	topTextFont: 'bold 12px Arial',
+	        	centerTextFont: 'bold italic 14px Arial',
+	        	bottomTextFont: 'bold 12px Arial',
+	        	forecastFont: 'bold 12px Arial'
 	        }));
 			
 			spritesArray.push(getSpritesArray({
 	        	x: bbox.x + 0.75*bbox.w + pad,
-	        	y: bbox.y + bbox.h + pad,
+	        	y: bbox.y + bbox.h + 2*pad,
 	        	w: 0.5*bbox.w,
-	        	h: 0.5*bbox.h,
+	        	h: 0.75*bbox.h,
 	        	topColor: 'purple',
 	        	bottomColor: 'white',
 	        	topText: 'NGL',
 	        	centerText: '1,286 BbLd',
 	        	bottomText: 'From Forecast',
-	        	forecastVal: -50
+	        	forecastVal: -50,
+	        	topTextFont: 'bold 12px Arial',
+	        	centerTextFont: 'bold italic 14px Arial',
+	        	bottomTextFont: 'bold 12px Arial',
+	        	forecastFont: 'bold 12px Arial'
 	        }));
 			
 			return spritesArray;
@@ -189,8 +279,15 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         	height: 450
         });*/
         
-        me.surface.setStyle('text-align', 'center');
-        me.surface.setStyle('border', '1px solid blue');	        
+		
         me.surface.add(getPsuedoOrgBoxesSpriteArray({}, {}, {}, {}));
+        /*
+        var spriteGroup = me.surface.getGroup('textGroup');
+        spriteGroup.each(function(sprite){
+        	me.surface.setStyle(sprite, {
+        	     'text-anchor': 'center'
+        	 });
+        });*/
+        me.surface.renderFrame();
     }
 })

@@ -5,7 +5,8 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     
     config: {
     	defaults: {
-            styleHtmlContent: true
+//            styleHtmlContent: true
+    		margin: '50 100 100 150'
         },
 
         items: [

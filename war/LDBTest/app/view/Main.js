@@ -4,33 +4,20 @@ Ext.define("LDBTest.view.Main", {
     
     config: {
         tabBarPosition: 'bottom',
-        
         items: [
 			{
 				docked : 'top',
 				xtype : 'titlebar',
-				title : 'Well Profitability Dashboard'
+				title : 'Well Profitability Dashboard1'
 			},    
             {
 			title : 'Dashboard',
 			iconCls : 'home',
-			width : '100%',
-			height : '450',
 			xtype : 'dbcarousel',
 			scrollable : {
 				direction : 'vertical',
 				directionLock : true
-			},
-/*
-			layout : 'vbox',
-			items : [ {
-				docked : 'top',
-				xtype : 'titlebar',
-				title : 'Well Profitability Dashboard'
-			}, {
-				xtype : 'porgchart'
-			} ]
-			*/
+			}
 		},
             {
                 title: 'Get Started',

@@ -43,8 +43,8 @@ Ext.define("LDBTest.view.DBBarChart", {
 				autoSize : true,
 				title : 'Bar Chart',
 				animate : true,
-				/*
-	            shadow: false,
+	            shadow: true,
+	            /*
 	            legend: {
 	                position: {
 	                    portrait: 'bottom',

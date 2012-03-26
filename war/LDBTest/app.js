@@ -1,5 +1,5 @@
 //<debug>
-/*
+
 Ext.Loader.setConfig({
 	enabled: true
 });
@@ -7,7 +7,7 @@ Ext.Loader.setPath({
     'Ext': 'sdk/src'
     
 });
-*/
+
 //</debug>
 
 //Ext.require("LDBTest.view.PseudoOrgChart");

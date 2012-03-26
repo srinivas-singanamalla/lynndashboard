@@ -50,13 +50,13 @@ Ext.define("LDBTest.view.DBAreaChart", {
 			autoSize : true,
 			title : 'Area Chart Test',
 			animate : true,
-			legend : {
+			/*legend : {
 				position : {
 					portrait : 'right',
 					landscape : 'bottom'
 				},
 				labelFont : '20px Arial'
-			},
+			},*/
 			axes : [
 					{
 						type : 'Numeric',
