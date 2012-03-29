@@ -164,7 +164,7 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
                         width: w,
                         height: 0.25*h,
                         stroke: 'black',
-                        fill: bc,
+                        fill: "url(#gradientId)",
                         x: x,
                         y: y + 0.75*h,
 			        },
@@ -215,7 +215,7 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 	        	bottomText: 'From Forecast',
 	        	forecastVal: 450,
 	        	topTextFont: 'bold 12px Arial',
-	        	centerTextFont: 'bold italic 14px Arial',
+	        	centerTextFont: 'bold italic 18px Arial',
 	        	bottomTextFont: 'bold 12px Arial',
 	        	forecastFont: 'bold 12px Arial'
 	        }));
@@ -225,7 +225,7 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 	        	y: bbox.y + bbox.h + 2*pad,
 	        	w: 0.5*bbox.w,
 	        	h: 0.75*bbox.h,
-	        	topColor: 'red',
+	        	topColor: 'url(#gasGradient)',
 	        	bottomColor: 'white',
 	        	topText: 'Gas',
 	        	centerText: '1,296 MCFed',
@@ -242,7 +242,7 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 	        	y: bbox.y + bbox.h + 2*pad,
 	        	w: 0.5*bbox.w,
 	        	h: 0.75*bbox.h,
-	        	topColor: 'green',
+	        	topColor: 'url(#oilGradient)',
 	        	bottomColor: 'white',
 	        	topText: 'Gas',
 	        	centerText: '1,286 BbLd',
@@ -259,7 +259,7 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 	        	y: bbox.y + bbox.h + 2*pad,
 	        	w: 0.5*bbox.w,
 	        	h: 0.75*bbox.h,
-	        	topColor: 'purple',
+	        	topColor: 'url(#nglGradient)',
 	        	bottomColor: 'white',
 	        	topText: 'NGL',
 	        	centerText: '1,286 BbLd',
@@ -281,6 +281,65 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         
 		
         me.surface.add(getPsuedoOrgBoxesSpriteArray({}, {}, {}, {}));
+        
+        me.surface.addGradient({
+            id: 'gradientId',
+            angle: 45,
+            stops: {
+                0: {
+                    color: '#555'
+                },
+                100: {
+                    color: '#ddd'
+                }
+            }
+        });
+        
+        me.surface.addGradient(
+        	{
+                'id': 'gasGradient',
+                'angle': 0,
+                stops: {
+                    0: {
+                        color: 'red'
+                    },
+                    100: {
+                        color: 'rgb(155, 0, 0)'
+                    }
+                }
+            }
+        );
+        
+        me.surface.addGradient(
+        	{
+                'id': 'oilGradient',
+                'angle': 0,
+                stops: {
+                    0: {
+                        color: 'rgb(0, 255, 0)'
+                    },
+                    100: {
+                        color: 'rgb(0, 100, 0)'
+                    }
+                }
+            }
+        );
+        
+        me.surface.addGradient(
+        	{
+                'id': 'nglGradient',
+                'angle': 0,
+                stops: {
+                    0: {
+                        color: 'purple'
+                    },
+                    100: {
+                        color: 'rgb(255, 0, 255)'
+                    }
+                }
+            }
+        );
+        
         /*
         var spriteGroup = me.surface.getGroup('textGroup');
         spriteGroup.each(function(sprite){

@@ -1,6 +1,7 @@
 Ext.define("LDBTest.view.DBBarChart", {
 	extend : 'Ext.Panel',
 	xtype : 'dbbarchart',
+	chart: null,
 	requires: ['Ext.chart.Panel',
 	           'Ext.chart.axis.Numeric',
 	           'Ext.chart.axis.Category',
@@ -16,7 +17,7 @@ Ext.define("LDBTest.view.DBBarChart", {
 					data.push({
 						name : new Date().monthNames[i % 12],
 						2003 : Math.floor(Math.max((Math.random() * 100), floor)),
-						2004 : Math.floor(Math.max((Math.random() * 100), floor)),
+						2004 : -1 * Math.floor(Math.max((Math.random() * 100), floor)),
 						2005 : Math.floor(Math.max((Math.random() * 100), floor)),
 						2006 : Math.floor(Math.max((Math.random() * 100), floor)),
 						2007 : Math.floor(Math.max((Math.random() * 100), floor)),
@@ -39,12 +40,13 @@ Ext.define("LDBTest.view.DBBarChart", {
 				theme : 'Demo',
 				store : store1,
 				width : 800,
-				height : 450,
+				height : 400,
 				autoSize : true,
 				title : 'Bar Chart',
 				animate : true,
 	            shadow: true,
-	            /*
+	            stacked: true,
+	            
 	            legend: {
 	                position: {
 	                    portrait: 'bottom',
@@ -108,19 +110,26 @@ Ext.define("LDBTest.view.DBBarChart", {
 	                    }
 	                }
 	            ],
-*/
-				
+
 				axes: [{
 	                type: 'Numeric',
 	                position: 'left',
-	                fields: ['2003', '2004', '2005', '2006', '2007', '2008', '2009'],
+	                fields: ['2003', '2004'],
 	                label: {
 	                    renderer: function(v) {
 	                        return v.toFixed(0);
 	                    }
 	                },
+	                grid: {
+	                	 odd: {
+	                	     opacity: 1,
+	                	     fill: '#ddd',
+	                	     stroke: '#bbb',
+	                	     'stroke-width': 1
+	                	 }
+	                },
 	                title: 'Number of Hits',
-	                minimum: 0
+	                minimum: -100
 	            },
 	            {
 	                type: 'Category',
@@ -131,10 +140,18 @@ Ext.define("LDBTest.view.DBBarChart", {
 	            series: [{
 	                type: 'column',
 	                xField: 'name',
-	                yField: ['2003', '2004', '2005', '2006', '2007', '2008', '2009'],
+	                yField: ['2003', '2004'],
+	                stacked: true,
 	                axis: 'left',
-	                highlight: true,
-	                showInLegend: true
+	                highlight: true//,
+//	                showInLegend: true
+	            },{
+	                type: 'line',
+	                xField: 'name',
+	                yField: ['2005'],
+	                axis: 'left',
+	                highlight: true//,
+//	                showInLegend: true
 	            }]
 			 
 			});

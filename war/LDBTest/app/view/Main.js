@@ -8,7 +8,7 @@ Ext.define("LDBTest.view.Main", {
 			{
 				docked : 'top',
 				xtype : 'titlebar',
-				title : 'Well Profitability Dashboard1'
+				title : 'Well Profitability Dashboard'
 			},    
             {
 			title : 'Dashboard',

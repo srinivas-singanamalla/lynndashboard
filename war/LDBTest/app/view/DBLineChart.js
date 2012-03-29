@@ -6,7 +6,7 @@ Date.prototype.monthNames = [
 ];
 
 Ext.define("LDBTest.view.DBLineChart", {
-	extend : 'Ext.Panel',
+	extend : 'Ext.chart.Panel',
 	xtype : 'dblinechart',
 	requires: ['Ext.chart.Panel',
 	           'Ext.chart.axis.Numeric',
@@ -54,17 +54,17 @@ Ext.define("LDBTest.view.DBLineChart", {
                 handler: onRefreshTap
             }],*/
             cls: 'line1',
-            theme: 'Demo',
+            theme: 'Energy',
             store: linestore,
             animate: true,
             shadow: true,
             width : 800,
 			height : 450,
-            /*
-            legend: {
-                position: 'right'
-            },*/
-            /*
+            
+			legend: {
+	            position: Ext.os.is.Phone ? 'left' : 'top'
+	        },
+            
            interactions: [{
             type: 'panzoom',
                 axes: {
@@ -78,7 +78,7 @@ Ext.define("LDBTest.view.DBLineChart", {
                        panel.update(['<ul><li><b>Month: </b>' + storeItem.get('name') + '</li>', '<li><b>Value: </b> ' + item.value[1]+ '</li></ul>'].join(''));
                    }
                }
-           }],*/
+           }],
             axes: [{
                 type: 'Numeric',
                 minimum: 0,
