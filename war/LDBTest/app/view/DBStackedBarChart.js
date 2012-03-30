@@ -8,11 +8,12 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
         cls: 'chartpanel',
         width: '800',
         height: '400',
-        stacked: 'true',
+        shadow: true,
+        animate: true,
         interactions: [{
         	type: 'togglestacked',
         	event: 'doubletap'
-        }/*,
+        },
         {
             type: 'iteminfo',
             gesture: 'tap',
@@ -21,14 +22,13 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
                     //EnergyApp.popup(item, panel);
                 }
             }
-        }*/],
+        }],
         animate: false,
         store: 'ChartStore',
         axes: [
             {
                 type: 'Numeric',
                 position: 'left',
-                //minimum: -60000,
                 label: {
                     //renderer: EnergyApp.commify
                 },
@@ -62,15 +62,13 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
         theme: 'Energy',
         series: [
             {
-                type: 'column',
+                type: 'stackedColumn',
                 highlight: false,
                 showMarkers: false,
                 fill: false,
                 smooth: true,
                 axis: 'left',
                 xField: 'year',
-                stacked: true,
-                disjointStacked: false,
                 yField: ['coal', 'crude-oil'],
                 title: ['Coal']
             },
@@ -103,7 +101,6 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
                 fill: false,
 //                smooth: true,
                 axis: 'left',
-                stacked: true,
                 xField: 'year',
                 yField: 'nuclear',
                 title: ['Nuclear']
@@ -119,6 +116,7 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
                 yField: 'renewable',
                 title: ['Renewable']
             }
+            
         ],
         listeners: {
             afterrender: function (me) {

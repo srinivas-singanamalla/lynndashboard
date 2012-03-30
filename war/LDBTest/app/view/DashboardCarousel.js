@@ -11,22 +11,23 @@ Ext.define("LDBTest.view.DashboardCarousel", {
         },
 
         items: [
-                
             {
                 xtype: 'porgchart'
             },
-            
-            {
+            /*{
                 xtype: 'dbbarchart'
             },
             {
                 xtype: 'dblinechart'	
-            },
+            },*/	
             {
                 xtype: 'dbstackedbarchart'	
             },
             {
             	xtype: 'dbstackedbarchart2'
+            },
+            {
+            	xtype: 'forms'
             }
         ]
     }//config

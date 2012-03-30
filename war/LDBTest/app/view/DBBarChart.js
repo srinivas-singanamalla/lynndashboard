@@ -45,7 +45,6 @@ Ext.define("LDBTest.view.DBBarChart", {
 				title : 'Bar Chart',
 				animate : true,
 	            shadow: true,
-	            stacked: true,
 	            
 	            legend: {
 	                position: {
@@ -138,10 +137,9 @@ Ext.define("LDBTest.view.DBBarChart", {
 	                title: 'Month of the Year'
 	            }],
 	            series: [{
-	                type: 'column',
+	                type: 'stackedColumn',
 	                xField: 'name',
 	                yField: ['2003', '2004'],
-	                stacked: true,
 	                axis: 'left',
 	                highlight: true//,
 //	                showInLegend: true
@@ -156,6 +154,7 @@ Ext.define("LDBTest.view.DBBarChart", {
 			 
 			});
 			this.add(chart);
+			chart.redraw();
 	   },
 	   
 	   constructor : function(config) {
