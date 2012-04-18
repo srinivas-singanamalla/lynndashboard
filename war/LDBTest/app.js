@@ -40,6 +40,18 @@ Ext.application({
 
         // Initialize the main view
         Ext.Viewport.add(Ext.create('LDBTest.view.Main', {}));
+        var overlay = Ext.Viewport.add(Ext.create('LDBTest.view.WellSearchField', {itemId: 'wellsearchlistItemId',
+        	id: 'wellsearchlistId',
+        	hidden: true}));
+        
+        Ext.Viewport.on({
+    	    // Ext.Buttons have an xtype of 'button', so we use that are a selector for our delegate
+    	    delegate: 'button',
+
+    	    tap: function(button) {
+    	    	overlay.showBy(button);
+    	    }
+    	});
 //        Ext.Viewport.add(Ext.create('LDBTest.view.DashboardCarousel', {}));
     },
 

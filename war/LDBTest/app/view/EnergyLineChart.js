@@ -15,6 +15,9 @@ Ext.define("LDBTest.view.EnergyLineChart", {
             listeners: {
                 show: function (interaction, item, panel) {
                     //EnergyApp.popup(item, panel);
+                	
+                	
+                	
                 }
             }
         }],

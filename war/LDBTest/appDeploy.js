@@ -45,9 +45,28 @@ Ext.application({
                     // decode responseText in order to create json object
                     var data = Ext.decode(response.responseText);
                     // load it into the charts store: this will update the area series
-                    Ext.getStore('ChartStore').setData(data.items);
+                    //Ext.getStore('ChartStore').setData(data.items);
                     
                     Ext.Viewport.add(Ext.create('LDBTest.view.Main', {}));
+                    
+                    var overlay = Ext.Viewport.add(Ext.create('LDBTest.view.WellSearchField', {itemId: 'wellsearchlistItemId',
+                    	id: 'wellsearchlistId',
+                    	hidden: true, width: 380, height: 420,  
+                    	// Make it modal so you can click the mask to hide the overlay
+                        modal: true,
+                        hideOnMaskTap: true,}));
+                    /*
+                    Ext.Viewport.on({
+                	    // Ext.Buttons have an xtype of 'button', so we use that are a selector for our delegate
+                	    delegate: 'button',
+
+                	    tap: function(button) {
+                	    	if (button.getText() == "Choose Well")
+                	    	overlay.showBy(button);
+                	    }
+                	});
+                	*/
+                    
 //                  Ext.Viewport.add(Ext.create('LDBTest.view.DashboardCarousel', {}));
                     // This should only run once? Doesn't seem to be a problem at the moment.
                 } finally {

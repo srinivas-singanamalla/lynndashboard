@@ -2,8 +2,18 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 	extend : 'Ext.draw.Component',
 	xtype : 'porgchart',
 	
+	mixins: {
+        theme: 'Ext.chart.theme.Theme'
+    },
+    
 	config: {
 		autoSize: true,
+		
+		theme: 'Energy',
+		
+		cls: 'chartpanel',
+		
+		title : 'Net Production KPI <span style ="color:red">(KNOTT-TUBB 42-K)</span>',
 		
 		gradients: [{
             'id': 'v-1',
@@ -94,16 +104,32 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         this.myNewFunction();
     },*/
     
-	
+	applyStyles: function (theme) {
+        var me = this;
+        me.mixins.theme.applyStyles.call(me, theme);
+        me.colorArrayStyle = [];
+        if (me.style && me.style.colors) {
+            colors = me.style.colors;
+            colorArrayStyle = me.colorArrayStyle;
+            for (i = 0, l = colors.length; i < l; ++i) {
+                color = colors[i];
+                if (Ext.isObject(color)) {
+                    for (p in me.surfaces) {
+                        me.surfaces[p].addGradient(color);
+                    }
+                    colorArrayStyle.push('url(#' + color.id + ')');
+                } else {
+                    colorArrayStyle.push(color);
+                }
+            }
+        }
+    },
 	
     initialize: function() {
     	
-    	var me = this,
-        viewBox = me.getViewBox(),
-        autoSize = me.getAutoSize(),
-        bbox, items, width, height, x, y;
-    	me.setWidth(1000);
-    	me.setHeight(450);
+    	var me = this;
+    	//me.setWidth(1000);
+    	//me.setHeight(450);
     	
     	LDBTest.view.PseudoOrgChart.superclass.initialize.apply(this, arguments);
     	
@@ -201,7 +227,7 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 		
 		var getPsuedoOrgBoxesSpriteArray = function(all, gas, oil, natgas) {
 			var spritesArray = [];
-			var bbox = {x: 200, y: 0, w:500, h:200};
+			var bbox = {x: 250, y: 25, w:500, h:200};
 			var pad = 10;
 			spritesArray.push(getSpritesArray({
 	        	x: bbox.x,
@@ -214,7 +240,7 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 	        	centerText: '2,253 MCFed',
 	        	bottomText: 'From Forecast',
 	        	forecastVal: 450,
-	        	topTextFont: 'bold 12px Arial',
+	        	topTextFont: 'bold 18px Arial',
 	        	centerTextFont: 'bold italic 18px Arial',
 	        	bottomTextFont: 'bold 12px Arial',
 	        	forecastFont: 'bold 12px Arial'
@@ -244,7 +270,7 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 	        	h: 0.75*bbox.h,
 	        	topColor: 'url(#oilGradient)',
 	        	bottomColor: 'white',
-	        	topText: 'Gas',
+	        	topText: 'Oil',
 	        	centerText: '1,286 BbLd',
 	        	bottomText: 'From Forecast',
 	        	forecastVal: 50,
@@ -348,5 +374,22 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         	 });
         });*/
         me.surface.renderFrame();
-    }
-})
+    },
+    
+    constructor: function(config) {
+        var me = this;
+
+        config = Ext.apply({}, config);
+        if (me.gradients) {
+            Ext.apply(config, { gradients: me.gradients });
+        }
+        if (me.background) {
+            Ext.apply(config, { background: me.background });
+        }
+        if (config.theme) {
+            me.applyStyles(config.theme);
+        }
+
+        me.callParent(arguments);
+    },
+});

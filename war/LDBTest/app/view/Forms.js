@@ -34,6 +34,10 @@ Ext.define('LDBTest.view.Forms', {
                 pack: 'center'
             }
         },*/
+    	
+    	title: 'Well Information <span style ="color:red">(KNOTT-TUBB 42-K)</span>',
+    	cls: 'chartpanel',
+    	
                 items: [
                         
 					{
@@ -49,8 +53,7 @@ Ext.define('LDBTest.view.Forms', {
 							    label         : 'API',
 							    placeHolder   : '232321313131313131321',
 							    autoCapitalize: true,
-							    required      : true,
-							    clearIcon     : true
+//							    clearIcon     : true
 							},  
 							{
 							    xtype         : 'textfield',
@@ -58,17 +61,13 @@ Ext.define('LDBTest.view.Forms', {
 							    label         : 'Code',
 							    placeHolder   : '31231231312321.01',
 							    autoCapitalize: true,
-							    required      : true,
-							    clearIcon     : true
 							},  
 							{
 							    xtype         : 'textfield',
 							    name          : 'unitLease',
 							    label         : 'Unit Lease',
-							    placeHolder   : '',
+							    placeHolder   : 'Lease 5467',
 							    autoCapitalize: true,
-							    required      : true,
-							    clearIcon     : true
 							}   
 					    ]
 					    
@@ -85,9 +84,8 @@ Ext.define('LDBTest.view.Forms', {
 							    xtype         : 'textfield',
 							    name          : 'county',
 							    label         : 'County',
-							    placeHolder   : '',
+							    placeHolder   : 'Fairfax',
 							    autoCapitalize: true,
-							    clearIcon     : true
 							},  
 							{
 							    xtype         : 'textfield',
@@ -95,63 +93,55 @@ Ext.define('LDBTest.view.Forms', {
 							    label         : 'State',
 							    placeHolder   : 'CA',
 							    autoCapitalize: true,
-							    clearIcon     : true
 							},  
 							{
 							    xtype         : 'textfield',
 							    name          : 'section',
 							    label         : 'Section',
-							    placeHolder   : '',
+							    placeHolder   : 'Section 420',
 							    autoCapitalize: true,
-							    clearIcon     : true
 							},
 							{
 							    xtype         : 'textfield',
 							    name          : 'township',
 							    label         : 'Township',
-							    placeHolder   : '',
+							    placeHolder   : 'Vienna',
 							    autoCapitalize: true,
-							    clearIcon     : true
 							},
 							{
 							    xtype         : 'textfield',
 							    name          : 'range',
 							    label         : 'Range',
-							    placeHolder   : '',
+							    placeHolder   : '345 - 670',
 							    autoCapitalize: true,
-							    clearIcon     : true
 							},
 							{
 							    xtype         : 'textfield',
 							    name          : 'subarea',
 							    label         : 'SubArea',
-							    placeHolder   : '',
+							    placeHolder   : 'TV Area',
 							    autoCapitalize: true,
-							    clearIcon     : true
 							},
 							{
 							    xtype         : 'textfield',
 							    name          : 'area',
 							    label         : 'Area',
-							    placeHolder   : '',
+							    placeHolder   : 'Northeast',
 							    autoCapitalize: true,
-							    clearIcon     : true
 							},
 							{
 							    xtype         : 'textfield',
 							    name          : 'district',
 							    label         : 'District',
-							    placeHolder   : '',
+							    placeHolder   : 'District of Columbia',
 							    autoCapitalize: true,
-							    clearIcon     : true
 							},
 							{
 							    xtype         : 'textfield',
 							    name          : 'businessUnit',
 							    label         : 'Business Unit',
-							    placeHolder   : '',
+							    placeHolder   : '5675',
 							    autoCapitalize: true,
-							    clearIcon     : true
 							}
 					    ]
 					    
@@ -170,7 +160,6 @@ Ext.define('LDBTest.view.Forms', {
 							    label         : 'NRI',
 							    placeHolder   : '100%',
 							    autoCapitalize: true,
-							    clearIcon     : true
 							},  
 							{
 								xtype: 'datepickerfield',
@@ -186,9 +175,8 @@ Ext.define('LDBTest.view.Forms', {
 							    xtype         : 'textfield',
 							    name          : 'totalDepth',
 							    label         : 'Total Depth',
-							    placeHolder   : '',
+							    placeHolder   : '8909',
 							    autoCapitalize: true,
-							    clearIcon     : true
 							}   
 					    ]
 					    

@@ -23,6 +23,15 @@ Ext.define("LDBTest.store.ChartStore", {
         }, {
             name: 'renewable',
             type: 'int'
-        }]
+        }],
+        proxy: {
+            type: 'ajax',
+            url : 'app/data/CONS_AZ.json',
+            reader: {
+                type: 'json',
+                rootProperty: 'items'
+            }
+        },
+        autoLoad: true
     }
 });
