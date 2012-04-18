@@ -28,7 +28,7 @@
  *
  * [getting_started]: #!/guide/getting_started
  */
-Ext.setVersion('touch', '2.0.0');
+Ext.setVersion('touch', '2.0.1-rc');
 
 Ext.apply(Ext, {
     /**
@@ -371,7 +371,7 @@ function(el){
      *     });
      *
      * @param {String/Object} config.icon
-     * A icon configuration for this application. This will work on iOS and Android applications which are saved to the homescreen.
+     * A icon configuration for this application. This will only apply to iOS applications which are saved to the homescreen.
      *
      * You can either pass a string which will be applied to all different sizes:
      *
@@ -388,29 +388,21 @@ function(el){
      *         icon: {
      *             '57': 'icon57.png',
      *             '77': 'icon77.png',
-     *             '114': 'icon114.png'
+     *             '114': 'icon114.png',
+     *             '144': 'icon144.png'
      *         },
      *         onReady: function() {
      *             console.log('Launch...');
      *         }
      *     });
      *
-     * Android devices will alway use the 57px version.
-     *
-     * @param {String} config.icon.57 The icon to be used on non-retna display devices (iPhone 3GS and below).
+     * @param {String} config.icon.57 The icon to be used on non-retina display devices (iPhone 3GS and below).
      * @param {String} config.icon.77 The icon to be used on the iPad.
-     * @param {String} config.icon.114 The icon to be used on retna display devices (iPhone 4 and above).
+     * @param {String} config.icon.114 The icon to be used on retina display devices (iPhone 4 and iPod Touch Gen 4).
+     * @param {String} config.icon.144 The icon to be used on retina display devices (iPad Gen 3).
      *
      * @param {Boolean} glossOnIcon
      * True to add a gloss effect to the icon. This is ignored on Android (it will *not* add gloss).
-     *
-     * @param {String} phoneStartupScreen
-     * Sets the apple-touch-icon `<meta>` tag so your home screen application can have a startup screen on phones.
-     * Please look here for more information: http://developer.apple.com/library/IOs/#documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html
-     *
-     * @param {String} tabletStartupScreen
-     * Sets the apple-touch-icon `<meta>` tag so your home screen application can have a startup screen on tablets.
-     * Please look here for more information: http://developer.apple.com/library/IOs/#documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html
      *
      * @param {String} statusBarStyle
      * The style of status bar to be shown on applications added to the iOS homescreen. Valid options are:
@@ -489,7 +481,7 @@ function(el){
         delete config.onUpdated;
         delete config.scope;
 
-        Ext.require(['Ext.event.Dispatcher', 'Ext.MessageBox']);
+        Ext.require(['Ext.event.Dispatcher']);
 
         callback = function() {
             var listeners = Ext.setupListeners,
@@ -571,8 +563,7 @@ function(el){
             tabletStartupScreen = config.tabletStartupScreen,
             statusBarStyle = config.statusBarStyle,
             phoneStartupScreen = config.phoneStartupScreen,
-            isIpad = Ext.os.is.iPad,
-            retina = window.devicePixelRatio > 1;
+            isIpad = Ext.os.is.iPad;
 
         addMeta('viewport', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no');
         addMeta('apple-mobile-web-app-capable', 'yes');
@@ -580,7 +571,7 @@ function(el){
 
         //status bar style
         if (Ext.isString(statusBarStyle)) {
-            addMeta('apple-mobile-web-app-status-bar-style', 'statusBarStyle');
+            addMeta('apple-mobile-web-app-status-bar-style', statusBarStyle);
         }
 
         //startup screens
@@ -677,27 +668,21 @@ function(el){
      *         icon: {
      *             '57': 'icon57.png',
      *             '77': 'icon77.png',
-     *             '114': 'icon114.png'
+     *             '114': 'icon114.png',
+     *             '144': 'icon144.png'
      *         },
      *         onReady: function() {
      *             console.log('Launch...');
      *         }
      *     });
      *
-     * @param {String} config.icon.57 The icon to be used on non-retna display devices (iPhone 3GS and below).
+     * @param {String} config.icon.57 The icon to be used on non-retina display devices (iPhone 3GS and below).
      * @param {String} config.icon.77 The icon to be used on the iPad.
-     * @param {String} config.icon.114 The icon to be used on retna display devices (iPhone 4 and above).
+     * @param {String} config.icon.114 The icon to be used on retina display devices (iPhone 4 and iPod Touch Gen 4).
+     * @param {String} config.icon.144 The icon to be used on retina display devices (iPad Gen 3).
      *
      * @param {Boolean} glossOnIcon
      * True to add a gloss effect to the icon.
-     *
-     * @param {String} phoneStartupScreen
-     * Sets the apple-touch-icon `<meta>` tag so your home screen application can have a startup screen on phones.
-     * Please look here for more information: http://developer.apple.com/library/IOs/#documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html
-     *
-     * @param {String} tabletStartupScreen
-     * Sets the apple-touch-icon `<meta>` tag so your home screen application can have a startup screen on tablets.
-     * Please look here for more information: http://developer.apple.com/library/IOs/#documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html
      *
      * @param {String} statusBarStyle
      * The style of status bar to be shown on applications added to the iOS homescreen. Valid options are:
@@ -868,9 +853,21 @@ function(el){
     },
 
     /**
-     * @private
-     * @param config
-     * @param classReference
+     * A global factory method to instatiate a class from a config object. For example, these two calls are equivalent:
+     *
+     *     Ext.factory({ text: 'My Button' }, 'Ext.Button');
+     *     Ext.create('Ext.Button', { text: 'My Button' });
+     *
+     * If an existing instance is also specified, it will be updated with the supplied config object. This is useful
+     * if you need to either create or update an object, depending on if an instance already exists. For example:
+     *
+     *     var button;
+     *     button = Ext.factory({ text: 'New Button' }, 'Ext.Button', button);     // Button created
+     *     button = Ext.factory({ text: 'Updated Button' }, 'Ext.Button', button); // Button updated
+     *
+     * @param {Object} config  The config object to instantiate or update an instance with
+     * @param {String} classReference  The class to instantiate from
+     * @param {Object} [instance]  The instance to update
      * @member Ext
      */
     factory: function(config, classReference, instance, aliasNamespace) {
@@ -888,7 +885,7 @@ function(el){
         }
 
         if (aliasNamespace) {
-             // If config is a string value, treat is as an alias
+             // If config is a string value, treat it as an alias
             if (typeof config == 'string') {
                 return manager.instantiateByAlias(aliasNamespace + '.' + config);
             }
@@ -1192,6 +1189,22 @@ function(el){
         }
     }
 });
+
+//<debug>
+Ext.Object.defineProperty(Ext, 'Msg', {
+    get: function() {
+        Ext.Logger.error("Using Ext.Msg without requiring Ext.MessageBox");
+        return null;
+    },
+    set: function(value) {
+        Ext.Object.defineProperty(Ext, 'Msg', {
+            value: value
+        });
+        return value;
+    },
+    configurable: true
+});
+//</debug>
 
 //<deprecated product=touch since=2.0>
 Ext.deprecateMethod(Ext, 'getOrientation', function() {

@@ -35,7 +35,7 @@ Ext.define('Ext.field.Select', {
         'Ext.picker.Picker',
         'Ext.data.Store',
         'Ext.data.StoreManager',
-        'Ext.List'
+        'Ext.dataview.List'
     ],
 
     /**
@@ -145,17 +145,6 @@ Ext.define('Ext.field.Select', {
     },
 
     // @private
-    constructor: function(config) {
-        config = config || {};
-
-        if (!config.store) {
-            config.store = true;
-        }
-
-        this.callParent([config]);
-    },
-
-    // @private
     initialize: function() {
         var me = this,
             component = me.getComponent();
@@ -234,10 +223,6 @@ Ext.define('Ext.field.Select', {
         this.record = newValue;
 
         this.callParent([newValue ? newValue.get(this.getDisplayField()) : '']);
-
-        if (oldValue !== newValue && this.initialized) {
-            this.fireEvent('change', this, newValue, oldValue);
-        }
     },
 
     getValue: function() {
@@ -291,7 +276,7 @@ Ext.define('Ext.field.Select', {
                 items: {
                     xtype: 'list',
                     store: this.getStore(),
-                    itemTpl: '<span class="x-list-label">{' + this.getDisplayField() + '}</span>',
+                    itemTpl: '<span class="x-list-label">{' + this.getDisplayField() + ':htmlEncode}</span>',
                     listeners: {
                         select : this.onListSelect,
                         itemtap: this.onListTap,
@@ -405,6 +390,11 @@ selectBox.setOptions(
      */
     updateOptions: function(newOptions) {
         var store = this.getStore();
+
+        if (!store) {
+            this.setStore(true);
+            store = this._store;
+        }
 
         if (!newOptions) {
             store.clearData();

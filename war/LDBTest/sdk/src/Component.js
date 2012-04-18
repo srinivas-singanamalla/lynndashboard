@@ -937,7 +937,7 @@ Ext.define('Ext.Component', {
          * Force the component to take up 100% width and height available, by adding it to {@link Ext.Viewport}.
          * @cfg {Boolean} fullscreen
          */
-        if ('fullscreen' in me.config) {
+        if (me.config.fullscreen) {
             me.fireEvent('fullscreen', me);
         }
 
@@ -1284,7 +1284,9 @@ Ext.define('Ext.Component', {
      * All cls methods directly report to the {@link #cls} configuration, so anytime it changes, {@link #updateCls} will be called
      */
     updateCls: function(newCls, oldCls) {
-        this.element.replaceCls(oldCls, newCls);
+        if (oldCls != newCls && this.element) {
+            this.element.replaceCls(oldCls, newCls);
+        }
     },
 
     /**
@@ -1662,6 +1664,7 @@ Ext.define('Ext.Component', {
 
     /**
      * Hides this Component
+     * @param {Object/Boolean} animation (optional)
      */
     hide: function(animation) {
         if (!this.getHidden()) {
@@ -1686,19 +1689,19 @@ Ext.define('Ext.Component', {
 
     /**
      * Shows this component
+     * @param {Object/Boolean} animation (optional)
      */
     show: function(animation) {
         var hidden = this.getHidden();
         if (hidden || hidden === null) {
-            if (animation === undefined || (animation && !animation.isComponent)) {
+            if (animation === true) {
+                animation = 'fadeIn';
+            }
+            else if (animation === undefined || (animation && animation.isComponent)) {
                 animation = this.getShowAnimation();
             }
 
             if (animation) {
-                if (animation === true) {
-                    animation = 'fadeIn';
-                }
-
                 this.onBefore({
                     hiddenchange: 'animateFn',
                     scope: this,
@@ -1714,7 +1717,7 @@ Ext.define('Ext.Component', {
     },
 
     animateFn: function(animation, component, newState, oldState, options, controller) {
-        if (animation) {
+        if (animation && (!newState || (newState && this.isPainted()))) {
             var anim = new Ext.fx.Animation(animation);
 
             anim.setElement(component.element);
@@ -2259,7 +2262,7 @@ var owningTabPanel = grid.up('tabpanel');
 
         this.setRecord(null);
 
-        Ext.destroy(this.innerHtmlElement, this.getTranslatable());
+        Ext.destroy(this.innerHtmlElement, this.getTranslatable(), this.getPlugins());
         Ext.ComponentManager.unregister(this);
 
         this.callParent();

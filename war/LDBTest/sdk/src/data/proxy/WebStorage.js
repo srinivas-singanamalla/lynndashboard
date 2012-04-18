@@ -274,6 +274,8 @@ Ext.define('Ext.data.proxy.WebStorage', {
         //iPad bug requires that we remove the item before setting it
         obj.removeItem(key);
         obj.setItem(key, Ext.encode(data));
+
+        record.commit();
     },
 
     /**

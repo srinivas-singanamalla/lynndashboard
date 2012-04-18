@@ -277,17 +277,18 @@ Ext.define('Ext.dataview.NestedList', {
      * @event selectionchange
      * Fires when the selected nodes change.
      * @param {Ext.dataview.NestedList} this
-     * @param {Ext.dataview.List} list The Ext.datavaie.List that is currently active
+     * @param {Ext.dataview.List} list The Ext.dataview.List that is currently active
      * @param {Array} selections Array of the selected nodes
      */
 
     /**
-     * @event beforeselect
+     * @event beforeselectionchange
      * Fires before a selection is made.
      * @param {Ext.dataview.NestedList} this
      * @param {Ext.dataview.List} list The Ext.dataview.List that is currently active
      * @param {HTMLElement} node The node to be selected
      * @param {Array} selections Array of currently selected nodes
+     * @deprecated 2.0.0 Please listen to the {@link #selectionchange} event with an order of `before` instead.
      */
 
     /**
@@ -434,10 +435,13 @@ Ext.define('Ext.dataview.NestedList', {
         this.fireEvent('beforeload', [this, Array.prototype.slice.call(arguments)]);
     },
 
-    onStoreLoad: function(store) {
+    onStoreLoad: function(store, records, successful, operation) {
         this.setMasked(false);
         this.fireEvent('load', [this, Array.prototype.slice.call(arguments)]);
-        this.goToNode(store.getRoot());
+
+        if (store.indexOf(this.getLastNode()) === -1) {
+            this.goToNode(store.getRoot());
+        }
     },
 
     /**
@@ -791,9 +795,9 @@ Ext.define('Ext.dataview.NestedList', {
                 { event: 'itemtap', fn: 'onItemInteraction', scope: me, order: 'before'},
                 { event: 'itemtouchstart', fn: 'onItemInteraction', scope: me, order: 'before'},
                 { event: 'itemtap', fn: 'onItemTap', scope: me },
-                { event: 'beforeselect', fn: 'onBeforeSelect', scope: me },
+                { event: 'beforeselectionchange', fn: 'onBeforeSelect', scope: me },
                 { event: 'containertap', fn: 'onContainerTap', scope: me },
-                { event: 'selectionchange', fn: 'onSelectionChange', scope: me }
+                { event: 'selectionchange', fn: 'onSelectionChange', order: 'before', scope: me }
             ],
             itemTpl: '<span<tpl if="leaf == true"> class="x-list-item-leaf"</tpl>>' + me.getItemTextTpl(node) + '</span>'
         }, this.getListConfig());

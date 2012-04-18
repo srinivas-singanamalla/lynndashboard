@@ -192,7 +192,7 @@
  *     });
  *
  *     //tells the Proxy to destroy the Model. Performs a DELETE request to /users/123
- *     user.destroy({
+ *     user.erase({
  *         success: function() {
  *             console.log('The User was destroyed!');
  *         }
@@ -908,8 +908,11 @@ Ext.define('Ext.data.Model', {
 
     /**
      * Saves the model instance using the configured proxy.
+     *
      * @param {Object/Function} options Options to pass to the proxy. Config object for {@link Ext.data.Operation}.
-     * If you pass a function, this will automatically become the callback method.
+     * If you pass a function, this will automatically become the callback method. For convenience the config
+     * object may also contain `success` and `failure` methods in addition to `callback` - they will all be invoked
+     * with the Model and Operation as arguments.
      * @param {Object} scope The scope to run your callback method in. This is only used if you passed a function
      * as the first argument.
      * @return {Ext.data.Model} The Model instance
@@ -963,7 +966,13 @@ Ext.define('Ext.data.Model', {
      * Note that this doesn't destroy this instance after the server comes back with a response.
      * It will however call afterErase on any Stores it is joined to. Stores by default will
      * automatically remove this instance from their data collection.
-     * @param {Object} options Options to pass to the proxy. Config object for {@link Ext.data.Operation}.
+     *
+     * @param {Object/Function} options Options to pass to the proxy. Config object for {@link Ext.data.Operation}.
+     * If you pass a function, this will automatically become the callback method. For convenience the config
+     * object may also contain `success` and `failure` methods in addition to `callback` - they will all be invoked
+     * with the Model and Operation as arguments.
+     * @param {Object} scope The scope to run your callback method in. This is only used if you passed a function
+     * as the first argument.
      * @return {Ext.data.Model} The Model instance
      */
     erase: function(options, scope) {
@@ -1643,7 +1652,7 @@ Ext.define('Ext.data.Model', {
                     cls.prototype.validations = cls.validations = cls.prototype._validations = (superCls && superCls.validations)
                         ? superCls.validations.clone()
                         : new Ext.util.Collection(function(validation) {
-                            return validation.field || validation.name;
+                            return validation.field ? (validation.field + '-' + validation.type) : (validation.name + '-' + validation.type);
                         });
 
                     cls.prototype = Ext.Object.chain(cls.prototype);

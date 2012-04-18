@@ -5,6 +5,20 @@
     "name": "LDBTest",
 
     /**
+     * The file path to this application's front HTML document, relative to this app.json file
+     */
+    "indexHtmlPath": "index.html",
+
+    /**
+     * The absolute URL to this application in development environment, i.e: the URL to run this application
+     * on your web browser during development, e.g: "http://localhost/myapp/index.html".
+     *
+     * This value is needed when build to resolve your application's dependencies if it requires server-side resources
+     * that are not accessible via file system protocol.
+     */
+    "url": null,
+
+    /**
      * List of all JavaScript assets in the right execution order.
      * Each item is an object with the following format:
      *      {
@@ -22,10 +36,8 @@
             "path": "sdk/sencha-touch.js"
         },
         {
-            "path": "sdk/touch-charts.js"
-        },
-        {
             "path": "app.js",
+            "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
             "update": "delta"
         }
     ],
@@ -75,15 +87,22 @@
     /**
      * Extra resources to be copied along when build
      */
-    "extras": [
+    "resources": [
         "resources/images",
         "resources/icons",
         "resources/loading"
     ],
 
     /**
+     * File / directory name matchers to ignore when copying to the builds, must be valid regular expressions
+     */
+    "ignore": [
+        "\.svn$"
+    ],
+
+    /**
      * Directory path to store all previous production builds. Note that the content generated inside this directory
-     * must be kept intact for proper generation of delta between updates
+     * must be kept intact for proper generation of deltas between updates
      */
     "archivePath": "archive",
 
@@ -103,7 +122,7 @@
     "buildOptions": {
         "product": "touch",
         "minVersion": 3,
-        "debug": true,
+        "debug": false,
         "logger": "no"
     },
 
@@ -111,5 +130,5 @@
      * Uniquely generated id for this application, used as prefix for localStorage keys.
      * Normally you should never change this value.
      */
-    "id": "62626890-7242-11e1-acb3-156868803064"
+    "id": "7ea6ce30-899c-11e1-a0c1-f7e1d7c04441"
 }

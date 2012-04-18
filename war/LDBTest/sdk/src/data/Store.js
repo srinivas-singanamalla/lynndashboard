@@ -892,8 +892,11 @@ Ext.define('Ext.data.Store', {
 
         var me = this,
             sync = false,
+            data = this.data,
             ln = records.length,
             Model = this.getModel(),
+            existingRecords = [],
+            indices = [],
             modelDefaults = me.getModelDefaults(),
             i, record, added = false;
 
@@ -910,25 +913,48 @@ Ext.define('Ext.data.Store', {
                 Ext.Array.remove(this.removed, record);
             }
 
-            record.set(modelDefaults);
+            // If the record already exists in our data collection then we don't add it again
+            if (data.indexOf(record) !== -1) {
+                existingRecords.push(record);
+            }
 
-            // reassign the model in the array in case it wasn't created yet
-            records[i] = record;
+            record.set(modelDefaults);
             record.join(me);
+
+            records[i] = record;
 
             // If this is a newly created record, then we might want to sync it later
             sync = sync || (record.phantom === true);
         }
 
+        if (existingRecords.length) {
+            for (i = 0, ln = existingRecords.length; i < ln; i++) {
+                record = existingRecords[i];
+                record._tmpIndex = data.indexOf(record);
+            }
+
+            Ext.Array.sort(existingRecords, function(record1, record2) {
+                return record1._tmpIndex < record2._tmpIndex ? 1 : -1;
+            });
+
+            for (i = 0; i < ln; i++) {
+                record = existingRecords[i];
+                indices.push(record._tmpIndex);
+                delete record._tmpIndex;
+            }
+
+            me.fireEvent('removerecords', me, existingRecords, indices);
+        }
+
         // Now we insert all these records in one go to the collection. Saves many function
         // calls to data.insert. Does however create two loops over the records we are adding.
         if (ln === 1) {
-            added = this.data.insert(index, records[0]);
+            added = data.insert(index, records[0]);
             if (added) {
                 added = [added];
             }
         } else {
-            added = this.data.insertAll(index, records);
+            added = data.insertAll(index, records);
         }
 
         if (added) {

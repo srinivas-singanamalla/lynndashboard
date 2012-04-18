@@ -10,6 +10,7 @@ function error(message) {
 
 var args = phantom.args,
     uri = args[0],
+    elapse = 0,
     dependencies, timer;
 
 var page = new WebPage();
@@ -17,8 +18,10 @@ var page = new WebPage();
 page.settings.localToRemoteUrlAccessEnabled = true;
 page.settings.ignoreSslErrors = true;
 
-page.onAlert = function(message) {
-    error("Error thown from your application with message: " + message);
+page.onConsoleMessage = function(message) {
+    if (/^!!!!ERROR!!!!/.test(message)) {
+        error("Error thown from your application with message: " + message.substring(13));
+    }
 };
 
 page.open(uri, function(status) {
@@ -28,8 +31,13 @@ page.open(uri, function(status) {
 
     page.evaluate(function() {
         window.onerror = function(e) {
-            alert(e);
+            console.log('!!!!ERROR!!!!' + e);
         };
+
+        if (typeof Ext == 'undefined') {
+            console.log('!!!!ERROR!!!!Ext is not defined, please verify that the application URL is correct');
+            return;
+        }
 
         Ext.onReady(function() {
             var documentLocation = document.location,
@@ -93,6 +101,13 @@ page.open(uri, function(status) {
         if (dependencies) {
             clearInterval(timer);
             success(JSON.stringify(dependencies, null, 4));
+        }
+
+        elapse += 100;
+
+        if (elapse > 5000) {
+            clearInterval(timer);
+            error("Timeout waiting for the application to finish loading");
         }
     }, 100);
 });

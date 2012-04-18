@@ -260,10 +260,19 @@ Ext.define('Ext.Button', {
 
         /**
          * @cfg {String} iconMaskCls
+         * @private
          * The CSS class to add to the icon element as allowed by {@link #iconMask}.
          * @accessor
          */
-        iconMaskCls: Ext.baseCSSPrefix + 'icon-mask'
+        iconMaskCls: Ext.baseCSSPrefix + 'icon-mask',
+
+        /**
+         * @cfg {String} iconCls
+         * Optional CSS class to add to the icon element. This is useful if you want to use a CSS
+         * background image to create your Button icon.
+         * @accessor
+         */
+        iconCls: null
     },
 
     config: {
@@ -280,14 +289,6 @@ Ext.define('Ext.Button', {
          * @accessor
          */
         text: null,
-
-        /**
-         * @cfg {String} iconCls
-         * Optional CSS class to add to the icon element. This is useful if you want to use a CSS
-         * background image to create your Button icon.
-         * @accessor
-         */
-        iconCls: null,
 
         /**
          * @cfg {String} icon
@@ -313,7 +314,7 @@ Ext.define('Ext.Button', {
 
         /**
          * @cfg {Boolean} iconMask
-         * Whether or not to mask the icon with the {@link #iconMaskCls} configuration.
+         * Whether or not to mask the icon with the {@link #iconMask} configuration.
          * This is needed if you want to use any of the bundled pictos icons in the Sencha Touch SASS.
          * @accessor
          */
@@ -414,13 +415,14 @@ Ext.define('Ext.Button', {
      */
     updateText: function(text) {
         var textElement = this.textElement;
-
-        if (text) {
-            textElement.show();
-            textElement.setHtml(text);
-        }
-        else {
-            textElement.hide();
+        if (textElement) {
+            if (text) {
+                textElement.show();
+                textElement.setHtml(text);
+            }
+            else {
+                textElement.hide();
+            }
         }
     },
 
@@ -712,7 +714,8 @@ Ext.define('Ext.Button', {
      */
     doTap: function(me, e) {
         var handler = me.getHandler(),
-            scope = me.getScope() || me;
+            scope = me.getScope() || me,
+            args = arguments;
 
         if (!handler) {
             return;
@@ -726,7 +729,9 @@ Ext.define('Ext.Button', {
         //where the button was.
         e.preventDefault();
 
-        handler.apply(scope, arguments);
+        Ext.defer(function() {
+            handler.apply(scope, args);
+        }, 1);
     }
 }, function() {
     //<deprecated product=touch since=2.0>

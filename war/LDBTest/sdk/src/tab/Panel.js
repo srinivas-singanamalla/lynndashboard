@@ -89,7 +89,7 @@ Ext.define('Ext.tab.Panel', {
         tabBarPosition: 'top',
 
         /**
-         * @cfg
+         * @cfg layout
          * @inheritdoc
          */
         layout: {
@@ -101,7 +101,7 @@ Ext.define('Ext.tab.Panel', {
         },
 
         /**
-         * @cfg
+         * @cfg cls
          * @inheritdoc
          */
         cls: Ext.baseCSSPrefix + 'tabpanel'
@@ -202,7 +202,11 @@ Ext.define('Ext.tab.Panel', {
      * Updates this container with the new active item.
      */
     doTabChange: function(tabBar, newTab) {
+        var oldActiveItem = this.getActiveItem(),
+            newActiveItem;
         this.setActiveItem(tabBar.indexOf(newTab));
+        newActiveItem = this.getActiveItem();
+        return oldActiveItem !== newActiveItem;
     },
 
     /**
@@ -256,11 +260,11 @@ Ext.define('Ext.tab.Panel', {
         var tabBar             = me.getTabBar(),
             initialConfig      = card.getInitialConfig(),
             tabConfig          = initialConfig.tab || {},
-            tabTitle           = initialConfig.title,
-            tabIconCls         = initialConfig.iconCls,
-            tabHidden          = initialConfig.hidden,
-            tabDisabled        = initialConfig.disabled,
-            tabBadgeText       = initialConfig.badgeText,
+            tabTitle           = (card.getTitle) ? card.getTitle() : initialConfig.title,
+            tabIconCls         = (card.getIconCls) ? card.getIconCls() : initialConfig.iconCls,
+            tabHidden          = (card.getHidden) ? card.getHidden() : initialConfig.hidden,
+            tabDisabled        = (card.getDisabled) ? card.getDisabled() : initialConfig.disabled,
+            tabBadgeText       = (card.getBadgeText) ? card.getBadgeText() : initialConfig.badgeText,
             innerItems         = me.getInnerItems(),
             index              = innerItems.indexOf(card),
             tabs               = tabBar.getItems(),

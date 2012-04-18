@@ -79,6 +79,15 @@ Ext.define('Ext.field.Toggle', {
         maxValueCls: 'x-toggle-on'
     },
 
+    initialize: function() {
+        this.callParent();
+
+        this.getComponent().element.onBefore({
+            scope: this,
+            tap: 'onComponentTap'
+        });
+    },
+
     // @private
     applyComponent: function(config) {
         return Ext.factory(config, Ext.slider.Toggle);
@@ -109,7 +118,10 @@ Ext.define('Ext.field.Toggle', {
         return this;
     },
 
-    getValue: function() {
-        return this.callParent()[0];
+    onComponentTap: function() {
+        // Toggle the value, and return false so the normal slider functionality doesn't happen
+        this.toggle();
+
+        return false;
     }
 });

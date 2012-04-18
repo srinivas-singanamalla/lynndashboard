@@ -9,7 +9,6 @@ Ext.define('Command.module.generate.App', {
 
     execute: function(args) {
         var path = require('path'),
-            fs = this.cli.getModule('fs'),
             cwd = process.cwd(),
             sdkVersionFile = path.join(cwd, 'version.txt'),
             sdkVersion = new Ext.Version(require('fs').readFileSync(sdkVersionFile, 'utf8').trim()),
@@ -24,7 +23,6 @@ Ext.define('Command.module.generate.App', {
             path.join(appPath, 'app', 'store'),
             path.join(appPath, 'app', 'profile'),
             path.join(appPath, 'sdk'),
-            path.join(appPath, 'sdk', 'command'),
             path.join(appPath, 'sdk', 'src'),
             path.join(appPath, 'sdk', 'resources'),
             path.join(appPath, 'resources'),

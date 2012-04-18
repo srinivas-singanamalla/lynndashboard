@@ -186,7 +186,7 @@ Ext.define('Ext.form.Panel', {
          * go or enter inside a textfield.
          * @accessor
          */
-        submitOnAction : true,
+        submitOnAction: false,
 
         /**
          * @cfg {Ext.data.Model} record The model instance of this form. Can by dynamically set at any time
@@ -220,11 +220,6 @@ Ext.define('Ext.form.Panel', {
     initialize: function() {
         var me = this;
         me.callParent();
-
-        me.on({
-            action: 'onFieldAction',
-            scope : me
-        });
 
         me.element.on({
             submit: 'onSubmit',
@@ -270,13 +265,20 @@ Ext.define('Ext.form.Panel', {
             e.stopEvent();
         }
 
-        me.fireAction('submit', [me, me.getValues(true), e], 'doSubmit');
-
+        this.submit();
     },
 
-    doSubmit: function(me, values, e) {
-        if (e) {
-            e.stopEvent();
+    updateSubmitOnAction: function(newSubmitOnAction) {
+        if (newSubmitOnAction) {
+            this.on({
+                action: 'onFieldAction',
+                scope: this
+            });
+        } else {
+            this.un({
+                action: 'onFieldAction',
+                scope: this
+            });
         }
     },
 
@@ -461,7 +463,7 @@ Ext.define('Ext.form.Panel', {
      */
     setValues: function(values) {
         var fields = this.getFields(),
-            name, field, value;
+            name, field, value, ln, i, f;
 
         values = values || {};
 
@@ -469,21 +471,39 @@ Ext.define('Ext.form.Panel', {
             if (values.hasOwnProperty(name)) {
                 field = fields[name];
                 value = values[name];
+
                 if (field) {
+                    // If there are multiple fields with the same name. Checkboxes, radio fields and maybe event just normal fields..
                     if (Ext.isArray(field)) {
-                        field.forEach(function(f) {
+                        ln = field.length;
+
+                        // Loop through each of the fields
+                        for (i = 0; i < ln; i++) {
+                            f = field[i];
+
                             if (f.isRadio) {
+                                // If it is a radio field just use setGroupValue which will handle all of the radio fields
                                 f.setGroupValue(value);
-                            } else if (Ext.isArray(values[name])) {
-                                f.setChecked((value.indexOf(f.getValue()) != -1));
+                            } else if (f.isCheckbox) {
+                                if (Ext.isArray(value)) {
+                                   f.setChecked((value.indexOf(f._value) != -1));
+                               } else {
+                                   f.setChecked((value == f._value));
+                               }
                             } else {
-                                f.setChecked((value == f.getValue()));
+                                // If it is a bunch of fields with the same name, check if the value is also an array, so we can map it
+                                // to each field
+                                if (Ext.isArray(value)) {
+                                    f.setValue(value[i]);
+                                }
                             }
-                        });
+                        }
                     } else {
-                        if (field.setChecked) {
+                        if (field.isRadio || field.isCheckbox) {
+                            // If the field is a radio or a checkbox
                             field.setChecked(value);
                         } else {
+                            // If just a normal field
                             field.setValue(value);
                         }
                     }
@@ -766,7 +786,6 @@ Ext.define('Ext.form.Panel', {
     getNextField: function() {
         var fields = this.getFieldsArray(),
             focusedField = this.getFocusedField(),
-            ln = fields.length,
             index;
 
         if (focusedField) {
@@ -803,7 +822,6 @@ Ext.define('Ext.form.Panel', {
     getPreviousField: function() {
         var fields = this.getFieldsArray(),
             focusedField = this.getFocusedField(),
-            ln = fields.length,
             index;
 
         if (focusedField) {
