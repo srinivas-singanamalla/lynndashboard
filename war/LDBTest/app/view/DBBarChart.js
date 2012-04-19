@@ -6,7 +6,9 @@ Ext.define("LDBTest.view.DBBarChart", {
 	           'Ext.chart.axis.Numeric',
 	           'Ext.chart.axis.Category',
 	           'Ext.chart.series.Column',
-	           'LDBTest.view.StackedColumn'],
+//	           'LDBTest.view.StackedColumn',
+	           'Ext.chart.series.StackedColumn'
+	           ],
 
 	   initialize: function() {
 		   var generateData = function(n, floor) {

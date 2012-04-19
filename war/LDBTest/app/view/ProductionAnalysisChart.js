@@ -3,7 +3,7 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
 	xtype : 'productionanalysischart',
 	id: 'productionanalysischart',
 	requires: [
-	           'Ext.chart.Chart', 
+	           'Ext.chart.Chart',
 	           'LDBTest.store.ProductionLineStore',
 	           'Ext.chart.theme.Theme',
 	           'Ext.chart.theme.Energy'

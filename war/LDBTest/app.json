@@ -35,7 +35,10 @@
         {
             //"path": "sdk/sencha-touch.js"
             "path" : "sdk/sencha-touch-debug.js"
-        },
+        },/*
+        {
+        	"path" : "app/external/chart/series/StackedColumn.js"
+        },*/
         {
             "path" : "sdk/touch-charts.js"
         },
