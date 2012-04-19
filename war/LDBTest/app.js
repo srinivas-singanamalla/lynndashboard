@@ -22,7 +22,21 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('LDBTest.view.Main'));
+        Ext.Viewport.add(Ext.create('LDBTest.view.Main', {}));
+        var overlay = Ext.Viewport.add(Ext.create('LDBTest.view.WellSearchField', {itemId: 'wellsearchlistItemId',
+        	id: 'wellsearchlistId',
+        	width: 380,
+        	height: 420,
+        	hidden: true}));
+        
+        Ext.Viewport.on({
+    	    // Ext.Buttons have an xtype of 'button', so we use that are a selector for our delegate
+    	    delegate: 'button',
+
+    	    tap: function(button) {
+    	    	overlay.showBy(button);
+    	    }
+    	});
     },
 
     onUpdated: function() {
