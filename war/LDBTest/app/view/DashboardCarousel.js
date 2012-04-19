@@ -15,12 +15,8 @@ Ext.define("LDBTest.view.DashboardCarousel", {
                ],
     
     config: {
-    	direction: 'vertical',
+    	direction: 'horizontal',
     	ui: 'light',
-    	defaults: {
-//            styleHtmlContent: true
-//    		margin: '50 100 100 150'
-        },
         items: [
 			{
 				docked : 'top',
@@ -69,11 +65,6 @@ Ext.define("LDBTest.view.DashboardCarousel", {
             
         	activeitemchange: function(container, value, oldvalue, eopts) {
         		Ext.getCmp('titleBarId').setTitle(value.getTitle() || "");
-        		/*console.log('do the switch, actice baby');
-        		console.log(container);
-        		console.log();
-        		console.log(oldvalue);
-        		console.log(eopts);*/
         	}
 
         }
