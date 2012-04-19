@@ -2,7 +2,12 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
 	extend : 'Ext.chart.Chart',
 	xtype : 'productionanalysischart',
 	id: 'productionanalysischart',
-	requires: ['Ext.chart.Chart', 'LDBTest.store.ProductionLineStore'],
+	requires: [
+	           'Ext.chart.Chart', 
+	           'LDBTest.store.ProductionLineStore',
+	           'Ext.chart.theme.Theme',
+	           'Ext.chart.theme.Energy'
+	           ],
     config: {
         title: 'Daily Net Production Analysis <span style ="color:red">(KNOTT-TUBB 42-K)</span>',
         iconCls: 'line',

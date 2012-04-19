@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html manifest="" lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>LDBTest</title>
+    <style type="text/css">
+        /**
+         * Example of an initial loading indicator.
+         * It is recommended to keep this as minimal as possible to provide instant feedback
+         * while other resources are still being loaded for the first time
+         */
+        html, body {
+            height: 100%;
+        }
+
+        #appLoadingIndicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -10px;
+            margin-left: -50px;
+            width: 100px;
+            height: 20px;
+        }
+
+        #appLoadingIndicator > * {
+            background-color: #FFFFFF;
+            float: left;
+            height: 20px;
+            margin-left: 11px;
+            width: 20px;
+            -webkit-animation-name: appLoadingIndicator;
+            -webkit-border-radius: 13px;
+            -webkit-animation-duration: 0.8s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: linear;
+            opacity: 0.3
+        }
+
+        #appLoadingIndicator > :nth-child(1) {
+            -webkit-animation-delay: 0.18s;
+        }
+
+        #appLoadingIndicator > :nth-child(2) {
+            -webkit-animation-delay: 0.42s;
+        }
+
+        #appLoadingIndicator > :nth-child(3) {
+            -webkit-animation-delay: 0.54s;
+        }
+
+        @-webkit-keyframes appLoadingIndicator{
+            0% {
+                opacity: 0.3
+            }
+
+            50% {
+                opacity: 1;
+                background-color:#1985D0
+            }
+
+            100% {
+                opacity:0.3
+            }
+        }
+        
+        .x-form .x-scroll-container {
+			background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #333), color-stop(100%, #060606));
+			background: -webkit-linear-gradient(top, #333,#060606);
+			background: linear-gradient(top, #333,#060606);
+		}
+		
+		.x-form-fieldset-title {
+			color: white !important;
+		}
+    </style>
+<!--     <link rel="stylesheet" type="text/css" href="resources/css/app.css" /> -->
+<!--     <script id="microloader" type="text/javascript" src="sdk/microloader/development.js"></script> -->
+
+	<link rel="stylesheet" type="text/css" href="resources/css/app.css" />
+	<link rel="stylesheet" type="text/css" href="sdk/resources/css/touch-charts.css" />
+	<link rel="stylesheet" href="resources/css/energy-demo.css" type="text/css">
+	
+<!-- 	sencha sdk -->
+    <script type="text/javascript" src="../sencha/sencha-touch-all-debug.js"></script>
+    <script type="text/javascript" src="../sencha/touch-charts.js"></script>
+    
+<!--     sencha app  -->
+    <script type="text/javascript" src="appDeploy.js"></script>
+    
+<!--     custom views -->
+	<script type="text/javascript" src="app/lib/extensions.js"></script>
+    <script type="text/javascript" src="app/view/DashboardCarousel.js"></script>
+    <script type="text/javascript" src="app/view/DBAreaChart.js"></script>
+    <script type="text/javascript" src="app/view/DBBarChart.js"></script>
+    <script type="text/javascript" src="app/view/DBStackedBarChart.js"></script>
+    <script type="text/javascript" src="app/view/DBStackedBarChart2.js"></script>
+    <script type="text/javascript" src="app/view/EnergyLineChart.js"></script>
+    <script type="text/javascript" src="app/view/DBLineChart.js"></script>
+    <script type="text/javascript" src="app/view/PseudoOrgChart.js"></script>
+    <script type="text/javascript" src="app/view/Forms.js"></script>
+    <script type="text/javascript" src="app/view/ProductionAnalysisChart.js"></script>
+    
+    
+<!--     main -->
+    <script type="text/javascript" src="app/view/Main.js"></script>
+    
+    <script type="text/javascript">
+    Ext.Loader.setConfig('disableCaching', true);
+</script>
+</head>
+<body>
+    <div id="appLoadingIndicator">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</body>
+</html>

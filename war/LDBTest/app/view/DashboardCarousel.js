@@ -1,9 +1,17 @@
 Ext.define("LDBTest.view.DashboardCarousel", {
     extend: 'Ext.carousel.Carousel',
     xtype: 'dbcarousel',
-    requires: ['LDBTest.view.PseudoOrgChart', 'LDBTest.view.DBAreaChart', 'LDBTest.view.DBLineChart', 'LDBTest.view.DBBarChart', 
-               'LDBTest.view.DBStackedBarChart', 'LDBTest.view.EnergyLineChart', 'LDBTest.view.DBStackedBarChart2', 
-               'LDBTest.view.ProductionAnalysisChart', 'LDBTest.view.WellSearchField'],
+    requires: [
+               'LDBTest.view.PseudoOrgChart', 
+//               'LDBTest.view.DBAreaChart', 
+//               'LDBTest.view.DBLineChart', 
+//               'LDBTest.view.DBBarChart', 
+//               'LDBTest.view.DBStackedBarChart', 
+//               'LDBTest.view.EnergyLineChart', 
+//               'LDBTest.view.DBStackedBarChart2', 
+               'LDBTest.view.ProductionAnalysisChart', 
+               'LDBTest.view.WellSearchField'
+               ],
     
     config: {
     	direction: 'vertical',
@@ -37,13 +45,13 @@ Ext.define("LDBTest.view.DashboardCarousel", {
             },
             {
                 xtype: 'productionanalysischart'	
-            },
+            },/*
             {
                 xtype: 'dbstackedbarchart'	
             },
             {
             	xtype: 'forms'
-            }
+            }*/
         ],
         
         listeners: {

@@ -33,7 +33,11 @@
      */
     "js": [
         {
-            "path": "sdk/sencha-touch.js"
+            //"path": "sdk/sencha-touch.js"
+            "path" : "sdk/sencha-touch-debug.js"
+        },
+        {
+            "path" : "sdk/touch-charts.js"
         },
         {
             "path": "app.js",
@@ -58,6 +62,10 @@
     "css": [
         {
             "path": "resources/css/app.css",
+            "update": "delta"
+        },
+        {
+            "path": "resources/css/touch-charts.css",
             "update": "delta"
         }
     ],
