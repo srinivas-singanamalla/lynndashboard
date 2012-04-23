@@ -17,6 +17,8 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     config: {
     	direction: 'horizontal',
     	ui: 'light',
+    	title : 'Well Completion',
+		iconCls : 'home',
         items: [
 			{
 				docked : 'top',

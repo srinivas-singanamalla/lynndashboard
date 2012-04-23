@@ -7,6 +7,8 @@ Ext.application({
 
     views: ['Main'],
 
+    controllers: ['WellsearchController'],
+    
     icon: {
         57: 'resources/icons/Icon.png',
         72: 'resources/icons/Icon~ipad.png',
@@ -29,6 +31,7 @@ Ext.application({
         	height: 420,
         	hidden: true}));
         
+        /*
         Ext.Viewport.on({
     	    // Ext.Buttons have an xtype of 'button', so we use that are a selector for our delegate
     	    delegate: 'button',
@@ -36,7 +39,7 @@ Ext.application({
     	    tap: function(button) {
     	    	overlay.showBy(button);
     	    }
-    	});
+    	});*/
     },
 
     onUpdated: function() {

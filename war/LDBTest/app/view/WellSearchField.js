@@ -30,7 +30,7 @@ Ext.define("LDBTest.view.WellSearchField", {
              //give it a fit layout so the list item stretches to the size of this panel
              layout: 'fit',
 
-             //give it 1 item which is the listConfiguration
+             //give it 1 item which is the h
              items: [listConfiguration]
          });
 		 

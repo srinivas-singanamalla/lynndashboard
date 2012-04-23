@@ -1,8 +1,7 @@
-Ext.define("LDBTest.store.WellStore", { 
+Ext.define("LDBTest.store.PropertySearchWellStore", { 
     extend: "Ext.data.JsonStore",
-    alias: 'store.WellStore',
     config: {
-        storeId: 'WellStore',
+        storeId: 'PropertySearchWellStore',
         idProperty: 'ProductionPointWellName',
         fields: [{
             name: 'ProductionPointWellName',

@@ -1,6 +1,6 @@
 Ext.define("LDBTest.view.Main", {
     extend: 'Ext.tab.Panel',
-    requires: ['Ext.TitleBar', 'LDBTest.view.DashboardCarousel', 'Ext.ComponentQuery'],
+    requires: ['Ext.TitleBar', 'LDBTest.view.DashboardCarousel', 'Ext.ComponentQuery', 'LDBTest.view.SearchTabPanel', 'Ext.tab.Panel'],
     
     config: {
         tabBarPosition: 'bottom',
@@ -11,9 +11,8 @@ Ext.define("LDBTest.view.Main", {
 				title : 'Well Profitability Dashboard'
 			},    
             {
-			title : 'Well Completion',
-			iconCls : 'home',
-			xtype : 'dbcarousel',
+			
+			xtype : 'dbcarousel'
 			/*
 			scrollable : {
 				direction : 'vertical',
@@ -21,14 +20,18 @@ Ext.define("LDBTest.view.Main", {
 			}*/
 		},
             {
-                title: 'Product Options',
+                xtype: 'searchTabPanel'
+                
+            },
+            {
+                title: 'Summary',
                 iconCls: 'action',
                 
                 items: [
                     {
                         docked: 'top',
                         xtype: 'titlebar',
-                        title: 'Getting Started'
+                        title: 'Summary'
                     },
                     {
                         xtype: 'panel',
@@ -37,14 +40,46 @@ Ext.define("LDBTest.view.Main", {
                 ]
             },
             {
-                title: 'Unit Lease',
+                title: 'Production Plot',
                 iconCls: 'action',
                 
                 items: [
                     {
                         docked: 'top',
                         xtype: 'titlebar',
-                        title: 'Unit Lease'
+                        title: 'Production Plot'
+                    },
+                    {
+                        xtype: 'panel',
+                        html: 'To be displayed'
+                    }
+                ]
+            },
+            {
+                title: 'Property Info',
+                iconCls: 'action',
+                
+                items: [
+                    {
+                        docked: 'top',
+                        xtype: 'titlebar',
+                        title: 'Property Info'
+                    },
+                    {
+                        xtype: 'panel',
+                        html: 'To be displayed'
+                    }
+                ]
+            },
+            {
+                title: 'Profitability Analysis',
+                iconCls: 'action',
+                
+                items: [
+                    {
+                        docked: 'top',
+                        xtype: 'titlebar',
+                        title: 'Profitability Analysis'
                     },
                     {
                         xtype: 'panel',
