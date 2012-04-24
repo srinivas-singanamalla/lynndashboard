@@ -10,12 +10,15 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
 	           ],
     config: {
         title: 'Daily Net Production Analysis <span style ="color:red">(KNOTT-TUBB 42-K)</span>',
-        iconCls: 'line',
+//        iconCls: 'line',
         cls: 'chartpanel',
         width: '800',
         height: '400',
         shadow: true,
-        animate: true,
+        animate: {
+            easing: 'bounceOut',
+            duration: 750
+        },
         interactions: [{
             type: 'iteminfo',
             gesture: 'tap',
@@ -43,7 +46,6 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
                 }
             }
         }],
-        animate: false,
         store: Ext.create('LDBTest.store.ProductionLineStore', {id: 'ProductionLineStore'}),
         axes: [
             {
@@ -85,7 +87,7 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
                  
             {
                 type: 'line',
-                highlight: false,
+                highlight: true,
                 showMarkers: false,
                 fill: false,
                 smooth: true,
@@ -118,7 +120,7 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
             },
             {
                 type: 'line',
-                highlight: false,
+                highlight: true,
                 showMarkers: false,
                 fill: false,
                 smooth: true,

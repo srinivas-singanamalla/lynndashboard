@@ -14,12 +14,15 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
         width: '800',
         height: '400',
         shadow: true,
-        animate: true,
+        animate: {
+            easing: 'bounceOut',
+            duration: 750
+        },
         
-        interactions: [/*{
+        interactions: [{
         	type: 'togglestacked',
         	event: 'doubletap'
-        },*/
+        },
         {
             type: 'iteminfo',
             gesture: 'tap',
@@ -31,7 +34,6 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
                 */
             }
         }],
-        animate: false,
         store: Ext.create('LDBTest.store.ChartStore'),
         axes: [
             {
@@ -80,46 +82,12 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
                 yField: ['coal', 'crude-oil'],
                 title: ['Total Revenue', 'Total Expense']
             },
-            /*{
-                type: 'line',
-                highlight: false,
-                showMarkers: false,
-                fill: false,
-                smooth: true,
-                axis: 'left',
-                xField: 'year',
-                yField: 'crude-oil',
-                title: ['Oil']
-            },
             {
                 type: 'line',
                 highlight: false,
                 showMarkers: false,
                 fill: false,
                 smooth: true,
-                axis: 'left',
-                xField: 'year',
-                yField: 'gas',
-                title: ['Natural Gas']
-            },
-            {
-                type: 'line',
-                highlight: false,
-                showMarkers: false,
-                fill: false,
-//                smooth: true,
-                axis: 'left',
-                xField: 'year',
-                yField: 'nuclear',
-                title: ['Nuclear']
-            },
-             */
-            {
-                type: 'line',
-                highlight: false,
-                showMarkers: false,
-                fill: false,
-//                smooth: true,
                 axis: 'left',
                 xField: 'year',
                 yField: 'renewable',

@@ -1,9 +1,26 @@
 Ext.define('LDBTest.controller.WellsearchController', {
 	extend: 'Ext.app.Controller',
 	
-	views: ['PropertySearch'],
+	views: ['PropertySearch', 'WellListPanel'],
 	
-	requires: 'LDBTest.view.PropertySearch',
+	requires: [
+	           'LDBTest.view.PropertySearch',
+	           'LDBTest.view.WellListPanel'
+	           ],
+	           
+	config: {
+		refs: {
+			searchwellfield: 'searchfield[name=searchwell]',
+			
+			welllistpanel: {
+				selector: 'welllistpanel',
+				xtype: 'welllistpanel',
+                autoCreate: true
+			},
+			
+			welllist: 'welllistpanel list'
+		}
+	},           
 	
 	init: function() {
 		this.control({
@@ -11,8 +28,25 @@ Ext.define('LDBTest.controller.WellsearchController', {
 				keyup: this.onKeyup,
 				
 				clearicontap: this.onClearicontap
+			},
+			
+			'selectfield' : {
+				change: this.onProductionPointChange
+			},
+			
+			'welllist': {
+				select: this.onSelectWell
 			}
 		});
+	},
+	
+	onSelectWell: function(view, record) {
+		this.getSearchwellfield().setValue(record.get('ProductionPointWellName'));
+		this.getWelllistpanel().hide();
+	},
+	
+	onProductionPointChange: function(field, newValue, oldValue, eOpts) {
+		console.log("production point type changed");
 	},
 	
 	onSearchfieldRendered: function() {
@@ -30,13 +64,14 @@ Ext.define('LDBTest.controller.WellsearchController', {
             store = this.getStore();
         console.log(value);
         console.log(store);
-//        store.removeAll();
-
+        
       //first clear any current filters on thes tore
         store.clearFilter();
-
+        this.getWelllistpanel().hide();
         //check if a value is set first, as if it isnt we dont have to do anything
         if (value) {
+        	
+        	this.getWelllistpanel().showBy(field, 'tc-bc?');
             //the user could have entered spaces, so we must split them so we can loop through them all
             var searches = value.split(' '),
                 regexps = [],
@@ -78,7 +113,9 @@ Ext.define('LDBTest.controller.WellsearchController', {
 	},
 	
 	onClearicontap: function() {
-		console.log("clearicontap triggered");
+		var store = this.getStore();
+        store.clearFilter();
+        this.getWelllistpanel().hide();
 	}
 	
 });

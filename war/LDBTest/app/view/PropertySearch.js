@@ -1,5 +1,5 @@
 Ext.define("LDBTest.view.PropertySearch", {
-	extend : 'Ext.form.Panel',
+	extend : 'Ext.Container',
 	xtype : 'propertysearch',
 	
 	requires: [
@@ -17,13 +17,13 @@ Ext.define("LDBTest.view.PropertySearch", {
 		
 //		height: 400,
 //		width: 600,
-		
 		title : 'Property Search',
 		
 //		layout: 'fit',
 		
 		items: [{
 			xtype: 'fieldset',
+			title: 'Property Search',
 			instructions: 'Please enter the information above.',
 			items: [{
 	            xtype: 'selectfield',
@@ -51,47 +51,11 @@ Ext.define("LDBTest.view.PropertySearch", {
 	            ]
 	        },
 	        {
-	        	xtype: 'list',
+	        	xtype: 'searchfield',
 	        	label: 'Well Completion Name',
-	            ui: 'round',
-	            
-	            width: 380,
-	        	height: 420,
-
-	            pinHeaders: false,
-
-	            //itemTpl defines the template for each item in the list
-	            itemTpl: '<div class="contact">{ProductionPointWellName} <strong>{PropertyID}</strong></div>',
-
-	            //give it a link to the store instance
-	            store: Ext.create('LDBTest.store.PropertySearchWellStore'),
-
-	            grouped: true,
-	            emptyText: '<div style="margin-top: 20px; text-align: center">No Matching Items</div>',
-	            disableSelection: false,
-	            
-	            listeners: {
-	 	    	   select: function(view, record) {
-	 	    		   
-	 	    	   }
-	            },      
-
-	            items: [
-	                {
-	                    xtype: 'toolbar',
-	                    docked: 'top',
-
-	                    items: [
-	                        { xtype: 'spacer' },
-	                        {
-	                            xtype: 'searchfield',
-	                            placeHolder: 'Search Well...'
-	                        },
-	                        { xtype: 'spacer' }
-	                    ]
-	                }
-	            ]
-            }
+                placeHolder: 'Search Well...',
+                name: 'searchwell'
+	        }
 	        ]
 		}]
 	}

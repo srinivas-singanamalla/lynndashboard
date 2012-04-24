@@ -9,19 +9,19 @@ Ext.define("LDBTest.view.Main", {
 				docked : 'top',
 				xtype : 'titlebar',
 				title : 'Well Profitability Dashboard'
-			},    
-            {
-			
-			xtype : 'dbcarousel'
-			/*
-			scrollable : {
-				direction : 'vertical',
-				directionLock : true
-			}*/
-		},
-            {
+			},  
+			{
                 xtype: 'searchTabPanel'
                 
+            },
+            {
+			
+				xtype : 'dbcarousel'
+				/*
+				scrollable : {
+					direction : 'vertical',
+					directionLock : true
+				}*/
             },
             {
                 title: 'Summary',

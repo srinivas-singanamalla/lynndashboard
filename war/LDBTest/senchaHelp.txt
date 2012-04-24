@@ -1,3 +1,4 @@
 1. When you use a 'list', make sure you assign a width and a height. If you don't assign a height, then the records don't show up
 2. storeId can be used for referring the store
 3. Its better to avoid sharing of the store across the UI. store.filter was not working and when I duplicated the store, things started working. Need to explore this, because this is BAD.
+4. /Users/ssinganamalla/Documents/codebase/dashboards/lynndashboard/war/LDBTest to run sencha app build production
