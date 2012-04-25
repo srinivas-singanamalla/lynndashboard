@@ -57,6 +57,13 @@ Ext.define("LDBTest.view.PropertySearch", {
                 name: 'searchwell'
 	        }
 	        ]
-		}]
+		},
+		{
+			xtype: 'button',
+			margin: 10,
+			ui: 'decline-round',
+			text: 'Submit'
+		}
+		]
 	}
 });

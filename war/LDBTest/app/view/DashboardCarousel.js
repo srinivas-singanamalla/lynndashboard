@@ -6,11 +6,8 @@ Ext.define("LDBTest.view.DashboardCarousel", {
 //               'LDBTest.view.DBAreaChart', 
 //               'LDBTest.view.DBLineChart', 
 //               'LDBTest.view.DBBarChart', 
-               'LDBTest.view.DBStackedBarChart', 
 //               'LDBTest.view.EnergyLineChart', 
 //               'LDBTest.view.DBStackedBarChart2', 
-               'LDBTest.view.ProductionAnalysisChart', 
-               'LDBTest.view.Forms',
                'LDBTest.view.WellSearchField'
                ],
     
@@ -41,15 +38,6 @@ Ext.define("LDBTest.view.DashboardCarousel", {
             },
             {
                 xtype: 'porgchart'
-            },
-            {
-                xtype: 'productionanalysischart'	
-            },
-            {
-                xtype: 'dbstackedbarchart'	
-            },
-            {
-            	xtype: 'forms'
             }
         ],
         

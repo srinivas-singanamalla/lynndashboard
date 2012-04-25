@@ -4,15 +4,15 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
 	requires: [
 	           'Ext.chart.Chart', 
 	           'LDBTest.store.ChartStore', 
-	           //'LDBTest.view.StackedColumn',
 	           'Ext.chart.series.StackedColumn'
 	           ],
     config: {
-        title: 'Net Profitability Analysis <span style ="color:red">(KNOTT-TUBB 42-K)</span>',
-        iconCls: 'line',
+        title: 'Profitability Analysis',
+        iconCls: 'column',
         cls: 'chartpanel',
-        width: '800',
-        height: '400',
+        autoSize: true,
+//        width: '800',
+//        height: '400',
         shadow: true,
         animate: {
             easing: 'bounceOut',

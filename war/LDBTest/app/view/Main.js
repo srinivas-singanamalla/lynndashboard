@@ -1,6 +1,17 @@
 Ext.define("LDBTest.view.Main", {
     extend: 'Ext.tab.Panel',
-    requires: ['Ext.TitleBar', 'LDBTest.view.DashboardCarousel', 'Ext.ComponentQuery', 'LDBTest.view.SearchTabPanel', 'Ext.tab.Panel'],
+    requires: [
+               'Ext.TitleBar', 
+               'LDBTest.view.DashboardCarousel', 
+               'Ext.ComponentQuery', 
+               'LDBTest.view.SearchTabPanel', 
+               'Ext.tab.Panel',
+               'LDBTest.view.DashboardSummary',
+               'LDBTest.view.ProductionAnalysisChart',
+               'LDBTest.view.DBStackedBarChart',
+               'LDBTest.view.PropertyInfo',
+               'LDBTest.view.PseudoOrgChart'
+               ],
     
     config: {
         tabBarPosition: 'bottom',
@@ -15,8 +26,18 @@ Ext.define("LDBTest.view.Main", {
                 
             },
             {
-			
-				xtype : 'dbcarousel'
+                xtype: 'dashboardsummary'
+            },
+            {
+                xtype: 'productionanalysischart'
+            },
+            {
+            	
+            	xtype: 'dbstackedbarchart'
+            },
+            {
+    			
+				xtype : 'porgchart'
 				/*
 				scrollable : {
 					direction : 'vertical',
@@ -24,68 +45,7 @@ Ext.define("LDBTest.view.Main", {
 				}*/
             },
             {
-                title: 'Summary',
-                iconCls: 'action',
-                
-                items: [
-                    {
-                        docked: 'top',
-                        xtype: 'titlebar',
-                        title: 'Summary'
-                    },
-                    {
-                        xtype: 'panel',
-                        html: 'To be displayed'
-                    }
-                ]
-            },
-            {
-                title: 'Production Plot',
-                iconCls: 'action',
-                
-                items: [
-                    {
-                        docked: 'top',
-                        xtype: 'titlebar',
-                        title: 'Production Plot'
-                    },
-                    {
-                        xtype: 'panel',
-                        html: 'To be displayed'
-                    }
-                ]
-            },
-            {
-                title: 'Property Info',
-                iconCls: 'action',
-                
-                items: [
-                    {
-                        docked: 'top',
-                        xtype: 'titlebar',
-                        title: 'Property Info'
-                    },
-                    {
-                        xtype: 'panel',
-                        html: 'To be displayed'
-                    }
-                ]
-            },
-            {
-                title: 'Profitability Analysis',
-                iconCls: 'action',
-                
-                items: [
-                    {
-                        docked: 'top',
-                        xtype: 'titlebar',
-                        title: 'Profitability Analysis'
-                    },
-                    {
-                        xtype: 'panel',
-                        html: 'To be displayed'
-                    }
-                ]
+                xtype: 'propertyinfo'
             },
             {
                 title: 'Expense Breakdown',

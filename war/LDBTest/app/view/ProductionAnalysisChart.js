@@ -1,7 +1,7 @@
 Ext.define("LDBTest.view.ProductionAnalysisChart", {
 	extend : 'Ext.chart.Chart',
 	xtype : 'productionanalysischart',
-	id: 'productionanalysischart',
+//	id: 'productionanalysischart',
 	requires: [
 	           'Ext.chart.Chart',
 	           'LDBTest.store.ProductionLineStore',
@@ -9,11 +9,13 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
 	           'Ext.chart.theme.Energy'
 	           ],
     config: {
-        title: 'Daily Net Production Analysis <span style ="color:red">(KNOTT-TUBB 42-K)</span>',
-//        iconCls: 'line',
+    	
+        title: 'Production Analysis',
+        iconCls: 'line',
         cls: 'chartpanel',
-        width: '800',
-        height: '400',
+        autoSize: true,
+//        width: '400',
+//        height: '200',
         shadow: true,
         animate: {
             easing: 'bounceOut',

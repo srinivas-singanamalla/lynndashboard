@@ -13,7 +13,9 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 		
 		cls: 'chartpanel',
 		
-		title : 'Net Production KPI <span style ="color:red">(KNOTT-TUBB 42-K)</span>',
+		iconCls: 'treemap',
+		
+		title : 'Production KPI',
 		
 		gradients: [{
             'id': 'v-1',
