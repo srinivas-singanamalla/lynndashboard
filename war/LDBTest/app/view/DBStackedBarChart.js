@@ -104,5 +104,9 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
                 }, me);
             }
         }
+    },
+    
+    initialize: function() {
+    	this.callParent();
     }
 });

@@ -3,9 +3,9 @@ Ext.define('LDBTest.view.DashboardSummary', {
     xtype: 'dashboardsummary',
     requires: [
                'LDBTest.view.ProductionAnalysisChart',
-               'LDBTest.view.PropertyInfo',
                'LDBTest.view.DBStackedBarChart',
-               'LDBTest.view.PseudoOrgChart'
+               'LDBTest.view.PseudoOrgChart',
+               'LDBTest.view.ShortPropertyInfo'
                ],
     config: {
     	title: 'Summary',
@@ -15,7 +15,7 @@ Ext.define('LDBTest.view.DashboardSummary', {
 //            pack : 'center',
 //            align: 'stretch'
         },
-        cls   : 'card1',
+//        cls   : 'card1',
         defaults: {
             xtype: 'container',
             flex : 1,
@@ -39,7 +39,7 @@ Ext.define('LDBTest.view.DashboardSummary', {
             {
             	items: [
                         {xtype: 'dbstackedbarchart'},
-            	        {xtype: 'propertyinfo'}
+            	        {xtype: 'shortpropertyinfo'}
                     ]
             }
         ]
