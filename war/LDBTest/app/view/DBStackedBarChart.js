@@ -14,11 +14,12 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
 //        width: '800',
 //        height: '400',
         shadow: true,
+        /*
         animate: {
             easing: 'bounceOut',
             duration: 750
         },
-        
+        */
         interactions: [{
         	type: 'togglestacked',
         	event: 'doubletap'

@@ -17,10 +17,10 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
 //        width: '400',
 //        height: '200',
         shadow: true,
-        animate: {
+        /*animate: {
             easing: 'bounceOut',
             duration: 750
-        },
+        },*/
         interactions: [{
             type: 'iteminfo',
             gesture: 'tap',
@@ -162,6 +162,9 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
                         return false;
                     }
                 }, me);
+                
+                console.log("afterrenderanalysischasrt");
+//                Ext.Viewport.unmask();
             }
         }
     }

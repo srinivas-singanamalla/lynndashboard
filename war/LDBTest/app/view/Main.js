@@ -10,7 +10,8 @@ Ext.define("LDBTest.view.Main", {
                'LDBTest.view.ProductionAnalysisChart',
                'LDBTest.view.DBStackedBarChart',
                'LDBTest.view.PropertyInfo',
-               'LDBTest.view.PseudoOrgChart'
+               'LDBTest.view.PseudoOrgChart',
+               'Ext.util.DelayedTask'
                ],
     
     config: {
@@ -63,6 +64,26 @@ Ext.define("LDBTest.view.Main", {
                     }
                 ]
             }
-        ]
+        ],
+        listeners: {
+        	activate: function (container, newActiveItem, oldActiveItem, opts) {
+        		console.log("activate");
+            },
+            
+        	activeitemchange: function(container, value, oldvalue, eopts) {
+        		console.log("activate item change");
+        		Ext.Viewport.setMasked({
+        		    xtype: 'loadmask',
+        		    message: 'Loading...'
+        		});
+        		
+        		var task = new Ext.util.DelayedTask(function(){
+        			Ext.Viewport.unmask();
+        		});
+        		//TODO random timeset, we need to figure out the exact rendering time... for a card
+        		task.delay(3000);
+        	}
+
+        }
     }
 });
