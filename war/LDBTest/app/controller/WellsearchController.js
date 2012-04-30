@@ -41,7 +41,7 @@ Ext.define('LDBTest.controller.WellsearchController', {
 	},
 	
 	onSelectWell: function(view, record) {
-		this.getSearchwellfield().setValue(record.get('ProductionPointWellName'));
+		this.getSearchwellfield().setValue(record.get('name'));
 		this.getWelllistpanel().hide();
 	},
 	
@@ -62,15 +62,15 @@ Ext.define('LDBTest.controller.WellsearchController', {
 		//get the store and the value of the field
         var value = field.getValue(),
             store = this.getStore();
-        console.log(value);
-        console.log(store);
-        
+//        console.log(value);
+//        console.log(store);
       //first clear any current filters on thes tore
-        store.clearFilter();
+        
+//        store.clearFilter();
         this.getWelllistpanel().hide();
         //check if a value is set first, as if it isnt we dont have to do anything
-        if (value) {
-        	
+        if (value && value.length > 3) {
+        	debugger;
         	this.getWelllistpanel().showBy(field, 'tc-bc?');
             //the user could have entered spaces, so we must split them so we can loop through them all
             var searches = value.split(' '),
@@ -94,7 +94,7 @@ Ext.define('LDBTest.controller.WellsearchController', {
                 //loop through each of the regular expressions
                 for (i = 0; i < regexps.length; i++) {
                     var search = regexps[i],
-                        didMatch = record.get('ProductionPointWellName').match(search) /*|| record.get('lastName').match(search)*/;
+                        didMatch = record.get('name').match(search) /*|| record.get('lastName').match(search)*/;
 
                     //if it matched the first or last name, push it into the matches array
                     matched.push(didMatch);

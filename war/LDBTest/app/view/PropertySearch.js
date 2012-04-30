@@ -9,7 +9,6 @@ Ext.define("LDBTest.view.PropertySearch", {
 	           'Ext.Panel',
 	           'Ext.Toolbar',
 	           'LDBTest.view.WellSearchField',
-	           'LDBTest.store.WellStore',
 	           'Ext.List'
 	           ],
 	config: {
@@ -30,25 +29,29 @@ Ext.define("LDBTest.view.PropertySearch", {
 	            label: 'Production Point Type:',
 	            name: 'productionPointType',
 	            prependText: 'Production Point Type:',
-	            options: [
-	                {text: 'All',            value: ''},
-	                {text: 'Agriculture',    value: 'agriculture'},
-	                {text: 'Transportation', value: 'transportation'},
-	                {text: 'Services',       value: 'services'},
-	                {text: 'Clothing',       value: 'clothing'},
-	                {text: 'Health',         value: 'health'},
-	                {text: 'Retail',         value: 'retail'},
-	                {text: 'Manufacturing',  value: 'manufacturing'},
-	                {text: 'Arts',           value: 'arts'},
-	                {text: 'Housing',        value: 'housing'},
-	                {text: 'Food',           value: 'food'},
-	                {text: 'Wholesale',      value: 'wholesale'},
-	                {text: 'Construction',   value: 'construction'},
-	                {text: 'Education',      value: 'education'},
-	                {text: 'Personal Use',   value: 'personal'},
-	                {text: 'Entertainment',  value: 'entertainment'},
-	                {text: 'Green',          value: 'green'}
-	            ]
+	            store: Ext.create('Ext.data.Store', {
+	            	
+	            	fields: [{
+	                	name: 'text',
+	                	mapping: 'DisplayName',
+	                    type: 'String'
+	                }, {
+	                    name: 'value',
+	                    mapping: 'Text',
+	                    type: 'String'
+	                }],
+	                
+	                proxy: {
+//	                    type: 'ajax',
+//	                    url : 'app/data/ProductionPoints.json',
+	                	type: 'jsonp',
+	                    url: 'http://50.57.145.54:8089/Json1/WcfServices/WellProfitabilitySvc.svc/ProductionPoints',
+	                    reader: {
+	                        type: 'json'
+	                    }
+	                },
+	                autoLoad: false
+	            })
 	        },
 	        {
 	        	xtype: 'searchfield',

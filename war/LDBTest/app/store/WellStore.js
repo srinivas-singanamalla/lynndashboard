@@ -3,12 +3,14 @@ Ext.define("LDBTest.store.WellStore", {
     alias: 'store.WellStore',
     config: {
         storeId: 'WellStore',
-        idProperty: 'ProductionPointWellName',
+//        idProperty: 'ProductionPointWellName',
         fields: [{
-            name: 'ProductionPointWellName',
+        	name: 'name',
+        	mapping: 'ProductionPointWellName',
             type: 'String'
         }, {
-            name: 'PropertyID',
+            name: 'value',
+            mapping: 'PropertyID',
             type: 'String'
         }],
         //sort the store using the lastname field
@@ -17,6 +19,13 @@ Ext.define("LDBTest.store.WellStore", {
         //group the store using the lastName field
         groupField: 'ProductionPointWellName',
         
+        filters: [
+                  {
+                      property: 'ProductionPointWellName',
+                      value   : /Ed/
+                  }
+              ],
+              
         proxy: {
             type: 'ajax',
             url : 'app/data/Wells.json',

@@ -19,7 +19,7 @@ Ext.define('LDBTest.view.WellListPanel', {
 				    pinHeaders: false,
 				
 				    //itemTpl defines the template for each item in the list
-				    itemTpl: '<div class="contact">{ProductionPointWellName} <strong>{PropertyID}</strong></div>',
+				    itemTpl: '<div class="contact">{name} <strong>{value}</strong></div>',
 				
 				    //give it a link to the store instance
 				    store: Ext.create('LDBTest.store.PropertySearchWellStore'),
