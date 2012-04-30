@@ -5,7 +5,7 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
-    views: ['Main'],
+    views: ['DashboardCarousel'],
 
     controllers: ['WellsearchController'],
     
@@ -24,12 +24,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('LDBTest.view.Main', {}));
-        var overlay = Ext.Viewport.add(Ext.create('LDBTest.view.WellSearchField', {itemId: 'wellsearchlistItemId',
-        	id: 'wellsearchlistId',
-        	width: 380,
-        	height: 420,
-        	hidden: true}));
+        Ext.Viewport.add(Ext.create('LDBTest.view.DashboardCarousel', {}));
         
         /*
         Ext.Viewport.on({

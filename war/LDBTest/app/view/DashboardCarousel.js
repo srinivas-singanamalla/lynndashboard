@@ -2,13 +2,15 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     extend: 'Ext.carousel.Carousel',
     xtype: 'dbcarousel',
     requires: [
-               'LDBTest.view.PseudoOrgChart', 
-//               'LDBTest.view.DBAreaChart', 
-//               'LDBTest.view.DBLineChart', 
-//               'LDBTest.view.DBBarChart', 
-//               'LDBTest.view.EnergyLineChart', 
-//               'LDBTest.view.DBStackedBarChart2', 
-               'LDBTest.view.WellSearchField'
+               'Ext.TitleBar', 
+               'LDBTest.view.SearchTabPanel', 
+               'LDBTest.view.DashboardSummary',
+               'LDBTest.view.ProductionAnalysisChart',
+               'LDBTest.view.DBStackedBarChart',
+               'LDBTest.view.PropertyInfo',
+               'LDBTest.view.PseudoOrgChart',
+               'Ext.util.DelayedTask',
+               'Ext.SegmentedButton'
                ],
     
     config: {
@@ -29,15 +31,50 @@ Ext.define("LDBTest.view.DashboardCarousel", {
                 itemId: 'toolbarId',
                 // Insert some buttons and space them out
                 items: [
-                    { flex:1, xtype: 'component' },
-                    { text:'Choose Well', handler: function(button) {
-                    	console.log("button" + button.getText());
-                    	Ext.getCmp('wellsearchlistId').showBy(button)
-                    } }
+                  {
+                    xtype: 'segmentedbutton',
+                    items: 
+                    	[
+		                    { text:'Search', pressed: true, handler: function(button) {
+		                    	console.log("button" + button.getText());
+		                    } },
+		                    { text:'Summary', handler: function(button) {
+		                    	console.log("button" + button.getText());
+		                    } },
+		                    { text:'Production Analysis', handler: function(button) {
+		                    	console.log("button" + button.getText());
+		                    } },
+		                    { text:'Profitability Analysis', handler: function(button) {
+		                    	console.log("button" + button.getText());
+		                    } },
+		                    { text:'KPI', handler: function(button) {
+		                    	console.log("button" + button.getText());
+		                    } },
+		                    { text:'PropertyInfo', handler: function(button) {
+		                    	console.log("button" + button.getText());
+		                    } }
+		               ]
+                  }
                 ]
             },
             {
-                xtype: 'porgchart'
+                xtype: 'searchTabPanel'
+            },
+            {
+                xtype: 'dashboardsummary'
+            },
+            {
+                xtype: 'productionanalysischart'
+            },
+            {
+            	xtype: 'dbstackedbarchart'
+            },
+            {
+    			
+				xtype : 'porgchart'
+            },
+            {
+                xtype: 'propertyinfo'
             }
         ],
         
@@ -56,7 +93,6 @@ Ext.define("LDBTest.view.DashboardCarousel", {
         	activeitemchange: function(container, value, oldvalue, eopts) {
         		Ext.getCmp('titleBarId').setTitle(value.getTitle() || "");
         	}
-
         }
     },
     

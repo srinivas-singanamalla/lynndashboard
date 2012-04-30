@@ -2,10 +2,7 @@ Ext.define("LDBTest.view.Main", {
     extend: 'Ext.tab.Panel',
     requires: [
                'Ext.TitleBar', 
-               'LDBTest.view.DashboardCarousel', 
-               'Ext.ComponentQuery', 
                'LDBTest.view.SearchTabPanel', 
-               'Ext.tab.Panel',
                'LDBTest.view.DashboardSummary',
                'LDBTest.view.ProductionAnalysisChart',
                'LDBTest.view.DBStackedBarChart',

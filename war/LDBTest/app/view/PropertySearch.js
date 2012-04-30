@@ -45,12 +45,12 @@ Ext.define("LDBTest.view.PropertySearch", {
 //	                    type: 'ajax',
 //	                    url : 'app/data/ProductionPoints.json',
 	                	type: 'jsonp',
-	                    url: 'http://50.57.145.54:8089/Json1/WcfServices/WellProfitabilitySvc.svc/ProductionPoints',
+	                    url: 'http://50.57.145.54:8089/Json2/WcfServices/WellProfitabilitySvc.svc/ProductionPoints?callback=Ext.data.JsonP.productionPointsCallback',
 	                    reader: {
 	                        type: 'json'
 	                    }
 	                },
-	                autoLoad: false
+	                autoLoad: true
 	            })
 	        },
 	        {
