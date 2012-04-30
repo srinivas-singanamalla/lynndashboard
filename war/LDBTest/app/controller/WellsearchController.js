@@ -70,7 +70,6 @@ Ext.define('LDBTest.controller.WellsearchController', {
         this.getWelllistpanel().hide();
         //check if a value is set first, as if it isnt we dont have to do anything
         if (value && value.length > 3) {
-        	debugger;
         	this.getWelllistpanel().showBy(field, 'tc-bc?');
             //the user could have entered spaces, so we must split them so we can loop through them all
             var searches = value.split(' '),
