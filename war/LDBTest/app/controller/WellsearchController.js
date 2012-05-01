@@ -112,8 +112,8 @@ Ext.define('LDBTest.controller.WellsearchController', {
 	},
 	
 	onClearicontap: function() {
-		var store = this.getStore();
-        store.clearFilter();
+		//var store = this.getStore();
+        //store.clearFilter();
         this.getWelllistpanel().hide();
 	}
 	

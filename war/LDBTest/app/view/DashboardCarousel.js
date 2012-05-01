@@ -35,22 +35,28 @@ Ext.define("LDBTest.view.DashboardCarousel", {
                     xtype: 'segmentedbutton',
                     items: 
                     	[
-		                    { text:'Search', pressed: true, handler: function(button) {
+		                    { text:'Search', iconCls: 'search', iconMask:true, pressed: true, handler: function(button) {
+		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(0);
 		                    	console.log("button" + button.getText());
 		                    } },
-		                    { text:'Summary', handler: function(button) {
+		                    { text:'Summary', iconCls: 'action', iconMask:true, handler: function(button) {
+		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(1);
 		                    	console.log("button" + button.getText());
 		                    } },
-		                    { text:'Production Analysis', handler: function(button) {
+		                    { text:'Production Analysis', iconCls: 'line', iconMask:true, handler: function(button) {
+		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(2);
 		                    	console.log("button" + button.getText());
 		                    } },
-		                    { text:'Profitability Analysis', handler: function(button) {
+		                    { text:'Profitability Analysis', iconCls: 'column', iconMask:true, handler: function(button) {
+		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(3);
 		                    	console.log("button" + button.getText());
 		                    } },
-		                    { text:'KPI', handler: function(button) {
+		                    { text:'KPI', iconCls: 'treemap', iconMask:true, handler: function(button) {
+		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(4);
 		                    	console.log("button" + button.getText());
 		                    } },
-		                    { text:'PropertyInfo', handler: function(button) {
+		                    { text:'PropertyInfo', iconCls: 'action', iconMask:true, handler: function(button) {
+		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(5);
 		                    	console.log("button" + button.getText());
 		                    } }
 		               ]
