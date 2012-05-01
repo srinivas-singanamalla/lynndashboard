@@ -6,6 +6,8 @@ Ext.application({
     ],
 
     views: ['DashboardCarousel'],
+    
+    models: ['JsonServicesConstants'],
 
     controllers: ['WellsearchController'],
     

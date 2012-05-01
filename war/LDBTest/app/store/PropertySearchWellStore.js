@@ -1,5 +1,8 @@
 Ext.define("LDBTest.store.PropertySearchWellStore", { 
     extend: "Ext.data.JsonStore",
+    requires: [
+               'LDBTest.model.JsonServicesConstants'
+               ],
     config: {
         storeId: 'PropertySearchWellStore',
 //        idProperty: 'ProductionPointWellName',
@@ -29,7 +32,7 @@ Ext.define("LDBTest.store.PropertySearchWellStore", {
 //            type: 'ajax',
 //            url : 'app/data/WellCompletion.json',
         	type: 'jsonp',
-            url: 'http://50.57.145.54:8089/Json2/WcfServices/WellProfitabilitySvc.svc/ProdPointWells/WellCompletion?callback=Ext.data.JsonP.someCallback',
+            url: LDBTest.model.JsonServicesConstants.getWellCompletionUrl('WellCompletion'),
             reader: {
                 type: 'json'
             }

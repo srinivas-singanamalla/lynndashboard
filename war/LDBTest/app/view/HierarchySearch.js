@@ -4,7 +4,8 @@ Ext.define("LDBTest.view.HierarchySearch", {
 	
 	requires: [
 	           'Ext.field.Select',
-	           'Ext.form.FieldSet'
+	           'Ext.form.FieldSet',
+	           'LDBTest.model.JsonServicesConstants'
 	           ],
 	           
 	config: {
@@ -20,58 +21,59 @@ Ext.define("LDBTest.view.HierarchySearch", {
 		    items: (Ext.os.deviceType === 'Phone') ? [
 		        { xtype: 'searchfield', flex: 1 }
 		    ] : [
+				{
+				    xtype: 'selectfield',
+				    name: 'prodPoint',
+				    id: 'prodPoint',
+				    placeHolder: 'Select Production Point..',
+				    displayField: 'DisplayName',
+		            valueField: 'Name',
+				    options: [
+				                {DisplayName: 'Well Completion',      Name: 'WellCompletion'},
+				                {DisplayName: 'Unit Lease',           Name: 'SupplyPoint'}
+				            ]
+				}, 
 		        {
 		            xtype: 'selectfield',
-		            name: 'gender',
-		            id: 'gender',
-		            placeHolder: 'Select Gender..',
-		            displayField: 'text',
-		            valueField: 'value'/*,
-		            //do this, when u have placeHolder and that should work
-		            
+		            name: 'orgType',
+		            id: 'orgType',
+		            placeHolder: 'Select Organization Type..',
+		            displayField: 'DisplayName',
+		            valueField: 'Name',
 		            options: [
-		                {text: 'Both', value: 'both'},
-		                {text: 'Male', value: 'male'},
-		                {text: 'Female', value: 'female'}
-		            ]*/
+		                      {DisplayName:"Division",Name:"Division"},
+		                      {DisplayName:"Business Unit",Name:"BusinessUnit"},
+		                      {DisplayName:"District",Name:"District"},
+		                      {DisplayName:"Area",Name:"Area"},
+		                      {DisplayName:"SubArea",Name:"SubArea"}
+		                      ]
 		        },
 		        {
 		            xtype: 'selectfield',
-		            name: 'sector',
-		            prependText: 'Sector:',
-		            options: [
-		                {text: 'All',            value: ''},
-		                {text: 'Agriculture',    value: 'agriculture'},
-		                {text: 'Transportation', value: 'transportation'},
-		                {text: 'Services',       value: 'services'},
-		                {text: 'Clothing',       value: 'clothing'},
-		                {text: 'Health',         value: 'health'},
-		                {text: 'Retail',         value: 'retail'},
-		                {text: 'Manufacturing',  value: 'manufacturing'},
-		                {text: 'Arts',           value: 'arts'},
-		                {text: 'Housing',        value: 'housing'},
-		                {text: 'Food',           value: 'food'},
-		                {text: 'Wholesale',      value: 'wholesale'},
-		                {text: 'Construction',   value: 'construction'},
-		                {text: 'Education',      value: 'education'},
-		                {text: 'Personal Use',   value: 'personal'},
-		                {text: 'Entertainment',  value: 'entertainment'},
-		                {text: 'Green',          value: 'green'}
-		            ]
-		        },
-		        // { xtype: 'spacer' },
-		        {
-		            xtype: 'selectfield',
-		            name: 'sort_by',
-		            prependText: 'Sort by:',
-		            options: [
-		                {text: 'Newest',           value: 'newest'},
-		                {text: 'Oldest',           value: 'oldest'},
-		                {text: 'Expiring',         value: 'expiration'},
-		                {text: 'Amount Remaining', value: 'amount_remaining'},
-		                {text: 'Popularity',       value: 'popularity'},
-		                {text: 'Loan Amount',      value: 'loan_amount'}
-		            ]
+		            name: 'orgName',
+		            id: 'orgName',
+		            placeHolder: 'Select Organization Name..',
+		            displayField: 'PropName',
+		            valueField: 'PropName',
+		            store: Ext.create('Ext.data.Store', {
+		            	
+		            	fields: [{
+		                	name: 'PropName',
+		                    type: 'String'
+		                }, {
+		                    name: 'PropName',
+		                    type: 'String'
+		                }],
+		                
+		                proxy: {
+		                	type: 'jsonp',
+		                	url: LDBTest.model.JsonServicesConstants.getOrgNamesUrl('BusinessUnit', 'WellCompletion'),
+		                    reader: {
+		                        type: 'json'
+		                    }
+		                },
+		                autoLoad: true
+		            })
 		        },
 		
 		        {xtype: 'spacer'},
@@ -84,14 +86,5 @@ Ext.define("LDBTest.view.HierarchySearch", {
 		    ]
 		}
         ]
-	},
-	/*
-	init: function() {
-		this.callParent();
-		Ext.getCmp('gender').setOptions(
-				[   {text: 'First Option',  value: 'first'},
-				    {text: 'Second Option', value: 'second'},
-				    {text: 'Third Option',  value: 'third'}
-				]);
-	}*/
+	}
 });

@@ -9,7 +9,8 @@ Ext.define("LDBTest.view.PropertySearch", {
 	           'Ext.Panel',
 	           'Ext.Toolbar',
 	           'LDBTest.view.WellSearchField',
-	           'Ext.List'
+	           'Ext.List',
+	           'LDBTest.model.JsonServicesConstants'
 	           ],
 	config: {
 //		autoSize: true,
@@ -24,35 +25,20 @@ Ext.define("LDBTest.view.PropertySearch", {
 			xtype: 'fieldset',
 			title: 'Property Search',
 			instructions: 'Please enter the information above.',
-			items: [{
-	            xtype: 'selectfield',
-	            label: 'Production Point Type:',
-	            name: 'productionPointType',
-	            prependText: 'Production Point Type:',
-	            store: Ext.create('Ext.data.Store', {
-	            	
-	            	fields: [{
-	                	name: 'text',
-	                	mapping: 'DisplayName',
-	                    type: 'String'
-	                }, {
-	                    name: 'value',
-	                    mapping: 'Text',
-	                    type: 'String'
-	                }],
-	                
-	                proxy: {
-//	                    type: 'ajax',
-//	                    url : 'app/data/ProductionPoints.json',
-	                	type: 'jsonp',
-	                    url: 'http://50.57.145.54:8089/Json2/WcfServices/WellProfitabilitySvc.svc/ProductionPoints?callback=Ext.data.JsonP.productionPointsCallback',
-	                    reader: {
-	                        type: 'json'
-	                    }
-	                },
-	                autoLoad: true
-	            })
-	        },
+			items: [
+		    {
+			    xtype: 'selectfield',
+			    name: 'prodPoint',
+			    id: 'prodPoint',
+			    label: 'Production Point',
+			    placeHolder: 'Select Production Point..',
+			    displayField: 'DisplayName',
+			    valueField: 'Name',
+			    options: [
+			                {DisplayName: 'Well Completion',      Name: 'WellCompletion'},
+			                {DisplayName: 'Unit Lease',           Name: 'SupplyPoint'}
+			            ]
+			},
 	        {
 	        	xtype: 'searchfield',
 	        	label: 'Well Completion Name',
