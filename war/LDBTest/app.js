@@ -8,8 +8,11 @@ Ext.application({
     views: ['DashboardCarousel'],
     
     models: ['JsonServicesConstants'],
-
-    controllers: ['WellsearchController'],
+    
+    controllers: [
+                  'WellsearchController',
+                  'HierarchySearchController'
+                  ],
     
     icon: {
         57: 'resources/icons/Icon.png',

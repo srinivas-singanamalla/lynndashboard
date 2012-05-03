@@ -15,8 +15,6 @@ Ext.define("LDBTest.store.PropertySearchWellStore", {
             mapping: 'PropertyID',
             type: 'String'
         }],
-        //sort the store using the lastname field
-        //sorters: 'ProductionPointWellName',
 
         //group the store using the lastName field
         groupField: 'random',

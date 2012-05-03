@@ -5,11 +5,14 @@ Ext.define("LDBTest.view.HierarchySearch", {
 	requires: [
 	           'Ext.field.Select',
 	           'Ext.form.FieldSet',
-	           'LDBTest.model.JsonServicesConstants'
+	           'LDBTest.model.JsonServicesConstants',
+	           'LDBTest.view.HierarchySearchList'
 	           ],
 	           
 	config: {
 		autoSize: true,
+		
+		layout: 'fit',
 		
 		title : 'Hierarchy Search',
 		
@@ -18,13 +21,11 @@ Ext.define("LDBTest.view.HierarchySearch", {
 		{
 		    xtype: 'toolbar',
 		    docked: 'top',
-		    items: (Ext.os.deviceType === 'Phone') ? [
-		        { xtype: 'searchfield', flex: 1 }
-		    ] : [
+		    items: [
 				{
 				    xtype: 'selectfield',
 				    name: 'prodPoint',
-				    id: 'prodPoint',
+				    id: 'hprodPoint',
 				    placeHolder: 'Select Production Point..',
 				    displayField: 'DisplayName',
 		            valueField: 'Name',
@@ -36,13 +37,14 @@ Ext.define("LDBTest.view.HierarchySearch", {
 		        {
 		            xtype: 'selectfield',
 		            name: 'orgType',
-		            id: 'orgType',
+		            id: 'horgType',
 		            placeHolder: 'Select Organization Type..',
 		            displayField: 'DisplayName',
 		            valueField: 'Name',
 		            options: [
-		                      {DisplayName:"Division",Name:"Division"},
+		                      {DisplayName:"",Name:""},
 		                      {DisplayName:"Business Unit",Name:"BusinessUnit"},
+		                      {DisplayName:"Division",Name:"Division"},
 		                      {DisplayName:"District",Name:"District"},
 		                      {DisplayName:"Area",Name:"Area"},
 		                      {DisplayName:"SubArea",Name:"SubArea"}
@@ -51,17 +53,17 @@ Ext.define("LDBTest.view.HierarchySearch", {
 		        {
 		            xtype: 'selectfield',
 		            name: 'orgName',
-		            id: 'orgName',
+		            id: 'horgName',
 		            placeHolder: 'Select Organization Name..',
 		            displayField: 'PropName',
-		            valueField: 'PropName',
+		            valueField: 'PropID',
 		            store: Ext.create('Ext.data.Store', {
 		            	
 		            	fields: [{
 		                	name: 'PropName',
 		                    type: 'String'
 		                }, {
-		                    name: 'PropName',
+		                    name: 'PropID',
 		                    type: 'String'
 		                }],
 		                
@@ -72,18 +74,24 @@ Ext.define("LDBTest.view.HierarchySearch", {
 		                        type: 'json'
 		                    }
 		                },
-		                autoLoad: true
+		                autoLoad: false
 		            })
 		        },
 		
+		       /* {xtype: 'spacer'},
+		        {xtype: 'button', text:'Submit' handler: function(){
+		        	
+		        }},*/
 		        {xtype: 'spacer'},
-		
 		        { 
 		        	xtype: 'searchfield',
 	                placeHolder: 'Search Well...',
 	                name: 'searchwell'
 		        }
 		    ]
+		},
+		{
+			xtype: 'hierarchysearchlist'
 		}
         ]
 	}

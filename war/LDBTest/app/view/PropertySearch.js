@@ -35,7 +35,7 @@ Ext.define("LDBTest.view.PropertySearch", {
 			    displayField: 'DisplayName',
 			    valueField: 'Name',
 			    options: [
-			                {DisplayName: 'Well Completion',      Name: 'WellCompletion'},
+			                {DisplayName: 'Well Completion',      Name: 'Completion'},
 			                {DisplayName: 'Unit Lease',           Name: 'SupplyPoint'}
 			            ]
 			},

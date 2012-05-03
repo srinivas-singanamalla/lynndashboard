@@ -19,6 +19,10 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         
         getWellCompletionUrl: function(productionPoint) {
         	return this.baseUrl() + 'ProdPointWells/' + productionPoint + '?callback=Ext.data.JsonP.someCallback';
+        },
+        
+        getHierarchyWellListBaseUrl: function(){
+        	return 'ProfitabilityWell';
         }
         
         

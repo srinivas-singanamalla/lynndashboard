@@ -28,18 +28,21 @@ Ext.define("LDBTest.view.DashboardCarousel", {
 			{
                 xtype: 'toolbar',
                 docked: 'bottom',
-                itemId: 'toolbarId',
                 // Insert some buttons and space them out
                 items: [
                   {
                     xtype: 'segmentedbutton',
+                    itemId: 'switchViewsSegment',
+                    defaults: {
+                    	pressedCls: 'x-button-pressed'
+                    },
                     items: 
                     	[
 		                    { text:'Search', iconCls: 'search', iconMask:true, pressed: true, handler: function(button) {
 		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(0);
 		                    	console.log("button" + button.getText());
 		                    } },
-		                    { text:'Summary', iconCls: 'action', iconMask:true, handler: function(button) {
+		                    { text:'Summary', iconCls: 'layout', iconMask:true, handler: function(button) {
 		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(1);
 		                    	console.log("button" + button.getText());
 		                    } },
@@ -55,7 +58,7 @@ Ext.define("LDBTest.view.DashboardCarousel", {
 		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(4);
 		                    	console.log("button" + button.getText());
 		                    } },
-		                    { text:'PropertyInfo', iconCls: 'action', iconMask:true, handler: function(button) {
+		                    { text:'PropertyInfo', iconCls: 'info_plain', iconMask:true, handler: function(button) {
 		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(5);
 		                    	console.log("button" + button.getText());
 		                    } }
@@ -76,7 +79,6 @@ Ext.define("LDBTest.view.DashboardCarousel", {
             	xtype: 'dbstackedbarchart'
             },
             {
-    			
 				xtype : 'porgchart'
             },
             {
@@ -97,6 +99,21 @@ Ext.define("LDBTest.view.DashboardCarousel", {
             },
             
         	activeitemchange: function(container, value, oldvalue, eopts) {
+        		var carousel = Ext.ComponentQuery.query('dbcarousel')[0],
+        		segmented = carousel.down('segmentedbutton'),
+        		activeIndex = carousel.getActiveIndex(),
+        		itemcoll = segmented.getItems(),
+        		item = itemcoll.get(activeIndex);
+        		
+        		itemcoll.each(function(thisitem, index, length){
+        			console.log(thisitem.getPressedCls());
+        			console.log(thisitem.getId());
+        			thisitem.element.removeCls(thisitem.getPressedCls());
+        		});
+        		
+        		if (item.isXType('button')) {
+        			item.element.addCls(item.getPressedCls());
+        		}
         		Ext.getCmp('titleBarId').setTitle(value.getTitle() || "");
         	}
         }
