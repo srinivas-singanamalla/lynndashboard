@@ -10,7 +10,24 @@ Ext.define('LDBTest.view.HierarchySearchList', {
     
     	store: Ext.create('LDBTest.store.HierarchyListStore'),
     
-    	itemTpl: '<h2>{BusinessUnit}</h2><p>{District}</p>',
+    	itemTpl: '<div>' +
+    				'<table border="0px">' +
+	    				'<tr>' +
+	    					'<td width="500px" class="header">{WellCompletionName} ( {WellCompletionCode} )</td>' +
+	    					'<td width="500px" class="header" style="text-align: right;">Status:{Status} Status Date: {StatusDate}</td>' +
+	    				'</tr>' + 
+	    				'<tr>' +
+	    					'<td class="normal">{NetCashFlow}</td>'+
+    						'<td class="normal" style="text-align: right;">{GrossCashFlow}</td>' +
+    					'</tr>' +
+    				'</table>' +
+    			'</div>',
+    			/*	
+    				'<span width="300px">{WellCompletionName} ( {WellCompletionCode} )</span>'
+    				'<h2><div class="leftsec">{WellCompletionName} ( {WellCompletionCode} )</div> <div class="rtsec">{TotalCount} </div></h2>' + 
+    			 	'<div class="leftsec">Cash Flow:{GrossCashFlow}</div> <div class="rtsec">Status:{Status} Status Date: {StatusDate}</div>' + 
+    			 '</div>',
+    			 */
     	baseCls: 'my-dataview'
     },
     /**
@@ -18,6 +35,64 @@ Ext.define('LDBTest.view.HierarchySearchList', {
      * @private
      */
     /*
+     * 
+     * 
+     * fields: [{
+        	name: 'Area',
+            type: 'String'
+        }, 
+        {
+            name: 'BusinessUnit',
+            type: 'String'
+        },
+        {
+        	name: 'District',
+            type: 'String'
+        },		
+        {
+        	name: 'Division',
+            type: 'String'
+        },
+        {
+        	name: 'GrossCashFlow',
+            type: 'double'
+        },
+        {
+        	name: 'NetCashFlow',
+            type: 'double'
+        },
+        {
+        	name: 'Region',
+            type: 'String'
+        },
+        {
+        	name: 'Status',
+            type: 'String'
+        },
+        {
+        	name: 'StatusDate',
+            type: 'String'
+        },
+        {
+        	name: 'SubArea',
+            type: 'String'
+        },
+        {
+        	name: 'SupplyPointID',
+            type: 'String'
+        },
+        {
+        	name: 'TotalCount',
+            type: 'String'
+        },
+        {
+        	name: 'WellCompletionCode',
+            type: 'String'
+        },
+        {
+        	name: 'WellCompletionName',
+            type: 'String'
+        }
     refreshed: false,
 
     onLoad: function() {

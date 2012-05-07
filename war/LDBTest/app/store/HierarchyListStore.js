@@ -78,7 +78,7 @@ Ext.define('LDBTest.store.HierarchyListStore', {
     loadpostRequest: function(thejsondata, ui) {
     	ui.setMasked({xtype: 'loadmask'})
     	Ext.Ajax.request({
-    	    url: '../linnproxy',
+    	    url: LDBTest.model.JsonServicesConstants.getJsonPProxyPath(),
     	    jsonData: Ext.JSON.encode(thejsondata),
     	    method: 'POST',
     	    scope: this,

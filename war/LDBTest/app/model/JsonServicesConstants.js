@@ -23,6 +23,10 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         
         getHierarchyWellListBaseUrl: function(){
         	return 'ProfitabilityWell';
+        },
+        
+        getJsonPProxyPath: function() {
+        	return 'linnproxy.jsonp';
         }
         
         

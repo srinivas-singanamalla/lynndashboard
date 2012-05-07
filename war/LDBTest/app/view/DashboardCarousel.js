@@ -10,7 +10,8 @@ Ext.define("LDBTest.view.DashboardCarousel", {
                'LDBTest.view.PropertyInfo',
                'LDBTest.view.PseudoOrgChart',
                'Ext.util.DelayedTask',
-               'Ext.SegmentedButton'
+               'Ext.SegmentedButton',
+               'Ext.field.Slider'
                ],
     
     config: {
@@ -23,7 +24,92 @@ Ext.define("LDBTest.view.DashboardCarousel", {
 				docked : 'top',
 				xtype : 'titlebar',
 				id: 'titleBarId',
-				title : 'Net Production KPI <span style ="color:red">(KNOTT-TUBB 42-K)</span>'
+				title : 'Search for Wells ',
+				items:  {
+		        	xtype: 'button',
+	                text: 'Change Time Interval',
+	                hidden: true,
+	                align : 'right',
+	                ui    : 'action',
+//	                action: 'viewSource',
+	                handler: function() {
+	                    if (!this.actions) {
+	                        this.actions = Ext.Viewport.add({
+	                            xtype: 'actionsheet',
+	                            items: [
+	                                    
+								{
+								    xtype: 'toolbar',
+								    docked: 'top',
+								    // Insert some buttons and space them out
+								    items: [ 
+											{
+												xtype: 'button',
+											    text: 'Cancel',
+											    scope: this,
+											    handler: function() {
+											        this.actions.hide();
+											    }
+											},
+											{
+												xtype: 'spacer'
+											},
+											{
+												xtype: 'button',
+											    text: 'Reset',
+											    scope: this,
+											    handler: function() {
+											        this.actions.hide();
+											    }
+											},
+											{
+												xtype: 'spacer'
+											},
+											{
+												xtype: 'button',
+											    text: 'Done',
+											    ui: 'decline',
+											    scope: this,
+											    handler: function() {
+											        this.actions.hide();
+											    }
+											}
+											
+								            ]
+								            
+								},
+								{
+			                        xtype: 'sliderfield',
+			                        name: 'multiple_slider',
+			                        values: [40, 90]
+			                    },
+			                    {
+                                    xtype: 'container',
+                                    layout: 'hbox',
+                                    padding: '20 0 20 0',
+                                    items: [
+                                            {
+                                                html: '<b>Start Time:</b>',
+                                                style: 'color: white;',
+//                                                flex: 1
+                                            },
+                                            {
+                                            	xtype: 'spacer'
+                                            },
+                                            {
+                                                html: '<b>End Time:</b>',
+                                                style: 'color: white;'
+//                                                flex: 1
+                                            }
+                                        ]
+                                }
+	                            ]
+	                        });
+	                    }
+
+	                    this.actions.show();
+	                }
+	            }
 			}, 
 			{
                 xtype: 'toolbar',
