@@ -9,13 +9,13 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 	           ],
 	config: {
 		refs: {
-			selectProd: 'selectfield[name=prodPoint]',
+			selectProd: '#hprodPoint',
 			
 			selectOrgType: 'selectfield[name=orgType]',
 			
 			selectOrgName: 'selectfield[name=orgName]',
 			
-			searchwell: 'searchfield',
+			searchwell: '#searchhierarchy',
 			
 			hierarchylist: 'hierarchysearchlist'
 		}
@@ -23,7 +23,7 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 	
 	init: function(){
 		this.control({
-			'selectfield[name=prodPoint]': {
+			'#hprodPoint': {
 				change: this.onProductionPointChange
 			},
 			
@@ -35,7 +35,7 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 				change: this.onOrgNameChange
 			},
 			
-			'searchfield': {
+			'#searchhierarchy': {
 				keyup: this.onSearchKeyup,
 				
 				clearicontap: this.onClearicontap
@@ -45,8 +45,6 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 	
 	onProductionPointChange: function(field, newValue, oldValue, eOpts) {
 		console.log("onProductionPointChange");
-		this.getSelectOrgType().setValue('');
-//		this.getSelectOrgName().setValue('');
 	},
 	
 	onOrgTypeChange: function(field, newValue, oldValue, eOpts) {

@@ -5,32 +5,31 @@ Ext.define("LDBTest.view.PropertySearch", {
 	requires: [
 	           'Ext.field.Select',
 	           'Ext.field.Search',
-	           'Ext.form.FieldSet',
-	           'Ext.Panel',
 	           'Ext.Toolbar',
-	           'LDBTest.view.WellSearchField',
-	           'Ext.List',
-	           'LDBTest.model.JsonServicesConstants'
+	           'LDBTest.view.PropertyWellList'
 	           ],
+	           
 	config: {
-//		autoSize: true,
+		autoSize: true,
 		
-//		height: 400,
-//		width: 600,
+		layout: 'fit',
+		
 		title : 'Property Search',
 		
-//		layout: 'fit',
-		
-		items: [{
-			xtype: 'fieldset',
-			title: 'Property Search',
-			instructions: 'Please enter the information above.',
-			items: [
-		    {
+        items: [
+        
+		{
+		    xtype: 'toolbar',
+		    docked: 'top',
+		    height: 70,
+		    items: [
+				{
 			    xtype: 'selectfield',
 			    name: 'prodPoint',
-			    id: 'prodPoint',
-			    label: 'Production Point',
+			    id: 'pprodPoint',
+			    labelAlign: 'top',
+			    label: 'Production Point:',
+			    labelCls: 'selectfield-label',
 			    placeHolder: 'Select Production Point..',
 			    displayField: 'DisplayName',
 			    valueField: 'Name',
@@ -39,20 +38,21 @@ Ext.define("LDBTest.view.PropertySearch", {
 			                {DisplayName: 'Unit Lease',           Name: 'SupplyPoint'}
 			            ]
 			},
+			{
+				xtype: 'spacer'
+			},
 	        {
 	        	xtype: 'searchfield',
-	        	label: 'Well Completion Name',
-                placeHolder: 'Search Well...',
+	        	width: 300,
+	        	id: 'searchproperty',
+                placeHolder: 'Type to see the results...',
                 name: 'searchwell'
 	        }
-	        ]
+		    ]
 		},
 		{
-			xtype: 'button',
-			margin: 10,
-			ui: 'decline-round',
-			text: 'Submit'
+			xtype: 'propertywelllist'
 		}
-		]
+        ]
 	}
 });

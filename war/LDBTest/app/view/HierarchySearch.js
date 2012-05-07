@@ -6,7 +6,8 @@ Ext.define("LDBTest.view.HierarchySearch", {
 	           'Ext.field.Select',
 	           'Ext.form.FieldSet',
 	           'LDBTest.model.JsonServicesConstants',
-	           'LDBTest.view.HierarchySearchList'
+	           'LDBTest.view.HierarchySearchList',
+	           'Ext.field.Toggle'
 	           ],
 	           
 	config: {
@@ -20,12 +21,16 @@ Ext.define("LDBTest.view.HierarchySearch", {
         
 		{
 		    xtype: 'toolbar',
+		    height: 70,
 		    docked: 'top',
 		    items: [
 				{
 				    xtype: 'selectfield',
 				    name: 'prodPoint',
 				    id: 'hprodPoint',
+				    labelAlign: 'top',
+				    label: 'Production Point:',
+				    labelCls: 'selectfield-label',
 				    placeHolder: 'Select Production Point..',
 				    displayField: 'DisplayName',
 		            valueField: 'Name',
@@ -38,11 +43,13 @@ Ext.define("LDBTest.view.HierarchySearch", {
 		            xtype: 'selectfield',
 		            name: 'orgType',
 		            id: 'horgType',
+		            labelAlign: 'top',
+				    label: 'Org Type:',
+				    labelCls: 'selectfield-label',
 		            placeHolder: 'Select Organization Type..',
 		            displayField: 'DisplayName',
 		            valueField: 'Name',
 		            options: [
-		                      {DisplayName:"",Name:""},
 		                      {DisplayName:"Business Unit",Name:"BusinessUnit"},
 		                      {DisplayName:"Division",Name:"Division"},
 		                      {DisplayName:"District",Name:"District"},
@@ -54,7 +61,10 @@ Ext.define("LDBTest.view.HierarchySearch", {
 		            xtype: 'selectfield',
 		            name: 'orgName',
 		            id: 'horgName',
-		            placeHolder: 'Select Organization Name..',
+		            labelAlign: 'top',
+				    label: 'Org Name:',
+				    labelCls: 'selectfield-label',
+//		            placeHolder: 'Select Organization Name..',
 		            displayField: 'PropName',
 		            valueField: 'PropID',
 		            store: Ext.create('Ext.data.Store', {
@@ -74,20 +84,23 @@ Ext.define("LDBTest.view.HierarchySearch", {
 		                        type: 'json'
 		                    }
 		                },
-		                autoLoad: false
+		                autoLoad: true
 		            })
 		        },
-		
-		       /* {xtype: 'spacer'},
-		        {xtype: 'button', text:'Submit' handler: function(){
-		        	
-		        }},*/
-		        {xtype: 'spacer'},
-		        { 
-		        	xtype: 'searchfield',
-	                placeHolder: 'Search Well...',
-	                name: 'searchwell'
-		        }
+		        {
+				    xtype: 'selectfield',
+				    id: 'wellPosition',
+				    labelAlign: 'top',
+				    label: 'Position:',
+				    labelCls: 'selectfield-label',
+				    placeHolder: 'Top Or Bottom..',
+				    displayField: 'DisplayName',
+		            valueField: 'Name',
+				    options: [
+				                {DisplayName: 'Top',      Name: 'Top'},
+				                {DisplayName: 'Bottom',           Name: 'Bottom'}
+				            ]
+				}
 		    ]
 		},
 		{

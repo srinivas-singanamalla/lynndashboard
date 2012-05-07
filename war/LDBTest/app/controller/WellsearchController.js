@@ -1,40 +1,34 @@
 Ext.define('LDBTest.controller.WellsearchController', {
 	extend: 'Ext.app.Controller',
 	
-	views: ['PropertySearch', 'WellListPanel'],
+	views: ['PropertySearch', 'PropertyWellList'],
 	
 	requires: [
 	           'LDBTest.view.PropertySearch',
-	           'LDBTest.view.WellListPanel'
+	           'LDBTest.view.PropertyWellList'
 	           ],
 	           
 	config: {
 		refs: {
-			searchwellfield: 'searchfield[name=searchwell]',
+			searchwellfield: 'searchproperty',
 			
-			welllistpanel: {
-				selector: 'welllistpanel',
-				xtype: 'welllistpanel',
-                autoCreate: true
-			},
-			
-			welllist: 'welllistpanel list'
+			welllist: 'propertywelllist'
 		}
 	},           
 	
 	init: function() {
 		this.control({
-			'searchfield' : {
+			'searchproperty' : {
 				keyup: this.onKeyup,
 				
 				clearicontap: this.onClearicontap
 			},
 			
-			'selectfield' : {
+			'pprodPoint' : {
 				change: this.onProductionPointChange
 			},
 			
-			'welllist': {
+			'propertywelllist': {
 				select: this.onSelectWell
 			}
 		});
@@ -42,7 +36,6 @@ Ext.define('LDBTest.controller.WellsearchController', {
 	
 	onSelectWell: function(view, record) {
 		this.getSearchwellfield().setValue(record.get('name'));
-		this.getWelllistpanel().hide();
 	},
 	
 	onProductionPointChange: function(field, newValue, oldValue, eOpts) {
@@ -67,10 +60,8 @@ Ext.define('LDBTest.controller.WellsearchController', {
       //first clear any current filters on thes tore
         
 //        store.clearFilter();
-        this.getWelllistpanel().hide();
         //check if a value is set first, as if it isnt we dont have to do anything
         if (value && value.length > 3) {
-        	this.getWelllistpanel().showBy(field, 'tc-bc?');
             //the user could have entered spaces, so we must split them so we can loop through them all
             var searches = value.split(' '),
                 regexps = [],
@@ -114,7 +105,6 @@ Ext.define('LDBTest.controller.WellsearchController', {
 	onClearicontap: function() {
 		//var store = this.getStore();
         //store.clearFilter();
-        this.getWelllistpanel().hide();
 	}
 	
 });
