@@ -5,7 +5,8 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 	        ],
 	requires: [
 	           'LDBTest.view.HierarchySearch',
-	           'LDBTest.model.JsonServicesConstants'
+	           'LDBTest.model.JsonServicesConstants',
+	           'LDBTest.view.DashboardCarousel'
 	           ],
 	config: {
 		refs: {
@@ -17,7 +18,9 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 			
 			searchwell: '#searchhierarchy',
 			
-			hierarchylist: 'hierarchysearchlist'
+			hierarchylist: 'hierarchysearchlist',
+			
+			searchnavigation: 'searchnavigation'
 		}
 	},
 	
@@ -39,6 +42,10 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 				keyup: this.onSearchKeyup,
 				
 				clearicontap: this.onClearicontap
+			},
+			
+			'hierarchysearchlist': {
+				select: this.onSelectListItem
 			}
 		});
 	},
@@ -79,5 +86,12 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 	
 	onClearicontap: function() {
 		console.log("onClearicontap");
+	},
+	
+	onSelectListItem: function(dataview, record, eopts) {
+		console.log(dataview);
+		console.log(record);
+		console.log(eopts);
+		this.getSearchnavigation().push({xtype: 'dbcarousel'});
 	}
 });

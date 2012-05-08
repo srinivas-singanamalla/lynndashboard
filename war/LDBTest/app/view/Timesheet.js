@@ -39,7 +39,11 @@ Ext.define('LDBTest.view.Timesheet', {
 				{
                     xtype: 'sliderfield',
                     name: 'multiple_slider',
-                    values: [40, 90]
+//                    values: [1314835200, 1317340800],
+                    values: [50, 360],
+                    minValue: 0,
+                    maxValue: 365
+//                    increment: 86 
                 },
                 {
                     xtype: 'container',

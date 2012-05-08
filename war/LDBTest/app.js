@@ -5,7 +5,7 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
-    views: ['DashboardCarousel'],
+    views: ['SearchNavigation'],
     
     models: ['JsonServicesConstants'],
     
@@ -29,7 +29,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('LDBTest.view.DashboardCarousel', {}));
+        Ext.Viewport.add(Ext.create('LDBTest.view.SearchNavigation', {}));
         
         /*
         Ext.Viewport.on({

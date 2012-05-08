@@ -3,7 +3,7 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     xtype: 'dbcarousel',
     requires: [
                'Ext.TitleBar', 
-               'LDBTest.view.SearchTabPanel', 
+//               'LDBTest.view.SearchTabPanel', 
                'LDBTest.view.DashboardSummary',
                'LDBTest.view.ProductionAnalysisChart',
                'LDBTest.view.DBStackedBarChart',
@@ -29,7 +29,7 @@ Ext.define("LDBTest.view.DashboardCarousel", {
 				items:  {
 		        	xtype: 'button',
 	                text: 'Change Time Interval',
-	                hidden: true,
+	                hidden: false,
 	                align : 'right',
 	                ui    : 'action',
 //	                action: 'viewSource',
@@ -56,10 +56,10 @@ Ext.define("LDBTest.view.DashboardCarousel", {
                     },
                     items: 
                     	[
-		                    { text:'Search', iconCls: 'search', iconMask:true, pressed: true, handler: function(button) {
+		                   /* { text:'Search', iconCls: 'search', iconMask:true, pressed: true, handler: function(button) {
 		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(0);
 		                    	console.log("button" + button.getText());
-		                    } },
+		                    } },*/
 		                    { text:'Summary', iconCls: 'layout', iconMask:true, handler: function(button) {
 		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(1);
 		                    	console.log("button" + button.getText());
@@ -84,9 +84,9 @@ Ext.define("LDBTest.view.DashboardCarousel", {
                   }
                 ]
             },
-            {
+            /*{
                 xtype: 'searchTabPanel'
-            },
+            },*/
             {
                 xtype: 'dashboardsummary'
             },

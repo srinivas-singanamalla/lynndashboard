@@ -27,6 +27,11 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         
         getJsonPProxyPath: function() {
         	return 'linnproxy.jsonp';
+        },
+        
+        getProductionPlotUrl: function(productionPoint, grossOrNet, uom, propID, timeUnit, stTime, endTime) {
+//        	return this.baseUrl() + 'ProductionPlotList/SupplyPoint/Net/MCFe/1286215/Month/1314835200/1317340800';
+        	return this.baseUrl() + 'ProductionPlotList/' + productionPoint + grossOrNet + uom + propID + timeUnit + stTime + endTime;
         }
         
         

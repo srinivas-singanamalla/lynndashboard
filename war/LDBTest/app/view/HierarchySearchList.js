@@ -1,5 +1,5 @@
 Ext.define('LDBTest.view.HierarchySearchList', {
-    extend: 'Ext.DataView',
+    extend: 'Ext.List',
     xtype : 'hierarchysearchlist',
     requires: [
 //         'LDBTest.store.HierarchyListStore'
@@ -10,14 +10,14 @@ Ext.define('LDBTest.view.HierarchySearchList', {
     
     	store: Ext.create('LDBTest.store.HierarchyListStore'),
     
-    	itemTpl: '<div>' +
+    	itemTpl: '<div style="margin-right:50px;">' +
     				'<div style="width: 400px; float: right; text-align: right;">' +
     					'<span class="header">Status:{Status} Status Date: {StatusDate}</span><br/>{NetCashFlow}' +
     				'</div>' +
     				'<div>' +
     					'<span class="header">{WellCompletionName} ( {WellCompletionCode} )</span> <br/>{GrossCashFlow}' +
     				'</div>' +
-    			'</div>',		
-    	baseCls: 'my-dataview'
+    			'</div>',
+    	onItemDisclosure: true
     }
 });
