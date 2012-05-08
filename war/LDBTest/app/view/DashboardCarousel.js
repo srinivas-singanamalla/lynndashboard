@@ -9,6 +9,7 @@ Ext.define("LDBTest.view.DashboardCarousel", {
                'LDBTest.view.DBStackedBarChart',
                'LDBTest.view.PropertyInfo',
                'LDBTest.view.PseudoOrgChart',
+               'LDBTest.view.Timesheet',
                'Ext.util.DelayedTask',
                'Ext.SegmentedButton',
                'Ext.field.Slider'
@@ -35,78 +36,9 @@ Ext.define("LDBTest.view.DashboardCarousel", {
 	                handler: function() {
 	                    if (!this.actions) {
 	                        this.actions = Ext.Viewport.add({
-	                            xtype: 'actionsheet',
-	                            items: [
-	                                    
-								{
-								    xtype: 'toolbar',
-								    docked: 'top',
-								    // Insert some buttons and space them out
-								    items: [ 
-											{
-												xtype: 'button',
-											    text: 'Cancel',
-											    scope: this,
-											    handler: function() {
-											        this.actions.hide();
-											    }
-											},
-											{
-												xtype: 'spacer'
-											},
-											{
-												xtype: 'button',
-											    text: 'Reset',
-											    scope: this,
-											    handler: function() {
-											        this.actions.hide();
-											    }
-											},
-											{
-												xtype: 'spacer'
-											},
-											{
-												xtype: 'button',
-											    text: 'Done',
-											    ui: 'decline',
-											    scope: this,
-											    handler: function() {
-											        this.actions.hide();
-											    }
-											}
-											
-								            ]
-								            
-								},
-								{
-			                        xtype: 'sliderfield',
-			                        name: 'multiple_slider',
-			                        values: [40, 90]
-			                    },
-			                    {
-                                    xtype: 'container',
-                                    layout: 'hbox',
-                                    padding: '20 0 20 0',
-                                    items: [
-                                            {
-                                                html: '<b>Start Time:</b>',
-                                                style: 'color: white;',
-//                                                flex: 1
-                                            },
-                                            {
-                                            	xtype: 'spacer'
-                                            },
-                                            {
-                                                html: '<b>End Time:</b>',
-                                                style: 'color: white;'
-//                                                flex: 1
-                                            }
-                                        ]
-                                }
-	                            ]
+	                            xtype: 'timesheet'
 	                        });
 	                    }
-
 	                    this.actions.show();
 	                }
 	            }
