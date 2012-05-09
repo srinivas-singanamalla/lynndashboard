@@ -28,8 +28,8 @@ Ext.define("LDBTest.store.ProductionLineStore", {
             type: 'double'
         }],
         proxy: {
-            type: 'ajax',
-            url : 'app/data/ProductionLine.json',
+        	type: 'jsonp',
+            url: LDBTest.model.JsonServicesConstants.getWellCompletionUrl('WellCompletion'),
             reader: {
                 type: 'json'
 //                rootProperty: 'items'
