@@ -3,35 +3,42 @@ Ext.define("LDBTest.store.ChartStore", {
     alias: 'store.ChartStore',
     config: {
         id: 'ChartStore',
-        rootProperty: 'items',
-        idProperty: 'year',
+        idProperty: 'AnalysisDate',
         fields: [{
-            name: 'year',
-            type: 'int'
+            name: 'AnalysisDate',
         }, {
-            name: 'coal',
-            type: 'int'
+            name: 'CashFlow',
+            type: 'double'
         }, {
-            name: 'nuclear',
-            type: 'int'
+            name: 'Deduct',
+            type: 'double'
         }, {
-            name: 'crude-oil',
-            type: 'int'
+            name: 'GasRevenue',
+            type: 'double'
         }, {
-            name: 'gas',
-            type: 'int'
+            name: 'NGLRevenue',
+            type: 'double'
         }, {
-            name: 'renewable',
-            type: 'int'
+            name: 'OilRevenue',
+            type: 'double'
+        }, {
+            name: 'Revenue',
+            type: 'double'
+        }, {
+            name: 'Tax',
+            type: 'double'
+        }, {
+            name: 'TotalExpense',
+            type: 'double'
         }],
+        
         proxy: {
-            type: 'ajax',
-            url : 'app/data/CONS_AZ.json',
+            type: 'jsonp',
             reader: {
                 type: 'json',
                 rootProperty: 'items'
             }
         },
-        autoLoad: true
+        autoLoad: false
     }
 });

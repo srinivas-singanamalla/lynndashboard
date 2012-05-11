@@ -18,23 +18,24 @@ Ext.define("LDBTest.store.PropertySearchWellStore", {
 
         //group the store using the lastName field
         groupField: 'random',
-        
+        /*
         filters: [
                   {
                       property: 'name',
                       value   : /^.*?Moo.*$/i
                   }
               ],
-              
+          */    
         proxy: {
 //            type: 'ajax',
 //            url : 'app/data/WellCompletion.json',
         	type: 'jsonp',
-            url: LDBTest.model.JsonServicesConstants.getWellCompletionUrl('WellCompletion'),
+            url: LDBTest.model.JsonServicesConstants.getPropertyWelllistUrl('WellCompletion', 'A'),
             reader: {
                 type: 'json'
             }
         },
+        
         autoLoad: true
     }
 });

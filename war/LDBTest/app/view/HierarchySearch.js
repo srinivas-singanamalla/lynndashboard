@@ -98,7 +98,7 @@ Ext.define("LDBTest.view.HierarchySearch", {
 		            valueField: 'Name',
 				    options: [
 				                {DisplayName: 'Top',      Name: 'Top'},
-				                {DisplayName: 'Bottom',           Name: 'Bottom'}
+				                {DisplayName: 'Bottom',   Name: 'Bottom'}
 				            ]
 				}
 		    ]

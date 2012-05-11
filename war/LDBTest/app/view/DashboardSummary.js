@@ -43,5 +43,14 @@ Ext.define('LDBTest.view.DashboardSummary', {
                     ]
             }
         ]
+    },
+    
+    reloadIfDirty: function() {
+    	Ext.each(this.getInnerItems(), function(item, index){
+    		Ext.each(item.getInnerItems(), function(inner, index){
+    			inner.reloadIfDirty && inner.reloadIfDirty();
+    		});
+    		
+    	});
     }
 });

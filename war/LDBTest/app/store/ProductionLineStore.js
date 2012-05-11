@@ -29,12 +29,11 @@ Ext.define("LDBTest.store.ProductionLineStore", {
         }],
         proxy: {
         	type: 'jsonp',
-            url: LDBTest.model.JsonServicesConstants.getWellCompletionUrl('WellCompletion'),
+            url: LDBTest.model.JsonServicesConstants.getProductionPlotUrl(),
             reader: {
                 type: 'json'
-//                rootProperty: 'items'
             }
         },
-        autoLoad: true
+        autoLoad: false
     }
 });

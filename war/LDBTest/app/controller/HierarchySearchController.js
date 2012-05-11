@@ -77,6 +77,7 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 		jsonData['ProductionPointName'] = this.getSelectProd().getValue();
 		jsonData['PropertyID'] = this.getSelectOrgName().getValue();
 		jsonData['TopOrBottomCount'] = 'Top';
+		
 		this.getHierarchylist().getStore().loadpostRequest(jsonData, this.getHierarchylist());
 	},
 	
@@ -89,9 +90,11 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 	},
 	
 	onSelectListItem: function(dataview, record, eopts) {
-		console.log(dataview);
+		console.log("etateaeadadad" + this.getSelectProd().getRecord());
 		console.log(record);
-		console.log(eopts);
+		LDBTest.model.DBSingleton.setWellrecord(record);
+		LDBTest.model.DBSingleton.setProdPoint(this.getSelectProd().getRecord());
+		LDBTest.model.DBSingleton.setPropertyID(this.getSelectOrgName().getValue());
 		this.getSearchnavigation().push({xtype: 'dbcarousel'});
 	}
 });

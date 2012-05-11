@@ -6,7 +6,8 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
 	           'Ext.chart.Chart',
 	           'LDBTest.store.ProductionLineStore',
 	           'Ext.chart.theme.Theme',
-	           'Ext.chart.theme.Energy'
+	           'Ext.chart.theme.Energy',
+	           'Ext.MessageBox'
 	           ],
     config: {
     	
@@ -17,6 +18,7 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
 //        width: '400',
 //        height: '200',
         shadow: true,
+        dirty: true,
         /*animate: {
             easing: 'bounceOut',
             duration: 750
@@ -155,6 +157,7 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
             }
             
         ],
+        
         listeners: {
             afterrender: function (me) {
                 me.on('beforerefresh', function () {
@@ -166,7 +169,23 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
                 console.log("afterrenderanalysischasrt");
 //                Ext.Viewport.unmask();
             }
+            
         }
+    },
+    
+    reloadIfDirty: function() {
+    	if (this.getDirty()) {
+    		this.getStore().getProxy().setUrl(LDBTest.model.JsonServicesConstants.getProductionPlotUrl());
+    		this.getStore().load(function(records, operation, success) {
+		    	if (success) {
+		    		this.setDirty(false);
+		    	}
+		    }, this);
+    	}
+    },
+    
+    onLoad: function() {
+    	alert('loaded');
     }
     
 });

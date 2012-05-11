@@ -2,7 +2,8 @@ Ext.application({
     name: 'LDBTest',
 
     requires: [
-        'Ext.MessageBox'
+        'Ext.MessageBox',
+        'LDBTest.model.DBSingleton'
     ],
 
     views: ['SearchNavigation'],

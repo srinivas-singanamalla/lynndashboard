@@ -34,7 +34,7 @@ Ext.define("LDBTest.view.PropertySearch", {
 			    displayField: 'DisplayName',
 			    valueField: 'Name',
 			    options: [
-			                {DisplayName: 'Well Completion',      Name: 'Completion'},
+			                {DisplayName: 'Well Completion',      Name: 'WellCompletion'},
 			                {DisplayName: 'Unit Lease',           Name: 'SupplyPoint'}
 			            ]
 			},
@@ -46,7 +46,8 @@ Ext.define("LDBTest.view.PropertySearch", {
 	        	width: 300,
 	        	id: 'searchproperty',
                 placeHolder: 'Type to see the results...',
-                name: 'searchwell'
+                name: 'searchwell',
+                value: 'A'
 	        }
 		    ]
 		},

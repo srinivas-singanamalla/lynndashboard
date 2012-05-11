@@ -11,6 +11,7 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
         iconCls: 'column',
         cls: 'chartpanel',
         autoSize: true,
+        dirty: true,
 //        width: '800',
 //        height: '400',
         shadow: true,
@@ -35,6 +36,7 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
                 */
             }
         }],
+        
         store: Ext.create('LDBTest.store.ChartStore'),
         axes: [
             {
@@ -44,7 +46,7 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
                     //renderer: EnergyApp.commify
                 },
                 adjustMinimumByMajorUnit: 0,
-                fields: ['coal', 'nuclear', 'crude-oil', 'gas', 'renewable'],
+                fields: ['Revenue', 'TotalExpense', 'CashFlow'],
                 title: 'Million BTUs',
                 grid: {
                     odd: {
@@ -58,8 +60,8 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
             {
                 type: 'Category',
                 position: 'bottom',
-                fields: ['year'],
-                title: 'Year',
+                fields: ['AnalysisDate'],
+                title: 'AnalysisDate',
                 label: {
                     rotate: {
                         degrees: 45
@@ -79,8 +81,8 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
                 fill: false,
                 smooth: true,
                 axis: 'left',
-                xField: 'year',
-                yField: ['coal', 'crude-oil'],
+                xField: 'AnalysisDate',
+                yField: ['Revenue', 'TotalExpense'],
                 title: ['Total Revenue', 'Total Expense']
             },
             {
@@ -90,8 +92,8 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
                 fill: false,
                 smooth: true,
                 axis: 'left',
-                xField: 'year',
-                yField: 'renewable',
+                xField: 'AnalysisDate',
+                yField: 'CashFlow',
                 title: ['Cash Flow']
             }
             
@@ -105,6 +107,17 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
                 }, me);
             }
         }
+    },
+    
+    reloadIfDirty: function() {
+    	if (this.getDirty()) {
+    		this.getStore().getProxy().setUrl(LDBTest.model.JsonServicesConstants.getProfitabilityPlotUrl());
+    		this.getStore().load(function(records, operation, success) {
+		    	if (success) {
+		    		this.setDirty(false);
+		    	}
+		    }, this);
+    	}
     },
     
     initialize: function() {

@@ -116,6 +116,10 @@ Ext.define("LDBTest.view.DashboardCarousel", {
             		});
             },
             
+            activate: function(container, value, oldvalue, eopts) {
+            	container.getActiveItem().reloadIfDirty && container.getActiveItem().reloadIfDirty();
+            },
+            
         	activeitemchange: function(container, value, oldvalue, eopts) {
         		var carousel = Ext.ComponentQuery.query('dbcarousel')[0],
         		segmented = carousel.down('segmentedbutton'),
@@ -133,14 +137,9 @@ Ext.define("LDBTest.view.DashboardCarousel", {
         			item.element.addCls(item.getPressedCls());
         		}
         		Ext.getCmp('titleBarId').setTitle(value.getTitle() || "");
+        		container.getActiveItem().reloadIfDirty && container.getActiveItem().reloadIfDirty();
         	}
         }
-    },
-    
-    
-    
-    initialize: function() {
-    	//TODO fix this
-    	
     }
+    
 });
