@@ -45,7 +45,7 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 			},
 			
 			'hierarchysearchlist': {
-				select: this.onSelectListItem
+				itemtap: this.onListItemtap
 			}
 		});
 	},
@@ -89,7 +89,7 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 		console.log("onClearicontap");
 	},
 	
-	onSelectListItem: function(dataview, record, eopts) {
+	onListItemtap: function( dataview, index, target, record, eventObj, eOpts ) {
 		console.log("etateaeadadad" + this.getSelectProd().getRecord());
 		console.log(record);
 		LDBTest.model.DBSingleton.setWellrecord(record);
@@ -97,4 +97,5 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 		LDBTest.model.DBSingleton.setPropertyID(this.getSelectOrgName().getValue());
 		this.getSearchnavigation().push({xtype: 'dbcarousel'});
 	}
+	
 });

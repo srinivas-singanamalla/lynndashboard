@@ -1,6 +1,9 @@
 Ext.define("LDBTest.view.PseudoOrgChart", {
 	extend : 'Ext.draw.Component',
 	xtype : 'porgchart',
+	requires: [
+	           'LDBTest.store.KPIStore'
+	           ],
 	
 	mixins: {
         theme: 'Ext.chart.theme.Theme'
@@ -16,6 +19,12 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 		iconCls: 'treemap',
 		
 		title : 'Production KPI',
+		
+		kpirecord: null,
+		
+		store: null,
+		
+		dirty: true,
 		
 		gradients: [{
             'id': 'v-1',
@@ -101,9 +110,29 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         }
     },
 	
+    reloadIfDirty: function() {
+    	if (this.getDirty()) {
+    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked({xtype: 'loadmask',
+    		    message: 'Loading...'});
+    		Ext.Logger.warn('PseudoOrgChart reloadIfDirty');
+    		this.getStore().getProxy().setUrl(LDBTest.model.JsonServicesConstants.getKPIPlotUrl());
+    		this.getStore().load(function(records, operation, success) {
+		    	if (success) {
+		    		Ext.Logger.warn('PseudoOrgChart #success');
+		    		this.setDirty(false);
+		    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked(false);
+		    		this.setKpirecord(records[0]);
+		    		this.onResize();
+		    	}
+		    }, this);
+    	}
+    },
+    
     initialize: function() {
     	
     	this.callParent();
+    	this.setStore(Ext.create('LDBTest.store.KPIStore', {id: 'KPIStore'}));
+    	this.reloadIfDirty();
     	//me.setHeight(450);
     	var me = this,
         items = me.surface.getItems(),
@@ -179,7 +208,8 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 		return "M" + x + " " + y + "L" + (x-0.5*h) + " " + (y + h) + " L" + (x+0.5*h) + " " + (y+h) + " Z";
 	},
 	
-    getPsuedoOrgBoxesSpriteArray: function(all, gas, oil, natgas) {
+	
+    getPsuedoOrgBoxesSpriteArray: function(record) {
     	var me = this, 
 		spritesArray = [],
 		width = me.surface.getWidth(),
@@ -195,9 +225,9 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         	topColor: 'lightgray',
         	bottomColor: 'lightgray',
         	topText: 'Daily Average Volume',
-        	centerText: '2,253 MCFed',
+        	centerText: record.get('DailyAvgVolume') + ' MCFed',
         	bottomText: 'From Forecast',
-        	forecastVal: 450,
+        	forecastVal: record.get('DailyAvgVolumeVariance'),
         	topTextFont: 'bold 18px Arial',
         	centerTextFont: 'bold italic 18px Arial',
         	bottomTextFont: 'bold 12px Arial',
@@ -212,9 +242,9 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         	topColor: 'url(#gasGradient)',
         	bottomColor: 'white',
         	topText: 'Gas',
-        	centerText: '1,296 MCFed',
+        	centerText: record.get('Gas') + ' MCFed',
         	bottomText: 'From Forecast',
-        	forecastVal: 50,
+        	forecastVal: record.get('GasVariance'),
         	topTextFont: 'bold 12px Arial',
         	centerTextFont: 'bold italic 14px Arial',
         	bottomTextFont: 'bold 12px Arial',
@@ -229,9 +259,9 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         	topColor: 'url(#oilGradient)',
         	bottomColor: 'white',
         	topText: 'Oil',
-        	centerText: '1,286 BbLd',
+        	centerText: record.get('NGL') + ' BbLd',
         	bottomText: 'From Forecast',
-        	forecastVal: 50,
+        	forecastVal: record.get('NGLVariance'),
         	topTextFont: 'bold 12px Arial',
         	centerTextFont: 'bold italic 14px Arial',
         	bottomTextFont: 'bold 12px Arial',
@@ -245,10 +275,10 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         	h: 0.75*bbox.h,
         	topColor: 'url(#nglGradient)',
         	bottomColor: 'white',
-        	topText: 'NGL',
-        	centerText: '1,286 BbLd',
+        	topText: 'Oil',
+        	centerText: record.get('Oil') + ' BbLd',
         	bottomText: 'From Forecast',
-        	forecastVal: -50,
+        	forecastVal: record.get('OilVariance'),
         	topTextFont: 'bold 12px Arial',
         	centerTextFont: 'bold italic 14px Arial',
         	bottomTextFont: 'bold 12px Arial',
@@ -354,8 +384,10 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
             items = me.surface.getItems(),
             bbox, items, width, height, x, y;
         this.callParent();
-        me.surface.add(me.getPsuedoOrgBoxesSpriteArray({}, {}, {}, {}));
-        me.surface.renderFrame();
+        if (this.getKpirecord() != null) {
+        	me.surface.add(me.getPsuedoOrgBoxesSpriteArray(this.getKpirecord()));
+        	me.surface.renderFrame();
+        }
     },
     
     constructor: function(config) {

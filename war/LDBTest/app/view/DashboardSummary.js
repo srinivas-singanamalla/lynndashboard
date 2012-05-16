@@ -52,5 +52,9 @@ Ext.define('LDBTest.view.DashboardSummary', {
     		});
     		
     	});
+    },
+    
+    initialize: function() {
+    	console.log("summary log");
     }
 });

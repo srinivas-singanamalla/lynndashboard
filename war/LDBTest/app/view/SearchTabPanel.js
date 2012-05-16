@@ -7,17 +7,7 @@ Ext.define('LDBTest.view.SearchTabPanel', {
                ],
     config: {
     	iconCls: 'search',
-    	title: 'Search',
-    	/*
-        activeItem: 0,
-        tabBar: {
-            // docked: 'bottom',
-            ui: 'neutral',
-            layout: {
-                pack: 'center'
-            }
-        },
-        */
+    	title: 'Search for Wells',
         items: [
 			{
 				xtype: 'propertysearch'

@@ -111,10 +111,13 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
     
     reloadIfDirty: function() {
     	if (this.getDirty()) {
+    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked({xtype: 'loadmask',
+    		    message: 'Loading...'});
     		this.getStore().getProxy().setUrl(LDBTest.model.JsonServicesConstants.getProfitabilityPlotUrl());
     		this.getStore().load(function(records, operation, success) {
 		    	if (success) {
 		    		this.setDirty(false);
+		    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked(false);
 		    	}
 		    }, this);
     	}

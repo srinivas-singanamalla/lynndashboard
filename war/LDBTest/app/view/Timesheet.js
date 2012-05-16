@@ -15,14 +15,17 @@ Ext.define('LDBTest.view.Timesheet', {
 				    items: [ 
 							{
 								xtype: 'button',
-							    text: 'Cancel'
+							    text: 'Cancel',
+							    ui: 'confirm',
+							    id: 'timesheetcancel'
 							},
 							{
 								xtype: 'spacer'
 							},
 							{
 								xtype: 'button',
-							    text: 'Reset'
+							    text: 'Reset',
+							    id: 'timesheetreset'
 							},
 							{
 								xtype: 'spacer'
@@ -30,7 +33,8 @@ Ext.define('LDBTest.view.Timesheet', {
 							{
 								xtype: 'button',
 							    text: 'Done',
-							    ui: 'decline'
+							    ui: 'decline',
+							    id: 'timesheetdone'
 							}
 							
 				            ]

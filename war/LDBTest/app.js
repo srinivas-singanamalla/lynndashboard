@@ -12,7 +12,8 @@ Ext.application({
     
     controllers: [
                   'WellsearchController',
-                  'HierarchySearchController'
+                  'HierarchySearchController',
+                  'TimesheetController'
                   ],
     
     icon: {

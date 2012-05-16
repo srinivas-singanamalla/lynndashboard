@@ -9,7 +9,6 @@ Ext.define("LDBTest.view.DashboardCarousel", {
                'LDBTest.view.DBStackedBarChart',
                'LDBTest.view.PropertyInfo',
                'LDBTest.view.PseudoOrgChart',
-               'LDBTest.view.Timesheet',
                'Ext.util.DelayedTask',
                'Ext.SegmentedButton',
                'Ext.field.Slider'
@@ -18,10 +17,10 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     config: {
     	direction: 'horizontal',
     	ui: 'light',
-    	title : 'Well Completion',
+    	title : 'Production Plot',
 		iconCls : 'home',
         items: [
-			{
+			/*{
 				docked : 'top',
 				xtype : 'titlebar',
 				id: 'titleBarId',
@@ -42,7 +41,7 @@ Ext.define("LDBTest.view.DashboardCarousel", {
 	                    this.actions.show();
 	                }
 	            }
-			}, 
+			}, */
 			{
                 xtype: 'toolbar',
                 docked: 'bottom',
@@ -56,37 +55,30 @@ Ext.define("LDBTest.view.DashboardCarousel", {
                     },
                     items: 
                     	[
-		                   /* { text:'Search', iconCls: 'search', iconMask:true, pressed: true, handler: function(button) {
-		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(0);
-		                    	console.log("button" + button.getText());
-		                    } },*/
 		                    { text:'Summary', iconCls: 'layout', iconMask:true, handler: function(button) {
-		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(1);
+		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(0);
 		                    	console.log("button" + button.getText());
 		                    } },
 		                    { text:'Production Analysis', iconCls: 'line', iconMask:true, handler: function(button) {
-		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(2);
+		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(1);
 		                    	console.log("button" + button.getText());
 		                    } },
 		                    { text:'Profitability Analysis', iconCls: 'column', iconMask:true, handler: function(button) {
-		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(3);
+		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(2);
 		                    	console.log("button" + button.getText());
 		                    } },
 		                    { text:'KPI', iconCls: 'treemap', iconMask:true, handler: function(button) {
-		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(4);
+		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(3);
 		                    	console.log("button" + button.getText());
 		                    } },
 		                    { text:'PropertyInfo', iconCls: 'info_plain', iconMask:true, handler: function(button) {
-		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(5);
+		                    	Ext.ComponentQuery.query('dbcarousel')[0].setActiveItem(4);
 		                    	console.log("button" + button.getText());
 		                    } }
 		               ]
                   }
                 ]
             },
-            /*{
-                xtype: 'searchTabPanel'
-            },*/
             {
                 xtype: 'dashboardsummary'
             },
@@ -104,42 +96,70 @@ Ext.define("LDBTest.view.DashboardCarousel", {
             }
         ],
         
+        
+        /*,
+
         listeners: {
-        	afterrender: function (me) {
-        		console.log("afterrender");
-        		me.on('add', function(){
-            		console.log('do the switch, baby');
-            		});
-        		
-        		me.on('activeitemchange', function(){
-            		console.log('do the switch, baby');
-            		});
-            },
-            
-            activate: function(container, value, oldvalue, eopts) {
-            	container.getActiveItem().reloadIfDirty && container.getActiveItem().reloadIfDirty();
-            },
             
         	activeitemchange: function(container, value, oldvalue, eopts) {
-        		var carousel = Ext.ComponentQuery.query('dbcarousel')[0],
-        		segmented = carousel.down('segmentedbutton'),
-        		activeIndex = carousel.getActiveIndex(),
-        		itemcoll = segmented.getItems(),
-        		item = itemcoll.get(activeIndex);
         		
-        		itemcoll.each(function(thisitem, index, length){
-        			console.log(thisitem.getPressedCls());
-        			console.log(thisitem.getId());
-        			thisitem.element.removeCls(thisitem.getPressedCls());
-        		});
-        		
-        		if (item.isXType('button')) {
-        			item.element.addCls(item.getPressedCls());
-        		}
-        		Ext.getCmp('titleBarId').setTitle(value.getTitle() || "");
-        		container.getActiveItem().reloadIfDirty && container.getActiveItem().reloadIfDirty();
         	}
-        }
+        }*/
+    },
+    
+    initialize: function() {
+    	this.on({
+    		activeitemchange: this.onActiveitemchange,
+    		activate: this.onActivate,
+    		deactivate: this.onDeactivate,
+    		show: this.onShow,
+            scope: this
+        });
+    	this.callParent();
+    },
+    
+    onActivate: function ( container, newActiveItem, oldActiveItem, eOpts ) {
+    	
+    },
+    
+    onDeactivate: function( container, newActiveItem, oldActiveItem, eOpts ) {
+    	Ext.defer(
+    		function(){
+    			var carousel = Ext.ComponentQuery.query('dbcarousel')[0];
+    	    	if (Ext.isDefined(carousel)) {
+    	    		carousel.destroy();
+    	    	}
+    		}
+    		, 1000, this);
+    },
+    
+    onActiveitemchange: function(container, value, oldvalue, eopts) {
+//    	alert('Carousel: onActiveitemchange');
+    	if (container.isXType('dbcarousel')) {
+    		var carousel = container,
+    		segmented = carousel.down('segmentedbutton'),
+    		activeIndex = carousel.getActiveIndex(),
+    		itemcoll = segmented.getItems(),
+    		item = itemcoll.get(activeIndex);
+    		
+    		itemcoll.each(function(thisitem, index, length){
+//    			console.log(thisitem.getPressedCls());
+//    			console.log(thisitem.getId());
+    			thisitem.element.removeCls(thisitem.getPressedCls());
+    		});
+    		
+    		if (item.isXType('button')) {
+    			item.element.addCls(item.getPressedCls());
+    		}
+    		container.setTitle(value.getTitle() || "");
+    		container.getActiveItem().reloadIfDirty && container.getActiveItem().reloadIfDirty();
+//    		console.log(oldvalue);
+    	}
+    	
+//		Ext.defer(function(){console.log("destroying"); oldvalue.destroy();}, 1000, this);
+    },
+    
+    onShow: function() {
     }
     
 });

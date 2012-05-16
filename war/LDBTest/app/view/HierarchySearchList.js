@@ -19,5 +19,11 @@ Ext.define('LDBTest.view.HierarchySearchList', {
     				'</div>' +
     			'</div>',
     	onItemDisclosure: true
+    },
+    
+    initialize: function(component, eopts) {
+    	console.log('HierarchySearchList' + this);
+    	
+    	this.callParent();
     }
 });

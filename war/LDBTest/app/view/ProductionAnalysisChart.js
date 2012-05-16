@@ -50,7 +50,7 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
                 }
             }
         }],
-        store: Ext.create('LDBTest.store.ProductionLineStore', {id: 'ProductionLineStore'}),
+        store: null,
         axes: [
             {
                 type: 'Numeric',
@@ -156,7 +156,7 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
                 title: ['NGL']
             }
             
-        ],
+        ]/*,
         
         listeners: {
             afterrender: function (me) {
@@ -170,22 +170,37 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
 //                Ext.Viewport.unmask();
             }
             
-        }
+        }*/
     },
     
     reloadIfDirty: function() {
     	if (this.getDirty()) {
+    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked({xtype: 'loadmask',
+    		    message: 'Loading...'});
+    		Ext.Logger.warn('Production Analysis Chart reloadIfDirty');
     		this.getStore().getProxy().setUrl(LDBTest.model.JsonServicesConstants.getProductionPlotUrl());
     		this.getStore().load(function(records, operation, success) {
 		    	if (success) {
+		    		Ext.Logger.warn('Production Analysis Chart #success');
 		    		this.setDirty(false);
+		    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked(false);
 		    	}
 		    }, this);
     	}
     },
     
-    onLoad: function() {
-    	alert('loaded');
+    initialize: function() {
+    	this.on({
+    		beforerefresh: this.onBeforerefresh,
+            scope: this
+        });
+    	this.callParent();
+    	this.setStore(Ext.create('LDBTest.store.ProductionLineStore', {id: 'ProductionLineStore'}));
+    	this.reloadIfDirty();
+    },
+    
+    onBeforerefresh: function() {
+//    	alert('onBeforerefresh');
     }
     
 });
