@@ -2,3 +2,4 @@
 2. storeId can be used for referring the store
 3. Its better to avoid sharing of the store across the UI. store.filter was not working and when I duplicated the store, things started working. Need to explore this, because this is BAD.
 4. /Users/ssinganamalla/Documents/codebase/dashboards/lynndashboard/war/LDBTest to run sencha app build production
+5. To make a fit layout, make sure from the root, it is fit. The layout is for the parent container, so to fit a panel, use the layout as 'fit' for the parent container.

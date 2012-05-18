@@ -19,6 +19,11 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     	ui: 'light',
     	title : 'Production Plot',
 		iconCls : 'home',
+		productionplot: null,
+		profitabilityplot: null,
+		kpiplot: null,
+		shortpropertyinfo: null,
+		
         items: [
 			/*{
 				docked : 'top',
@@ -79,23 +84,8 @@ Ext.define("LDBTest.view.DashboardCarousel", {
                   }
                 ]
             },
-            {
-                xtype: 'dashboardsummary'
-            },
-            {
-                xtype: 'productionanalysischart'
-            },
-            {
-            	xtype: 'dbstackedbarchart'
-            },
-            {
-				xtype : 'porgchart'
-            },
-            {
-                xtype: 'propertyinfo'
-            }
-        ],
-        
+            
+        ]
         
         /*,
 
@@ -116,22 +106,75 @@ Ext.define("LDBTest.view.DashboardCarousel", {
             scope: this
         });
     	this.callParent();
+    	this.add([{
+            xtype: 'container',
+            id: 'dashboardsummary',
+            layout: 'fit',
+            title: 'Summary'
+        },
+        {
+            xtype: 'container',
+            layout: 'fit',
+            id: 'productionplot'
+        },
+        {
+        	xtype: 'container',
+        	layout: 'fit',
+        	id: 'profitablityplot'
+        },
+        {
+			xtype : 'container',
+			layout: 'fit',
+            id: 'kpiplot'
+        },
+        {
+            xtype: 'container',
+            layout: 'fit',
+            id: 'wellinfo'
+        }]);
     },
     
     onActivate: function ( container, newActiveItem, oldActiveItem, eOpts ) {
-    	
     },
     
     onDeactivate: function( container, newActiveItem, oldActiveItem, eOpts ) {
+    	/**
     	Ext.defer(
     		function(){
-    			var carousel = Ext.ComponentQuery.query('dbcarousel')[0];
-    	    	if (Ext.isDefined(carousel)) {
-    	    		carousel.destroy();
-    	    	}
+    			Ext.Logger.warn('removing all components');
+    			this.removeAll(true, true);
     		}
     		, 1000, this);
+    		
+    	**/	
     },
+    
+    
+    getCardPlotValueAt: function(index) {
+    	switch (index) {
+    	case 0:
+			return 'LDBTest.view.DashboardSummary';
+			break;
+		case 1:
+			return 'LDBTest.view.ProductionAnalysisChart';
+			break;
+
+		case 2:
+			return 'LDBTest.view.DBStackedBarChart';
+			break;
+			
+		case 3:
+			return 'LDBTest.view.PseudoOrgChart';
+			break;
+		case 4:
+			return 'LDBTest.view.PropertyInfo';
+			break;	
+		default:
+			return '';
+			break;
+		}
+    },
+    
     
     onActiveitemchange: function(container, value, oldvalue, eopts) {
 //    	alert('Carousel: onActiveitemchange');
@@ -151,9 +194,12 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     		if (item.isXType('button')) {
     			item.element.addCls(item.getPressedCls());
     		}
-    		container.setTitle(value.getTitle() || "");
-    		container.getActiveItem().reloadIfDirty && container.getActiveItem().reloadIfDirty();
-//    		console.log(oldvalue);
+    		//container.setTitle(value.getTitle() || "");
+    		if (value.getAt(0) != null) {
+    			value.getAt(0).reloadIfDirty && value.getAt(0).reloadIfDirty();
+    		} else {
+    			value.add(Ext.create(this.getCardPlotValueAt(activeIndex)));
+    		}
     	}
     	
 //		Ext.defer(function(){console.log("destroying"); oldvalue.destroy();}, 1000, this);

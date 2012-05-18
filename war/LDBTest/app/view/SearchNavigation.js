@@ -33,7 +33,8 @@ Ext.define('LDBTest.view.SearchNavigation', {
                     handler: function() {
 	                    if (!this.actions) {
 	                        this.actions = Ext.Viewport.add({
-	                            xtype: 'timesheet'
+	                            xtype: 'timesheet',
+	                            id: 'timesheet'
 	                        });
 	                    }
 	                    this.actions.show();
@@ -54,6 +55,16 @@ Ext.define('LDBTest.view.SearchNavigation', {
     },
     
     onBack: function() {
+    	Ext.defer(
+        		function(){
+        			Ext.Logger.warn('removing all components');
+        			var carousel = Ext.ComponentQuery.query('dbcarousel')[0];
+            		if (carousel) {
+            			carousel.removeAll(true, true);
+            			this.remove(carousel, true);
+            		}
+        		}
+        		, 600, this);
     	/*
     	Ext.defer(function(){Ext.Logger.warn("destroying"); 
     		var carousel = Ext.ComponentQuery.query('dbcarousel')[0];

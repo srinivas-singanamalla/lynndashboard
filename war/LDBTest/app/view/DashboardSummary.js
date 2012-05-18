@@ -8,53 +8,69 @@ Ext.define('LDBTest.view.DashboardSummary', {
                'LDBTest.view.ShortPropertyInfo'
                ],
     config: {
-    	title: 'Summary',
-        iconCls: 'action',
-        layout: {
-            type : 'vbox',
-//            pack : 'center',
-//            align: 'stretch'
-        },
-//        cls   : 'card1',
-        defaults: {
-            xtype: 'container',
-            flex : 1,
-            layout: {
-                type : 'hbox',
-//                align: 'middle'
-            },
-            defaults: {
-                xtype : 'panel',
-                flex  : 1,
-                margin: 10
-            }
-        },
-        items: [
-            {
-                items: [
-                    {xtype: 'productionanalysischart'},
-                    {xtype: 'porgchart'}
-                ]
-            },
-            {
-            	items: [
-                        {xtype: 'dbstackedbarchart'},
-            	        {xtype: 'shortpropertyinfo'}
-                    ]
-            }
-        ]
+    	layout: 'vbox',
+    	items: [
+    	        { xtype: 'container', 
+    	          flex: 1, 
+    	          layout: 'hbox', 
+    	          items:[
+    	                 { xtype: 'container', id: 'prodplotinsummary', flex: 1, layout: 'fit'},
+    	                 { xtype: 'container', id: 'profitplotinsummary', flex: 1, layout: 'fit'}
+    	                 ]
+    	        },
+    	        { xtype: 'container', 
+      	          flex: 1, 
+      	          layout: 'hbox', 
+      	          items:[
+      	                 { xtype: 'container', id: 'kpiplotinsummary', flex: 1, layout: 'fit'},
+      	                 { xtype: 'container', id: 'wellinfoinsummary', flex: 1, layout: 'fit'}
+      	                 ]
+      	        }
+    	        ]
     },
     
     reloadIfDirty: function() {
-    	Ext.each(this.getInnerItems(), function(item, index){
-    		Ext.each(item.getInnerItems(), function(inner, index){
-    			inner.reloadIfDirty && inner.reloadIfDirty();
-    		});
+    	Ext.each(this.getInnerItems(), function(item, row){
+    		Ext.each(item.getInnerItems(), function(inner, column){
+    			 if (inner.getAt(0) != null) {
+    				 inner.getAt(0).reloadIfDirty && inner.getAt(0).reloadIfDirty();
+		        } else {
+			        inner.add(Ext.create(this.getCardPlotValueAt(row, column), {
+			        	layout: 'fit'
+			        }));
+
+		        }
+    		}, this);
     		
-    	});
+    	}, this);
+    },
+    
+    getCardPlotValueAt: function(i, j) {
+        if (i == 0) {
+        	if (j == 0) {
+        		return 'LDBTest.view.ProductionAnalysisChart';
+        	} else {
+        		return 'LDBTest.view.PseudoOrgChart';
+        	}
+        } else {
+        	if (j == 0) {
+        		return 'LDBTest.view.DBStackedBarChart';
+        	} else {
+        		return 'LDBTest.view.ShortPropertyInfo';
+        	}
+        }
     },
     
     initialize: function() {
     	console.log("summary log");
+    	this.callParent();
+		 this.on({
+		    painted: this.onPainted,
+		    scope: this
+		 });
+    },
+    
+    onPainted: function() {
+        this.reloadIfDirty();
     }
 });

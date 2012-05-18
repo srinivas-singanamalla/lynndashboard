@@ -21,7 +21,9 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 			hierarchylist: 'hierarchysearchlist',
 			
 			searchnavigation: 'searchnavigation'
-		}
+		},
+		
+		dbcarousel: null
 	},
 	
 	init: function(){

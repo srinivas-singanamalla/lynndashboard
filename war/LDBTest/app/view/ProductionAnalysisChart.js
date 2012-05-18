@@ -174,16 +174,16 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
     },
     
     reloadIfDirty: function() {
+    	Ext.ComponentQuery.query('dbcarousel')[0].setMasked({xtype: 'loadmask',
+		    message: 'Loading...'});
     	if (this.getDirty()) {
-    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked({xtype: 'loadmask',
-    		    message: 'Loading...'});
     		Ext.Logger.warn('Production Analysis Chart reloadIfDirty');
     		this.getStore().getProxy().setUrl(LDBTest.model.JsonServicesConstants.getProductionPlotUrl());
     		this.getStore().load(function(records, operation, success) {
 		    	if (success) {
 		    		Ext.Logger.warn('Production Analysis Chart #success');
-		    		this.setDirty(false);
-		    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked(false);
+		    		this.setDirty(true);
+		    		
 		    	}
 		    }, this);
     	}
@@ -192,11 +192,19 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
     initialize: function() {
     	this.on({
     		beforerefresh: this.onBeforerefresh,
+    		refresh: this.onRefresh,
             scope: this
         });
     	this.callParent();
     	this.setStore(Ext.create('LDBTest.store.ProductionLineStore', {id: 'ProductionLineStore'}));
-    	this.reloadIfDirty();
+    	Ext.defer(function(){
+    		this.reloadIfDirty();
+    	}, 500, this);
+    	
+    },
+    
+    onRefresh: function (me) {
+        Ext.ComponentQuery.query('dbcarousel')[0].setMasked(false);
     },
     
     onBeforerefresh: function() {

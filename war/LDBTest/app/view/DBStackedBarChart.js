@@ -117,7 +117,9 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
     		this.getStore().load(function(records, operation, success) {
 		    	if (success) {
 		    		this.setDirty(false);
-		    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked(false);
+//		    		if (Ext.ComponentQuery.query('dbcarousel')[0].getMasked()) {
+		    			Ext.ComponentQuery.query('dbcarousel')[0].setMasked(false);
+//		    		}
 		    	}
 		    }, this);
     	}
