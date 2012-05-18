@@ -37,7 +37,7 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
             }
         }],
         
-        store: Ext.create('LDBTest.store.ChartStore'),
+        store: null,
         axes: [
             {
                 type: 'Numeric',
@@ -127,5 +127,9 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
     
     initialize: function() {
     	this.callParent();
+    	this.setStore(Ext.create('LDBTest.store.ChartStore'));
+    	Ext.defer(function(){
+    		this.reloadIfDirty();
+    	}, 600, this);
     }
 });

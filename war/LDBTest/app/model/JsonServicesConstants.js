@@ -33,6 +33,10 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         	return this.baseUrl() + 'ProdPointWellsSearch/' + productionPoint + '/' + searchkey + this.callback;
         },
         
+        getHierarchyWelllistUrl: function(productionPoint, orgLevel, propId) {
+        	return this.baseUrl() + 'GetProfitabilityWell/' + productionPoint + '/' + orgLevel + '/' + propId + this.callback;
+        },
+        
         getHierarchyWellListBaseUrl: function(){
         	return 'ProfitabilityWell';
         },
@@ -47,7 +51,8 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         	sttime = singleton.getStartTime(),
         	endtime = singleton.getEndTime(),
         	prodpoint = singleton.getProdPoint() && singleton.getProdPoint().get('Name'),
-        	wellcompletionId = record && record.get('WellCompletionCode');
+        	wellcompletionId = record && record.get('WellCompletionCode'),
+        	supplypointId = record && record.get('SupplyPointID');
         	
         	if (singleton.getSearchType() == 'hierarchy') {
         		return this.baseUrl() + 'ProductionPlotList/' + prodpoint + '/' + 'Net' + '/' + 'MCFe' + '/' + wellcompletionId + '/' + 'Month' + '/' + sttime + '/' + endtime + this.callback;
@@ -70,7 +75,7 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         	if (singleton.getSearchType() == 'hierarchy') {
 //        		http://50.57.145.54:8089/Json2/WcfServices/WellProfitabilitySvc.svc/ProfitabilityAnalysisList/WellCompletion/Net/MCFe/20201/Month/1283299200/1317340800
 //        		return this.baseUrl() + 'GetProfitabilityWell/' + prodpoint + '/ByID/' + supplypointId;
-        		return this.baseUrl() + 'ProfitabilityAnalysisList/' + prodpoint + '/' + 'Net' + '/' + 'MCFe' + '/' + wellcompletionId + '/' + 'Month' + '/' + sttime + '/' + endtime + this.callback;
+        		return this.baseUrl() + 'ProfitabilityAnalysisList/' + prodpoint + '/' + 'Net' + '/' + 'MCFe' + '/' + supplypointId + '/' + 'Month' + '/' + sttime + '/' + endtime + this.callback;
         	} else {
         		return this.baseUrl() + 'GetProfitabilityWell/' + prodpoint + '/ByID/' + propId;
         	}
@@ -87,6 +92,22 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         	supplypointId = record && record.get('SupplyPointID');
 	        if (singleton.getSearchType() == 'hierarchy') {
 	    		return this.baseUrl() + 'KPIList/' + prodpoint + '/' + 'Net' + '/' + 'MCFe' + '/' + wellcompletionId + '/' + 'Month' + '/' + sttime + '/' + endtime + this.callback;
+	    	} else {
+	    		return this.baseUrl() + 'KPIList/' + prodpoint + '/ByID/' + propId;
+	    	}
+        },
+        
+        getExpenseBreakdownUrl: function() {
+    		var singleton = LDBTest.model.DBSingleton,
+        	record = singleton.getWellrecord(),
+        	sttime = singleton.getStartTime(),
+        	endtime = singleton.getEndTime(),
+        	prodpoint = singleton.getProdPoint() && singleton.getProdPoint().get('Name'),
+        	propId = singleton.getPropertyID() && singleton.getPropertyID(),
+        	wellcompletionId = record && record.get('WellCompletionCode'),
+        	supplypointId = record && record.get('SupplyPointID');
+	        if (singleton.getSearchType() == 'hierarchy') {
+	    		return this.baseUrl() + 'ExpenseBreakDown/' + prodpoint + '/' + 'Net' + '/' + 'MCFe' + '/' + supplypointId + '/' + 'Month' + '/' + sttime + '/' + endtime + this.callback;
 	    	} else {
 	    		return this.baseUrl() + 'KPIList/' + prodpoint + '/ByID/' + propId;
 	    	}

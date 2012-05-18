@@ -102,7 +102,6 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     		activeitemchange: this.onActiveitemchange,
     		activate: this.onActivate,
     		deactivate: this.onDeactivate,
-    		show: this.onShow,
             scope: this
         });
     	this.callParent();
@@ -135,6 +134,17 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     },
     
     onActivate: function ( container, newActiveItem, oldActiveItem, eOpts ) {
+    	Ext.defer(function(){
+//    		debugger;
+    		var carousel = container,
+    		activeIndex = carousel.getActiveIndex();
+    		this.reloadOrCreateCard(container, newActiveItem, oldActiveItem, eOpts);
+    		if (container.isXType('dbcarousel')) {
+    			Ext.getCmp('dashboardsummary').add(Ext.create(this.getCardPlotValueAt(activeIndex)));
+        	}
+    	}, 600, this);
+//    	this.reloadOrCreateCard(container, newActiveItem, oldActiveItem, eOpts);
+    	
     },
     
     onDeactivate: function( container, newActiveItem, oldActiveItem, eOpts ) {
@@ -175,9 +185,8 @@ Ext.define("LDBTest.view.DashboardCarousel", {
 		}
     },
     
-    
-    onActiveitemchange: function(container, value, oldvalue, eopts) {
-//    	alert('Carousel: onActiveitemchange');
+    reloadOrCreateCard: function(container, value, oldvalue, eopts) {
+    	//container.setTitle(value.getTitle() || "");
     	if (container.isXType('dbcarousel')) {
     		var carousel = container,
     		segmented = carousel.down('segmentedbutton'),
@@ -186,26 +195,27 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     		item = itemcoll.get(activeIndex);
     		
     		itemcoll.each(function(thisitem, index, length){
-//    			console.log(thisitem.getPressedCls());
-//    			console.log(thisitem.getId());
     			thisitem.element.removeCls(thisitem.getPressedCls());
     		});
     		
     		if (item.isXType('button')) {
     			item.element.addCls(item.getPressedCls());
     		}
-    		//container.setTitle(value.getTitle() || "");
-    		if (value.getAt(0) != null) {
-    			value.getAt(0).reloadIfDirty && value.getAt(0).reloadIfDirty();
-    		} else {
-    			value.add(Ext.create(this.getCardPlotValueAt(activeIndex)));
-    		}
     	}
-    	
-//		Ext.defer(function(){console.log("destroying"); oldvalue.destroy();}, 1000, this);
     },
     
-    onShow: function() {
+    onActiveitemchange: function(container, value, oldvalue, eopts) {
+//    	alert('Carousel: onActiveitemchange');
+    	var carousel = container,
+		activeIndex = carousel.getActiveIndex();
+    	this.reloadOrCreateCard(container, value, oldvalue, eopts, false);
+    	if (container.isXType('dbcarousel')) {
+	    	if (value.getAt(0) == null) {
+				value.add(Ext.create(this.getCardPlotValueAt(activeIndex)));
+			} else {
+				value.getAt(0).reloadIfDirty && value.getAt(0).reloadIfDirty();
+			}
+    	}
+//		Ext.defer(function(){console.log("destroying"); oldvalue.destroy();}, 1000, this);
     }
-    
 });

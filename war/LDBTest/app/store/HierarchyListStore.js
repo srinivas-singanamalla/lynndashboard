@@ -63,31 +63,22 @@ Ext.define('LDBTest.store.HierarchyListStore', {
         }
         ],
 
-        /*proxy: {
-            type: 'ajax',
-            url: '../linnproxy',
-            jsonData: {"FilterType":0,"NumWells":15,"OrgLevel":"Division","ProductionPointName":"WellCompletion","PropertyID":"1317094","TopOrBottomCount":"Top"},
-            
+        proxy: {
+        	type: 'jsonp',
+            url: null,
             reader: {
                 type: 'json'
             }
-        },*/
+        },
         autoLoad: false
     },
     
-    loadpostRequest: function(thejsondata, ui) {
-    	ui.setMasked({xtype: 'loadmask'})
-    	Ext.Ajax.request({
-    	    url: LDBTest.model.JsonServicesConstants.getJsonPProxyPath(),
-    	    jsonData: Ext.JSON.encode(thejsondata),
-    	    method: 'POST',
-    	    scope: this,
-    	    success: function(response){
-    	        var text = response.responseText;
-//    	        this.setData(eval('(' + text + ')'));
-    	        this.setData(Ext.JSON.decode(text));
-    	        ui.unmask();
-    	    }
-    	});
+    loadpostRequest: function(jsonData, ui) {
+    	ui.setMasked({xtype: 'loadmask'});
+		this.getProxy().setUrl(LDBTest.model.JsonServicesConstants.getHierarchyWelllistUrl(jsonData['ProductionPointName'], jsonData['OrgLevel'], jsonData['PropertyID']));
+		this.load(function(records, operation, success) {
+		    console.log('loaded records');
+		    ui.unmask();
+		}, this);
     }
 });
