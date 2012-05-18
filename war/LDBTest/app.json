@@ -63,20 +63,16 @@
      *      }
      */
     "css": [
-        {
-            "path": "resources/css/app.css",
-            "update": "delta"
-        },
-        {
-            "path": "resources/css/touch-charts.css",
-            "update": "delta"
-        },
-        {
+    	{
             "path": "resources/css/energy-demo.css",
             "update": "delta"
         },
         {
             "path": "resources/css/Energy.css",
+            "update": "delta"
+        },
+        {
+            "path": "resources/css/app.css",
             "update": "delta"
         }
     ],

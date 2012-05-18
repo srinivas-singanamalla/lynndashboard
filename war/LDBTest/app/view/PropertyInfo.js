@@ -37,9 +37,9 @@ Ext.define('LDBTest.view.PropertyInfo', {
     	
     	title: 'Property Info',
     	iconCls: 'action',
-    	cls: 'chartpanel',
-    	baseCls: 'chartpanel',
-    	margin: '0 20 0 20',
+//    	cls: 'chartpanel',
+//    	baseCls: 'chartpanel',
+//    	margin: '0 20 0 20',
     	
                 items: [
                         
