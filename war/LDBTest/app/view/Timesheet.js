@@ -6,6 +6,8 @@ Ext.define('LDBTest.view.Timesheet', {
 	           'Ext.Button'
 	           ],
 	config: {
+		startVal: 0,
+		endVal: 24,
 		items: [
                 
 				{
@@ -42,21 +44,25 @@ Ext.define('LDBTest.view.Timesheet', {
 				},
 				{
                     xtype: 'sliderfield',
+                    id: 'timesliderfield',
                     name: 'multiple_slider',
 //                    values: [1314835200, 1317340800],
-                    values: [50, 360],
+                    values: [0, 24],
                     minValue: 0,
-                    maxValue: 365
+                    maxValue: 24
 //                    increment: 86 
                 },
                 {
                     xtype: 'container',
                     layout: 'hbox',
+                    id: 'timefieldcontainer',
                     padding: '20 0 20 0',
                     items: [
                             {
                                 html: '<b>Start Time:</b>',
                                 style: 'color: white;',
+                                xtype: 'label',
+                                id: 'startTimeLabel'
 //                                flex: 1
                             },
                             {
@@ -64,11 +70,106 @@ Ext.define('LDBTest.view.Timesheet', {
                             },
                             {
                                 html: '<b>End Time:</b>',
-                                style: 'color: white;'
+                                style: 'color: white;',
+                                xtype: 'label',
+                                id: 'endTimeLabel'
 //                                flex: 1
                             }
                         ]
                 }
                 ]
-	}           
+	},
+	
+	initialize: function() {
+		this.callParent();
+		Ext.getCmp('timesliderfield').getComponent().on({
+	        drag: this.onDrag,
+	        dragend: this.onDragend,
+	        scope: this
+	    });
+		
+		Ext.getCmp('timesheetcancel').on({
+			tap: this.onCancelTap,
+			scope: this
+		});
+		
+		Ext.getCmp('timesheetreset').on({
+			tap: this.onResetTap,
+			scope: this
+		});
+		
+		Ext.getCmp('timesheetdone').on({
+			tap: this.onDoneTap,
+			scope: this
+		});
+		this.onResetTap();
+	},
+	
+	convertToFmtDate: function(val) {
+		var mts = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		var yrs = [2011, 2010, 2009];
+		
+		var arr = this.toMonthYear(val);
+		return mts[arr[0]] + ', ' + yrs[arr[1]];
+	},
+	
+	toMonthYear: function(val) {
+		var mts = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		var yrs = [2011, 2010, 2009];
+		var sm = 8, sy = 0, counter = 24; 
+		for (var yi = 0; yi < yrs.length; yi++) {
+			for (var mi = (yi == 0 ? sm : 11); mi >= 0; mi--) {
+				if (counter == val) {
+					return [mi, yi];
+				}
+				counter--;
+			}
+		}
+		return [-1, -1];
+	},
+	
+	setUIValue: function(val1, val2) {
+		Ext.getCmp('startTimeLabel').setHtml('<b>Start Time:</b>  ' + '<span style="color:red;">' + this.convertToFmtDate(val1) + '</span>');
+        Ext.getCmp('endTimeLabel').setHtml('<b>End Time:</b>  ' + '<span style="color:red;">' + this.convertToFmtDate(val2) + '</span>');
+	},
+	
+	onCancelTap: function() {
+		this.hide();
+	},
+	
+	onResetTap: function() {
+		Ext.getCmp('timesliderfield').reset();
+		this.setUIValue(0, 24);
+	},
+	
+	onDoneTap: function() {
+		var mts = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		var yrs = [2011, 2010, 2009];
+		var singleton = LDBTest.model.DBSingleton,
+		vals = Ext.getCmp('timesliderfield').getValue(),
+		stmtyear = this.toMonthYear(vals[0]),
+		endmtyear = this.toMonthYear(vals[1]),
+		startDate = new Date(yrs[stmtyear[1]], stmtyear[0], 1),
+		endDate = new Date(yrs[endmtyear[1]], endmtyear[0], 1);
+		singleton.setStartTime(startDate.getTime()),
+    	singleton.setEndTime(endDate.getTime());
+		console.log(startDate.getTime());
+		console.log(endDate.getTime());
+		var carousel = Ext.ComponentQuery.query('dbcarousel')[0];
+		carousel.getActiveItem().getAt(0).reloadIfDirty();
+		this.hide();
+	},
+	
+	toDateInMillisecs: function(mth, year) {
+		var dte = new Date(year, mth);
+	},
+	
+	onDrag: function(sliderfield, slider, thumb, value, evtObj, eOpts) {
+        console.log(thumb);
+        this.setUIValue(thumb[0], thumb[1]);
+    },
+    
+    onDragend: function(sliderfield, slider, thumb, value, evtObj, eOpts) {
+        console.log('dragend ' + value + thumb);
+    }
 });

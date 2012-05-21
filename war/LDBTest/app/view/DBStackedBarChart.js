@@ -12,6 +12,8 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
         cls: 'chartpanel',
         autoSize: true,
         dirty: true,
+        startTime:null,
+        endTime:null,
 //        width: '800',
 //        height: '400',
         shadow: true,
@@ -110,12 +112,13 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
     },
     
     reloadIfDirty: function() {
-    	if (this.getDirty()) {
+    	if (this.outOfSync()) {
     		Ext.ComponentQuery.query('dbcarousel')[0].setMasked({xtype: 'loadmask',
     		    message: 'Loading...'});
     		this.getStore().getProxy().setUrl(LDBTest.model.JsonServicesConstants.getProfitabilityPlotUrl());
     		this.getStore().load(function(records, operation, success) {
 		    	if (success) {
+		    		this.syncTime();
 		    		this.setDirty(false);
 //		    		if (Ext.ComponentQuery.query('dbcarousel')[0].getMasked()) {
 		    			Ext.ComponentQuery.query('dbcarousel')[0].setMasked(false);
@@ -123,6 +126,21 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
 		    	}
 		    }, this);
     	}
+    },
+    
+    outOfSync: function() {
+    	var singleton = LDBTest.model.DBSingleton,
+    	sttime = singleton.getStartTime(),
+    	endtime = singleton.getEndTime();
+    	return (this.getStartTime() !== sttime) || (this.getEndTime() !== endtime);
+    },
+    
+    syncTime: function() {
+    	var singleton = LDBTest.model.DBSingleton,
+    	sttime = singleton.getStartTime(),
+    	endtime = singleton.getEndTime();
+    	this.setStartTime(sttime);
+    	this.setEndTime(endtime);
     },
     
     initialize: function() {

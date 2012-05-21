@@ -9,6 +9,8 @@ Ext.define('LDBTest.view.DashboardSummary', {
                ],
     config: {
     	layout: 'vbox',
+    	startTime:null,
+        endTime:null,
     	items: [
     	        { xtype: 'container', 
     	          flex: 1, 
@@ -33,7 +35,7 @@ Ext.define('LDBTest.view.DashboardSummary', {
     	Ext.each(this.getInnerItems(), function(item, row){
     		Ext.each(item.getInnerItems(), function(inner, column){
     			 if (inner.getAt(0) != null) {
-    				 inner.getAt(0).reloadIfDirty && inner.getAt(0).reloadIfDirty();
+    				 inner.getAt(0).reloadIfDirty();
 		        } else {
 			        inner.add(Ext.create(this.getCardPlotValueAt(row, column), {
 			        	layout: 'fit'

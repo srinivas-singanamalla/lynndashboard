@@ -8,7 +8,8 @@ Ext.define('LDBTest.controller.TimesheetController', {
 	          ],
 	config: {
 		refs: {
-			timesheet: 'timesheet'
+			timesheet: 'timesheet',
+			timeslider: '#timesliderfield'
 		}
 	},
 	
@@ -24,8 +25,15 @@ Ext.define('LDBTest.controller.TimesheetController', {
 			
 			'#timesheetdone': {
 				tap: this.onDoneTap
+			},
+			
+			'sliderfield': {
+				//dragend: this.onSliderDragEnd,
+				//drag: this.onSliderDrag,
+				change: this.onSliderDragStart
 			}
 		});
+		
 	},
 	
 	onCancelTap: function() {
@@ -39,5 +47,4 @@ Ext.define('LDBTest.controller.TimesheetController', {
 	onDoneTap: function() {
 		this.getTimesheet().hide();
 	}
-		
 });

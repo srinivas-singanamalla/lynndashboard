@@ -48,8 +48,8 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         getProductionPlotUrl: function() {
         	var singleton = LDBTest.model.DBSingleton,
         	record = singleton.getWellrecord(),
-        	sttime = singleton.getStartTime(),
-        	endtime = singleton.getEndTime(),
+        	sttime = singleton.getStartTimeInSecs(),
+        	endtime = singleton.getEndTimeInSecs(),
         	prodpoint = singleton.getProdPoint() && singleton.getProdPoint().get('Name'),
         	wellcompletionId = record && record.get('WellCompletionCode'),
         	supplypointId = record && record.get('SupplyPointID');
@@ -65,8 +65,8 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         getProfitabilityPlotUrl: function() {
         	var singleton = LDBTest.model.DBSingleton,
         	record = singleton.getWellrecord(),
-        	sttime = singleton.getStartTime(),
-        	endtime = singleton.getEndTime(),
+        	sttime = singleton.getStartTimeInSecs(),
+        	endtime = singleton.getEndTimeInSecs(),
         	prodpoint = singleton.getProdPoint() && singleton.getProdPoint().get('Name'),
         	propId = singleton.getPropertyID() && singleton.getPropertyID(),
         	wellcompletionId = record && record.get('WellCompletionCode'),
@@ -84,8 +84,8 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         getKPIPlotUrl: function() {
     		var singleton = LDBTest.model.DBSingleton,
         	record = singleton.getWellrecord(),
-        	sttime = singleton.getStartTime(),
-        	endtime = singleton.getEndTime(),
+        	sttime = singleton.getStartTimeInSecs(),
+        	endtime = singleton.getEndTimeInSecs(),
         	prodpoint = singleton.getProdPoint() && singleton.getProdPoint().get('Name'),
         	propId = singleton.getPropertyID() && singleton.getPropertyID(),
         	wellcompletionId = record && record.get('WellCompletionCode'),
@@ -100,8 +100,8 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         getExpenseBreakdownUrl: function() {
     		var singleton = LDBTest.model.DBSingleton,
         	record = singleton.getWellrecord(),
-        	sttime = singleton.getStartTime(),
-        	endtime = singleton.getEndTime(),
+        	sttime = singleton.getStartTimeInSecs(),
+        	endtime = singleton.getEndTimeInSecs(),
         	prodpoint = singleton.getProdPoint() && singleton.getProdPoint().get('Name'),
         	propId = singleton.getPropertyID() && singleton.getPropertyID(),
         	wellcompletionId = record && record.get('WellCompletionCode'),
@@ -111,6 +111,10 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
 	    	} else {
 	    		return this.baseUrl() + 'KPIList/' + prodpoint + '/ByID/' + propId;
 	    	}
+        },
+        
+        getPropertyWellInfo: function() {
+        	
         }
     }
 });

@@ -14,7 +14,7 @@ Ext.define('LDBTest.view.SearchNavigation', {
         
         autoDestroy: false,
         navigationBar: {
-            ui: 'sencha',
+//            ui: 'sencha',
             items: [
                 {
                     xtype: 'button',

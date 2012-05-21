@@ -95,9 +95,10 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 		console.log("etateaeadadad" + this.getSelectProd().getRecord());
 		console.log(record);
 		LDBTest.model.DBSingleton.setWellrecord(record);
+		
 		LDBTest.model.DBSingleton.setProdPoint(this.getSelectProd().getRecord());
 		LDBTest.model.DBSingleton.setPropertyID(this.getSelectOrgName().getValue());
-		this.getSearchnavigation().push({xtype: 'dbcarousel'});
+		this.getSearchnavigation().push({xtype: 'dbcarousel', title: 'Summary for ' + record.get('WellCompletionName')});
 	}
 	
 });

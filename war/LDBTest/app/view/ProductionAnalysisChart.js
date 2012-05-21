@@ -14,6 +14,8 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
         title: 'Production Analysis',
         iconCls: 'line',
         cls: 'chartpanel',
+        startTime:null,
+        endTime:null,
         autoSize: true,
 //        width: '400',
 //        height: '200',
@@ -174,12 +176,14 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
     },
     
     reloadIfDirty: function() {
-    	Ext.ComponentQuery.query('dbcarousel')[0].setMasked({xtype: 'loadmask',
-		    message: 'Loading...'});
-    	if (this.getDirty()) {
+    	
+    	if (this.outOfSync()) {
+    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked({xtype: 'loadmask',
+    		    message: 'Loading...'});
     		Ext.Logger.warn('Production Analysis Chart reloadIfDirty');
     		this.getStore().getProxy().setUrl(LDBTest.model.JsonServicesConstants.getProductionPlotUrl());
     		this.getStore().load(function(records, operation, success) {
+    			this.syncTime();
 		    	if (success) {
 		    		Ext.Logger.warn('Production Analysis Chart #success');
 		    		this.setDirty(true);
@@ -187,6 +191,21 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
 		    	}
 		    }, this);
     	}
+    },
+    
+    outOfSync: function() {
+    	var singleton = LDBTest.model.DBSingleton,
+    	sttime = singleton.getStartTime(),
+    	endtime = singleton.getEndTime();
+    	return this.getStartTime() !== sttime || this.getEndTime() !== endtime;
+    },
+    
+    syncTime: function() {
+    	var singleton = LDBTest.model.DBSingleton,
+    	sttime = singleton.getStartTime(),
+    	endtime = singleton.getEndTime();
+    	this.setStartTime(sttime);
+    	this.setEndTime(endtime);
     },
     
     initialize: function() {

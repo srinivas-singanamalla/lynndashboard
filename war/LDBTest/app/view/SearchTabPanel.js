@@ -6,8 +6,8 @@ Ext.define('LDBTest.view.SearchTabPanel', {
                'LDBTest.view.HierarchySearch',
                ],
     config: {
-    	iconCls: 'search',
-    	title: 'Search for Wells',
+//    	iconCls: 'search',
+    	title: 'Select a Well',
         items: [
 			{
 				xtype: 'propertysearch'
