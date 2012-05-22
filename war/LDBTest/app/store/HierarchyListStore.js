@@ -46,7 +46,7 @@ Ext.define('LDBTest.store.HierarchyListStore', {
             type: 'String'
         },
         {
-        	name: 'SupplyPointID',
+        	name: 'PropID',
             type: 'String'
         },
         {

@@ -14,9 +14,9 @@ Ext.define('LDBTest.controller.WellsearchController', {
 			
 			welllist: 'propertywelllist',
 			
-			prodSelectField: '#pprodPoint'
-				
-				
+			prodSelectField: '#pprodPoint',
+			
+			searchnavigation: 'searchnavigation'
 		}
 	},           
 	
@@ -33,13 +33,10 @@ Ext.define('LDBTest.controller.WellsearchController', {
 			},
 			
 			'propertywelllist': {
-				select: this.onSelectWell
+				itemtap: this.onListItemtap
 			}
+			
 		});
-	},
-	
-	onSelectWell: function(view, record) {
-		this.getSearchwellfield().setValue(record.get('name'));
 	},
 	
 	onProductionPointChange: function(field, newValue, oldValue, eOpts) {
@@ -73,6 +70,16 @@ Ext.define('LDBTest.controller.WellsearchController', {
 	
 	onClearicontap: function() {
 		this.loadPropertyList('A');
+	},
+	
+	onListItemtap: function( dataview, index, target, record, eventObj, eOpts ) {
+		console.log(record);
+		console.log('propId' + record.get('value'));
+		LDBTest.model.DBSingleton.setWellrecord(record);
+		
+		LDBTest.model.DBSingleton.setProdPoint(this.getProdSelectField().getRecord());
+		LDBTest.model.DBSingleton.setPropertyID(record.get('value'));
+		this.getSearchnavigation().push({xtype: 'dbcarousel', title: 'Summary for ' + record.get('name')});
 	}
 	
 });

@@ -405,6 +405,7 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
             bbox, items, width, height, x, y;
         this.callParent();
         if (this.getKpirecord() != null) {
+        	me.surface.removeAll(true);
         	me.surface.add(me.getPsuedoOrgBoxesSpriteArray(this.getKpirecord()));
         	me.surface.renderFrame();
         }

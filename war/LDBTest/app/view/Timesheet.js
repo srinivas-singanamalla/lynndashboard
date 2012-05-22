@@ -105,32 +105,11 @@ Ext.define('LDBTest.view.Timesheet', {
 		this.onResetTap();
 	},
 	
-	convertToFmtDate: function(val) {
-		var mts = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-		var yrs = [2011, 2010, 2009];
-		
-		var arr = this.toMonthYear(val);
-		return mts[arr[0]] + ', ' + yrs[arr[1]];
-	},
 	
-	toMonthYear: function(val) {
-		var mts = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-		var yrs = [2011, 2010, 2009];
-		var sm = 8, sy = 0, counter = 24; 
-		for (var yi = 0; yi < yrs.length; yi++) {
-			for (var mi = (yi == 0 ? sm : 11); mi >= 0; mi--) {
-				if (counter == val) {
-					return [mi, yi];
-				}
-				counter--;
-			}
-		}
-		return [-1, -1];
-	},
 	
 	setUIValue: function(val1, val2) {
-		Ext.getCmp('startTimeLabel').setHtml('<b>Start Time:</b>  ' + '<span style="color:red;">' + this.convertToFmtDate(val1) + '</span>');
-        Ext.getCmp('endTimeLabel').setHtml('<b>End Time:</b>  ' + '<span style="color:red;">' + this.convertToFmtDate(val2) + '</span>');
+		Ext.getCmp('startTimeLabel').setHtml('<b>Start Time:</b>  ' + '<span style="color:red;">' + LDBTest.model.DBSingleton.convertToFmtDate(val1) + '</span>');
+        Ext.getCmp('endTimeLabel').setHtml('<b>End Time:</b>  ' + '<span style="color:red;">' + LDBTest.model.DBSingleton.convertToFmtDate(val2) + '</span>');
 	},
 	
 	onCancelTap: function() {
@@ -147,8 +126,8 @@ Ext.define('LDBTest.view.Timesheet', {
 		var yrs = [2011, 2010, 2009];
 		var singleton = LDBTest.model.DBSingleton,
 		vals = Ext.getCmp('timesliderfield').getValue(),
-		stmtyear = this.toMonthYear(vals[0]),
-		endmtyear = this.toMonthYear(vals[1]),
+		stmtyear = LDBTest.model.DBSingleton.toMonthYear(vals[0]),
+		endmtyear = LDBTest.model.DBSingleton.toMonthYear(vals[1]),
 		startDate = new Date(yrs[stmtyear[1]], stmtyear[0], 1),
 		endDate = new Date(yrs[endmtyear[1]], endmtyear[0], 1);
 		singleton.setStartTime(startDate.getTime()),

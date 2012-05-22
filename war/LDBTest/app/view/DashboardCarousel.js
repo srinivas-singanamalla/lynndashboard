@@ -17,7 +17,7 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     config: {
     	direction: 'horizontal',
     	ui: 'light',
-    	title : 'Production Plot',
+//    	title : 'Production Plot',
 		iconCls : 'home',
 		productionplot: null,
 		profitabilityplot: null,
@@ -141,8 +141,11 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     		this.reloadOrCreateCard(container, newActiveItem, oldActiveItem, eOpts);
     		if (container.isXType('dbcarousel')) {
     			Ext.getCmp('dashboardsummary').add(Ext.create(this.getCardPlotValueAt(activeIndex)));
+    			container.setTitle('Dashboard Summary');
         	}
+    		Ext.get('changeTimeInterval').show();
     	}, 600, this);
+    	
 //    	this.reloadOrCreateCard(container, newActiveItem, oldActiveItem, eOpts);
     	
     },
@@ -215,6 +218,7 @@ Ext.define("LDBTest.view.DashboardCarousel", {
 			} else {
 				value.getAt(0).reloadIfDirty && value.getAt(0).reloadIfDirty();
 			}
+	    	container.setTitle('Dashboard Summary');
     	}
 //		Ext.defer(function(){console.log("destroying"); oldvalue.destroy();}, 1000, this);
     }

@@ -11,11 +11,11 @@ Ext.define('LDBTest.view.HierarchySearchList', {
     	store: Ext.create('LDBTest.store.HierarchyListStore'),
     
     	itemTpl: '<div style="margin-right:50px;">' +
-    				'<div style="width: 400px; float: right; text-align: right;">' +
-    					'<span class="header">Status:{Status} Status Date: {StatusDate}</span><br/>{NetCashFlow}' +
+    				'<div style="width: 500px; float: right; text-align: right;">' +
+    					'<span class="header">Status:<span style="color:red">{Status}</span> Status Date: <span style="color:red">{StatusDate}</span></span><br/>{NetCashFlow}' +
     				'</div>' +
     				'<div>' +
-    					'<span class="header">{WellCompletionName} ( {WellCompletionCode} )</span> <br/>{GrossCashFlow}' +
+    					'<span class="header">{WellCompletionName} </span> <br/>{GrossCashFlow} (Gross)' +
     				'</div>' +
     			'</div>',
     	onItemDisclosure: true

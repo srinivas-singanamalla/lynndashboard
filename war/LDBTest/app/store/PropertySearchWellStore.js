@@ -5,14 +5,13 @@ Ext.define("LDBTest.store.PropertySearchWellStore", {
                ],
     config: {
         storeId: 'PropertySearchWellStore',
-//        idProperty: 'ProductionPointWellName',
         fields: [{
         	name: 'name',
-        	mapping: 'ProductionPointWellName',
+        	mapping: 'Name',
             type: 'String'
         }, {
             name: 'value',
-            mapping: 'PropertyID',
+            mapping: 'PropID',
             type: 'String'
         }],
 
@@ -27,10 +26,8 @@ Ext.define("LDBTest.store.PropertySearchWellStore", {
               ],
           */    
         proxy: {
-//            type: 'ajax',
-//            url : 'app/data/WellCompletion.json',
         	type: 'jsonp',
-            url: LDBTest.model.JsonServicesConstants.getPropertyWelllistUrl('WellCompletion', 'A'),
+            url: LDBTest.model.JsonServicesConstants.getPropertyWelllistUrl('WellCompletion', ''),
             reader: {
                 type: 'json'
             }

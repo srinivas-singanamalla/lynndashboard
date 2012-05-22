@@ -21,7 +21,7 @@ Ext.define('LDBTest.view.SearchNavigation', {
                     id: 'changeTimeInterval',
                     text: 'Change Time Interval',
                     align: 'right',
-                    hidden: false,
+                    hidden: true,
                     hideAnimation: Ext.os.is.Android ? false : {
                         type: 'fadeOut',
                         duration: 200
@@ -65,6 +65,7 @@ Ext.define('LDBTest.view.SearchNavigation', {
             		}
         		}
         		, 600, this);
+    	Ext.get('changeTimeInterval').hide();
     	/*
     	Ext.defer(function(){Ext.Logger.warn("destroying"); 
     		var carousel = Ext.ComponentQuery.query('dbcarousel')[0];

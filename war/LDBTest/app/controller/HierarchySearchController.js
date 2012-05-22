@@ -53,7 +53,7 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 	},
 	
 	onProductionPointChange: function(field, newValue, oldValue, eOpts) {
-		console.log("onProductionPointChange");
+		this.loadHierarchyList();
 	},
 	
 	onOrgTypeChange: function(field, newValue, oldValue, eOpts) {
@@ -97,8 +97,10 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 		LDBTest.model.DBSingleton.setWellrecord(record);
 		
 		LDBTest.model.DBSingleton.setProdPoint(this.getSelectProd().getRecord());
-		LDBTest.model.DBSingleton.setPropertyID(this.getSelectOrgName().getValue());
-		this.getSearchnavigation().push({xtype: 'dbcarousel', title: 'Summary for ' + record.get('WellCompletionName')});
+		LDBTest.model.DBSingleton.setPropertyID(record.get('PropID'));
+		
+		
+		this.getSearchnavigation().push({xtype: 'dbcarousel', title: 'Summary for ' + record.get('WellCompletionName') + LDBTest.model.DBSingleton.getTimeRange()} );
 	}
 	
 });

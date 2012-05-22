@@ -9,6 +9,7 @@ Ext.define('LDBTest.view.ShortPropertyInfo', {
     	startTime:null,
         endTime:null,
     	baseCls: 'chartpanel',
+    	store: null,
     	tpl: null,
         data: null,
         store: null,
@@ -16,24 +17,16 @@ Ext.define('LDBTest.view.ShortPropertyInfo', {
     
     
     reloadIfDirty: function() {
-    	/*
-    	if (this.outOfSync()) {
-    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked({xtype: 'loadmask',
-    		    message: 'Loading...'});
-    		Ext.Logger.warn('Property Info reloadIfDirty');
-    		this.getStore().getProxy().setUrl(LDBTest.model.JsonServicesConstants.getKPIPlotUrl());
-    		this.getStore().load(function(records, operation, success) {
-		    	if (success) {
-		    		this.syncTime();
-		    		Ext.Logger.warn('Property Info  #success');
-		    		this.setDirty(false);
-		    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked(false);
-		    		this.onResize();
-		    	}
-		    }, this);
-		    
-    	}
-    	*/
+		Ext.ComponentQuery.query('dbcarousel')[0].setMasked({xtype: 'loadmask',
+		    message: 'Loading...'});
+		this.getStore().getProxy().setUrl(LDBTest.model.JsonServicesConstants.getPropertyWellInfo());
+		this.getStore().load(function(records, operation, success) {
+	    	if (success) {
+	    		this.setData(operation.getResponse());
+	    		Ext.Logger.warn('Property Info  #success');
+	    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked(false);
+	    	}
+	    }, this);
     },
     
     outOfSync: function() {
@@ -55,18 +48,14 @@ Ext.define('LDBTest.view.ShortPropertyInfo', {
     	var me = this;
     	var template = new Ext.XTemplate(
     			'<div class="centerwellinfo">',
-                '<tpl for=".">',
-                    '<div>{title}</div>',
                     '<table id="planetlist">',
-                        '<tpl for="rows">',
+                        '<tpl for=".">',
                         '<tr class="{[this.listClasses(xindex, xcount)]}">',
-                            '<tpl for="columns">',
-                            '<td>{html}</td>',
-                            '</tpl>',
+                            '<td>{Label}</td>',
+                            '<td>{Value}</td>',
                         '</tr>',
                         '</tpl>',
                     '</table>',
-                '</tpl>',
                 '</div>',
                 {
                 	
@@ -89,74 +78,9 @@ Ext.define('LDBTest.view.ShortPropertyInfo', {
                    
             );
     	this.setTpl(template);
-    	
-    	this.setData([
-                   {
-                       title: '<div class="dbsectiontitle">Well Property Info</div>',
-                       rows: [
-                           {
-                               columns: [
-                                   { html: 'API' },
-                                   { html: '232321313131313131321' },
-                               ]
-                           },
-                           {
-                               columns: [
-                                   { html: 'Code' },
-                                   { html: '31231231312321' },
-                               ]
-                           },
-                           {
-                               columns: [
-                                   { html: 'Unit Lease' },
-                                   { html: 'Lease 5467' },
-                               ]
-                           },
-                           {
-                               columns: [
-                                   { html: 'Location' },
-                                   { html: 'Thousand Oaks, CA' },
-                               ]
-                           },
-                           {
-                               columns: [
-                                   { html: 'Section' },
-                                   { html: 'Section 420' },
-                               ]
-                           },
-                           {
-                               columns: [
-                                   { html: 'Range' },
-                                   { html: '245-560' },
-                               ]
-                           },
-                           {
-                               columns: [
-                                   { html: 'Business Unit' },
-                                   { html: 'Cool Business' },
-                               ]
-                           },
-                           {
-                               columns: [
-                                   { html: 'NRI' },
-                                   { html: '100%' },
-                               ]
-                           },
-                           {
-                               columns: [
-                                   { html: 'Spud Date' },
-                                   { html: '10/12/1960' },
-                               ]
-                           },
-                           {
-                               columns: [
-                                   { html: 'Total Depth in meters' },
-                                   { html: '453' },
-                               ]
-                           }
-                       ]
-                   }
-               ]);
+    	this.setStore(Ext.create('LDBTest.store.PropertyInfoStore', {id: 'PropertyInfoStore'}));
+    	this.reloadIfDirty();
+//    	this.setData([{"Label":"API:","Value":"42-227-36278-00-"},{"Label":"Unit Lease:","Value":"BARNES 03 (RRC#40109)"},{"Label":"Operated:","Value":"Yes"},{"Label":"Location","Value":""},{"Label":"County:","Value":"Howard"},{"Label":"State:","Value":"TX"},{"Label":"Section:","Value":"3"},{"Label":"Township:","Value":"001-N"},{"Label":"Range:","Value":"UNK"},{"Label":"SubArea:","Value":"PB-FAIRVIEW"},{"Label":"Area:","Value":"PB-EAST WOLFBERRY OP"},{"Label":"District:","Value":"PB-TEXAS OP"},{"Label":"Business Unit:","Value":"PERMIAN BASIN TX"},{"Label":"Other Well Info","Value":""},{"Label":"NRI (Gas):","Value":"0.71"},{"Label":"NRI (Oil):","Value":"0.71"},{"Label":"Working Interest:","Value":"0.95"}]);
     },
     
     
