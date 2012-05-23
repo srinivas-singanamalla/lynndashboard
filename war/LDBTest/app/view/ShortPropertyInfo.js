@@ -9,6 +9,7 @@ Ext.define('LDBTest.view.ShortPropertyInfo', {
     	startTime:null,
         endTime:null,
     	baseCls: 'chartpanel',
+    	dirty: true,
     	store: null,
     	tpl: null,
         data: null,
@@ -17,14 +18,15 @@ Ext.define('LDBTest.view.ShortPropertyInfo', {
     
     
     reloadIfDirty: function() {
-		Ext.ComponentQuery.query('dbcarousel')[0].setMasked({xtype: 'loadmask',
+		this.setMasked({xtype: 'loadmask',
 		    message: 'Loading...'});
 		this.getStore().getProxy().setUrl(LDBTest.model.JsonServicesConstants.getPropertyWellInfo());
 		this.getStore().load(function(records, operation, success) {
 	    	if (success) {
 	    		this.setData(operation.getResponse());
 	    		Ext.Logger.warn('Property Info  #success');
-	    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked(false);
+	    		this.setDirty(false);
+	    		this.setMasked(false);
 	    	}
 	    }, this);
     },
@@ -33,7 +35,7 @@ Ext.define('LDBTest.view.ShortPropertyInfo', {
     	var singleton = LDBTest.model.DBSingleton,
     	sttime = singleton.getStartTime(),
     	endtime = singleton.getEndTime();
-    	return this.getStartTime() !== sttime || this.getEndTime() !== endtime;
+    	return this.getDirty() || (this.getStartTime() !== sttime || this.getEndTime() !== endtime);
     },
     
     syncTime: function() {

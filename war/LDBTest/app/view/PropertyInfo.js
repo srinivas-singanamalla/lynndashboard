@@ -37,6 +37,7 @@ Ext.define('LDBTest.view.PropertyInfo', {
     	
     	title: 'Property Info',
     	iconCls: 'action',
+    	dirty: false,
 //    	cls: 'chartpanel',
 //    	baseCls: 'chartpanel',
 //    	margin: '0 20 0 20',
@@ -45,7 +46,7 @@ Ext.define('LDBTest.view.PropertyInfo', {
                         
 					{
 					    xtype: 'fieldset',
-					    title: 'Well Identification',
+					    title: 'Well Info',
 					    defaults: {
 					        labelWidth: '35%'
 					    },
@@ -185,5 +186,9 @@ Ext.define('LDBTest.view.PropertyInfo', {
 					    
 					}
                 ]
+    },
+    
+    reloadIfDirty: function() {
+    	
     }
 });

@@ -3,7 +3,8 @@ Ext.define('LDBTest.view.SearchNavigation', {
     xtype: 'searchnavigation',
     requires: [
                'LDBTest.view.SearchTabPanel',
-               'LDBTest.view.Timesheet'
+               'LDBTest.view.Timesheet',
+               'LDBTest.view.DashboardCarousel'
                ],
     config: {
         items: [
@@ -11,10 +12,11 @@ Ext.define('LDBTest.view.SearchNavigation', {
 				xtype: 'searchTabPanel'
 			}
         ],
-        
+        dashboard: null,
         autoDestroy: false,
         navigationBar: {
 //            ui: 'sencha',
+        	id: 'navigationBar',
             items: [
                 {
                     xtype: 'button',
@@ -49,22 +51,38 @@ Ext.define('LDBTest.view.SearchNavigation', {
     		back: this.onBack,
     		add: this.onAdd,
     		scope: this
-    	})
+    	});
     	
     	this.callParent();
     },
     
+    pushDashboard: function(config) {
+    	debugger;
+    	if (this.getDashboard() == null) {
+    		this.setDashboard(
+    			Ext.create('LDBTest.view.DashboardCarousel', {
+    				title: config.title
+    			})
+    		);
+    	}
+    	this.getDashboard().setActiveItem(this.getDashboard().getInnerItems()[0]);
+    	this.getDashboard().setDirty();
+    	this.push(this.getDashboard());
+    },
+    
     onBack: function() {
+    	/*
     	Ext.defer(
         		function(){
         			Ext.Logger.warn('removing all components');
         			var carousel = Ext.ComponentQuery.query('dbcarousel')[0];
-            		if (carousel) {
-            			carousel.removeAll(true, true);
-            			this.remove(carousel, true);
+            		if (this.getDashboard()) {
+            			this.getDashboard().removeAll(true, true);
+//            			this.remove(carousel, true);
             		}
         		}
         		, 600, this);
+        		*/
     	Ext.get('changeTimeInterval').hide();
     	/*
     	Ext.defer(function(){Ext.Logger.warn("destroying"); 

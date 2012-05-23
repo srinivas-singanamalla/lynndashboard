@@ -6,7 +6,7 @@ Ext.define("LDBTest.store.PropertySearchWellStore", {
     config: {
         storeId: 'PropertySearchWellStore',
         fields: [{
-        	name: 'name',
+        	name: 'WellCompletionName',
         	mapping: 'Name',
             type: 'String'
         }, {

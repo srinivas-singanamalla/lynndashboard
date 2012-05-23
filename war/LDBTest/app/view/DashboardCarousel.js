@@ -11,13 +11,14 @@ Ext.define("LDBTest.view.DashboardCarousel", {
                'LDBTest.view.PseudoOrgChart',
                'Ext.util.DelayedTask',
                'Ext.SegmentedButton',
-               'Ext.field.Slider'
+               'Ext.field.Slider',
+               'LDBTest.model.DBSingleton'
                ],
     
     config: {
     	direction: 'horizontal',
     	ui: 'light',
-//    	title : 'Production Plot',
+    	title : 'Production Plot',
 		iconCls : 'home',
 		productionplot: null,
 		profitabilityplot: null,
@@ -108,8 +109,7 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     	this.add([{
             xtype: 'container',
             id: 'dashboardsummary',
-            layout: 'fit',
-            title: 'Summary'
+            layout: 'fit'
         },
         {
             xtype: 'container',
@@ -133,16 +133,28 @@ Ext.define("LDBTest.view.DashboardCarousel", {
         }]);
     },
     
-    onActivate: function ( container, newActiveItem, oldActiveItem, eOpts ) {
+    onActivate: function ( container, value, oldActiveItem, eOpts ) {
+    	debugger;
     	Ext.defer(function(){
 //    		debugger;
     		var carousel = container,
+    		newactiveItem = carousel.getActiveItem(),
     		activeIndex = carousel.getActiveIndex();
-    		this.reloadOrCreateCard(container, newActiveItem, oldActiveItem, eOpts);
+    		this.reloadOrCreateCard(container, value, oldActiveItem, eOpts);
+    		/*
     		if (container.isXType('dbcarousel')) {
     			Ext.getCmp('dashboardsummary').add(Ext.create(this.getCardPlotValueAt(activeIndex)));
     			container.setTitle('Dashboard Summary');
+        	}*/
+    		if (container.isXType('dbcarousel')) {
+    	    	if (newactiveItem.getAt(0) == null) {
+    	    		newactiveItem.add(Ext.create(this.getCardPlotValueAt(activeIndex)));
+    			} else {
+    				newactiveItem.getAt(0).reloadIfDirty && newactiveItem.getAt(0).reloadIfDirty();
+    			}
+    	    	this.setTitle(newactiveItem.getAt(0).getTitle());
         	}
+    		
     		Ext.get('changeTimeInterval').show();
     	}, 600, this);
     	
@@ -160,6 +172,15 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     		, 1000, this);
     		
     	**/	
+    },
+    
+    setDirty: function() {
+    	Ext.each(this.getInnerItems(), function(item, index){
+    		Ext.each(item.getInnerItems(), function(inner, index){
+    			inner.setDirty && inner.setDirty(true);
+    		});
+    		
+    	});
     },
     
     
@@ -207,6 +228,15 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     	}
     },
     
+    
+    setTitle: function(title) {
+    	//Hack: to dynamically change the title
+    	var bar = Ext.getCmp('navigationBar');
+    	if (bar.titleComponent.element) bar.titleComponent.element.setWidth('auto');
+    	bar.titleComponent.setTitle(title + ' - ' + LDBTest.model.DBSingleton.getWellrecord().get('WellCompletionName') + LDBTest.model.DBSingleton.getTimeRange());
+    	bar.refreshProxy();
+    },
+    
     onActiveitemchange: function(container, value, oldvalue, eopts) {
 //    	alert('Carousel: onActiveitemchange');
     	var carousel = container,
@@ -218,7 +248,7 @@ Ext.define("LDBTest.view.DashboardCarousel", {
 			} else {
 				value.getAt(0).reloadIfDirty && value.getAt(0).reloadIfDirty();
 			}
-	    	container.setTitle('Dashboard Summary');
+	    	this.setTitle(value.getAt(0).getTitle());
     	}
 //		Ext.defer(function(){console.log("destroying"); oldvalue.destroy();}, 1000, this);
     }

@@ -11,6 +11,7 @@ Ext.define('LDBTest.view.DashboardSummary', {
     	layout: 'vbox',
     	startTime:null,
         endTime:null,
+        title: 'Summary',
     	items: [
     	        { xtype: 'container', 
     	          flex: 1, 
@@ -41,6 +42,17 @@ Ext.define('LDBTest.view.DashboardSummary', {
 			        	layout: 'fit'
 			        }));
 
+		        }
+    		}, this);
+    		
+    	}, this);
+    },
+    
+    setDirty: function() {
+    	Ext.each(this.getInnerItems(), function(item, row){
+    		Ext.each(item.getInnerItems(), function(inner, column){
+    			 if (inner.getAt(0) != null) {
+    				 inner.getAt(0).setDirty(true);
 		        }
     		}, this);
     		

@@ -79,7 +79,8 @@ Ext.define('LDBTest.controller.WellsearchController', {
 		
 		LDBTest.model.DBSingleton.setProdPoint(this.getProdSelectField().getRecord());
 		LDBTest.model.DBSingleton.setPropertyID(record.get('value'));
-		this.getSearchnavigation().push({xtype: 'dbcarousel', title: 'Summary for ' + record.get('name')});
+//		this.getSearchnavigation().push({xtype: 'dbcarousel', title: 'Summary for ' + record.get('name')});
+		this.getSearchnavigation().pushDashboard({title: 'Summary for ' + record.get('WellCompletionName')});
 	}
 	
 });

@@ -11,7 +11,7 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
 	           ],
     config: {
     	
-        title: 'Production Analysis',
+        title: 'Net Production Analysis',
         iconCls: 'line',
         cls: 'chartpanel',
         startTime:null,
@@ -21,6 +21,7 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
 //        height: '200',
         shadow: true,
         dirty: true,
+        reload: true,
         /*animate: {
             easing: 'bounceOut',
             duration: 750
@@ -178,15 +179,17 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
     reloadIfDirty: function() {
     	
     	if (this.outOfSync()) {
-    		Ext.ComponentQuery.query('dbcarousel')[0].setMasked({xtype: 'loadmask',
+    		this.parent.setMasked({xtype: 'loadmask',
     		    message: 'Loading...'});
     		Ext.Logger.warn('Production Analysis Chart reloadIfDirty');
     		this.getStore().getProxy().setUrl(LDBTest.model.JsonServicesConstants.getProductionPlotUrl());
     		this.getStore().load(function(records, operation, success) {
     			this.syncTime();
+    			
 		    	if (success) {
+		    		this.parent.unmask();
 		    		Ext.Logger.warn('Production Analysis Chart #success');
-		    		this.setDirty(true);
+		    		this.setDirty(false);
 		    		
 		    	}
 		    }, this);
@@ -197,7 +200,7 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
     	var singleton = LDBTest.model.DBSingleton,
     	sttime = singleton.getStartTime(),
     	endtime = singleton.getEndTime();
-    	return this.getStartTime() !== sttime || this.getEndTime() !== endtime;
+    	return this.getDirty() || (this.getStartTime() !== sttime || this.getEndTime() !== endtime);
     },
     
     syncTime: function() {

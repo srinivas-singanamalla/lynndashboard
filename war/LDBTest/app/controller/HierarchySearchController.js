@@ -98,9 +98,8 @@ Ext.define('LDBTest.controller.HierarchySearchController', {
 		
 		LDBTest.model.DBSingleton.setProdPoint(this.getSelectProd().getRecord());
 		LDBTest.model.DBSingleton.setPropertyID(record.get('PropID'));
-		
-		
-		this.getSearchnavigation().push({xtype: 'dbcarousel', title: 'Summary for ' + record.get('WellCompletionName') + LDBTest.model.DBSingleton.getTimeRange()} );
+		this.getSearchnavigation().pushDashboard({title: 'Summary for ' + record.get('WellCompletionName') + LDBTest.model.DBSingleton.getTimeRange()});
+//		this.getSearchnavigation().push({xtype: 'dbcarousel', title: 'Summary for ' + record.get('WellCompletionName') + LDBTest.model.DBSingleton.getTimeRange()} );
 	}
 	
 });
