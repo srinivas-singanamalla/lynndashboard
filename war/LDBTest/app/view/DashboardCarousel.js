@@ -134,25 +134,19 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     },
     
     onActivate: function ( container, value, oldActiveItem, eOpts ) {
-    	debugger;
     	Ext.defer(function(){
-//    		debugger;
     		var carousel = container,
     		newactiveItem = carousel.getActiveItem(),
+    		time = LDBTest.model.DBSingleton.getTimeRange(),
     		activeIndex = carousel.getActiveIndex();
     		this.reloadOrCreateCard(container, value, oldActiveItem, eOpts);
-    		/*
-    		if (container.isXType('dbcarousel')) {
-    			Ext.getCmp('dashboardsummary').add(Ext.create(this.getCardPlotValueAt(activeIndex)));
-    			container.setTitle('Dashboard Summary');
-        	}*/
     		if (container.isXType('dbcarousel')) {
     	    	if (newactiveItem.getAt(0) == null) {
     	    		newactiveItem.add(Ext.create(this.getCardPlotValueAt(activeIndex)));
     			} else {
     				newactiveItem.getAt(0).reloadIfDirty && newactiveItem.getAt(0).reloadIfDirty();
     			}
-    	    	this.setTitle(newactiveItem.getAt(0).getTitle());
+    	    	this.setTitle(newactiveItem.getAt(0).getTitle() + ' - ' + LDBTest.model.DBSingleton.getWellrecord().get('WellCompletionName') + ' ' + time);
         	}
     		
     		Ext.get('changeTimeInterval').show();
@@ -233,14 +227,16 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     	//Hack: to dynamically change the title
     	var bar = Ext.getCmp('navigationBar');
     	if (bar.titleComponent.element) bar.titleComponent.element.setWidth('auto');
-    	bar.titleComponent.setTitle(title + ' - ' + LDBTest.model.DBSingleton.getWellrecord().get('WellCompletionName') + LDBTest.model.DBSingleton.getTimeRange());
+    	bar.titleComponent.setTitle(title);
     	bar.refreshProxy();
     },
     
     onActiveitemchange: function(container, value, oldvalue, eopts) {
-//    	alert('Carousel: onActiveitemchange');
     	var carousel = container,
+    	fulltitle = '',
+    	time = LDBTest.model.DBSingleton.getTimeRange(),
 		activeIndex = carousel.getActiveIndex();
+    	
     	this.reloadOrCreateCard(container, value, oldvalue, eopts, false);
     	if (container.isXType('dbcarousel')) {
 	    	if (value.getAt(0) == null) {
@@ -248,8 +244,14 @@ Ext.define("LDBTest.view.DashboardCarousel", {
 			} else {
 				value.getAt(0).reloadIfDirty && value.getAt(0).reloadIfDirty();
 			}
-	    	this.setTitle(value.getAt(0).getTitle());
+	    	fulltitle = value.getAt(0).getTitle() + ' - ' + LDBTest.model.DBSingleton.getWellrecord().get('WellCompletionName');
+	    	if (value.getAt(0).isXType('wellinfolist')) {
+	    		Ext.get('changeTimeInterval').hide();
+	    	} else {
+	    		fulltitle = fulltitle + ' ' + time;
+	    		Ext.get('changeTimeInterval').show();
+	    	}
+	    	this.setTitle(fulltitle);
     	}
-//		Ext.defer(function(){console.log("destroying"); oldvalue.destroy();}, 1000, this);
     }
 });

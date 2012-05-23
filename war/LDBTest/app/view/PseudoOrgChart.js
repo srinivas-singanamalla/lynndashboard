@@ -160,10 +160,6 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         width = bbox.width,
         height = bbox.height;
     	
-    	console.log(width + " " + height);
-    	
-		
-		
         me.surface.addGradient({
             id: 'gradientId',
             angle: 45,
@@ -235,7 +231,7 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 		width = me.surface.getWidth(),
 		height = me.surface.getHeight();
 //		var bbox = {x: 0, y: 0, w:500, h:200};
-		var bbox = {x: width/4, y: 0, w:width/2, h:height/2};
+		var bbox = {x: width/4, y: 10, w:width/2, h:height/2};
 		var pad = 10;
 		spritesArray.push(this.getSpritesArray({
         	x: bbox.x,

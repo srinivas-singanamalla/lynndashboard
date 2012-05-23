@@ -11,5 +11,5 @@ Ext.define('LDBTest.view.PropertyWellList', {
     	itemTpl: '<div style="margin-right:50px;"><p style="width: 200px; float: right; text-align: right;">{value}</p><h2 style="">{WellCompletionName} </h2></div>',
     	emptyText: '<div style="margin-top: 20px; text-align: center">No Matching Items</div>',
     	onItemDisclosure: true
-    },
+    }
 });

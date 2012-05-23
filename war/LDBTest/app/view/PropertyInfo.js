@@ -5,190 +5,41 @@
  * See this in action at http://dev.sencha.com/deploy/sencha-touch-2-b3/examples/kitchensink/index.html#demo/forms
  */
 Ext.define('LDBTest.view.PropertyInfo', {
-    extend: 'Ext.form.Panel',
-    xtype: 'propertyinfo',
-    requires: [
-        'Ext.form.Panel',
-        'Ext.form.FieldSet',
-        'Ext.field.Number',
-        'Ext.field.Spinner',
-        'Ext.field.Password',
-        'Ext.field.Email',
-        'Ext.field.Url',
-        'Ext.field.DatePicker',
-        'Ext.field.Select',
-        'Ext.field.Hidden',
-        'Ext.field.Radio',
-        'Ext.field.Slider',
-        'Ext.field.Toggle',
-        'Ext.field.Search'
-    ],
+	extend: 'Ext.List',
+	xtype : 'wellinfolist',
+	
+	
+	requires: [
+	           'LDBTest.store.PropertyInfoStore'
+	           ],
 
-    config: {
-    	/*
-        activeItem: 0,
-        tabBar: {
-            // docked: 'bottom',
-            ui: 'neutral',
-            layout: {
-                pack: 'center'
-            }
-        },*/
-    	
-    	title: 'Property Info',
-    	iconCls: 'action',
-    	dirty: false,
-//    	cls: 'chartpanel',
-//    	baseCls: 'chartpanel',
-//    	margin: '0 20 0 20',
-    	
-                items: [
-                        
-					{
-					    xtype: 'fieldset',
-					    title: 'Well Info',
-					    defaults: {
-					        labelWidth: '35%'
-					    },
-					    items: [
-							{
-							    xtype         : 'textfield',
-							    name          : 'api',
-							    label         : 'API',
-							    placeHolder   : '232321313131313131321',
-							    autoCapitalize: true,
-//							    clearIcon     : true
-							},  
-							{
-							    xtype         : 'textfield',
-							    name          : 'code',
-							    label         : 'Code',
-							    placeHolder   : '31231231312321.01',
-							    autoCapitalize: true,
-							},  
-							{
-							    xtype         : 'textfield',
-							    name          : 'unitLease',
-							    label         : 'Unit Lease',
-							    placeHolder   : 'Lease 5467',
-							    autoCapitalize: true,
-							}   
-					    ]
-					    
-					},
-					
-					{
-					    xtype: 'fieldset',
-					    title: 'Location',
-					    defaults: {
-					        labelWidth: '35%'
-					    },
-					    items: [
-							{
-							    xtype         : 'textfield',
-							    name          : 'county',
-							    label         : 'County',
-							    placeHolder   : 'Fairfax',
-							    autoCapitalize: true,
-							},  
-							{
-							    xtype         : 'textfield',
-							    name          : 'state',
-							    label         : 'State',
-							    placeHolder   : 'CA',
-							    autoCapitalize: true,
-							},  
-							{
-							    xtype         : 'textfield',
-							    name          : 'section',
-							    label         : 'Section',
-							    placeHolder   : 'Section 420',
-							    autoCapitalize: true,
-							},
-							{
-							    xtype         : 'textfield',
-							    name          : 'township',
-							    label         : 'Township',
-							    placeHolder   : 'Vienna',
-							    autoCapitalize: true,
-							},
-							{
-							    xtype         : 'textfield',
-							    name          : 'range',
-							    label         : 'Range',
-							    placeHolder   : '345 - 670',
-							    autoCapitalize: true,
-							},
-							{
-							    xtype         : 'textfield',
-							    name          : 'subarea',
-							    label         : 'SubArea',
-							    placeHolder   : 'TV Area',
-							    autoCapitalize: true,
-							},
-							{
-							    xtype         : 'textfield',
-							    name          : 'area',
-							    label         : 'Area',
-							    placeHolder   : 'Northeast',
-							    autoCapitalize: true,
-							},
-							{
-							    xtype         : 'textfield',
-							    name          : 'district',
-							    label         : 'District',
-							    placeHolder   : 'District of Columbia',
-							    autoCapitalize: true,
-							},
-							{
-							    xtype         : 'textfield',
-							    name          : 'businessUnit',
-							    label         : 'Business Unit',
-							    placeHolder   : '5675',
-							    autoCapitalize: true,
-							}
-					    ]
-					    
-					},
-					
-					{
-					    xtype: 'fieldset',
-					    title: 'Other Well Info',
-					    defaults: {
-					        labelWidth: '35%'
-					    },
-					    items: [
-							{
-							    xtype         : 'textfield',
-							    name          : 'nri',
-							    label         : 'NRI',
-							    placeHolder   : '100%',
-							    autoCapitalize: true,
-							},  
-							{
-								xtype: 'datepickerfield',
-                                destroyPickerOnHide: true,
-                                name : 'spudDate',
-                                label: 'Spud Date',
-                                value: new Date(),
-                                picker: {
-                                    yearFrom: 1990
-                                }
-							},  
-							{
-							    xtype         : 'textfield',
-							    name          : 'totalDepth',
-							    label         : 'Total Depth',
-							    placeHolder   : '8909',
-							    autoCapitalize: true,
-							}   
-					    ]
-					    
-					}
-                ]
+	config: {
+		store: Ext.create('LDBTest.store.PropertyInfoStore'),
+		ui: 'normal',
+		title: 'Well Meta Data',
+		dirty: true,
+		itemTpl: '<div style="margin-right:0px;"><p style="width: 400px; float: right; text-align: right;">{Value}</p><h2 style="">{Label} </h2></div>',
+		emptyText: '<div style="margin-top: 20px; text-align: center">No Matching Items</div>',
+		grouped: true
+	},
+    
+	
+	reloadIfDirty: function() {
+		this.setMasked({xtype: 'loadmask',
+		    message: 'Loading...'});
+		this.getStore().getProxy().setUrl(LDBTest.model.JsonServicesConstants.getPropertyWellInfo());
+		this.getStore().load(function(records, operation, success) {
+	    	if (success) {
+	    		Ext.Logger.warn('Property Info  #success');
+	    		this.setDirty(false);
+	    		this.setMasked(false);
+	    	}
+	    }, this);
     },
     
-    reloadIfDirty: function() {
-    	
+    initialize: function() {
+    	this.callParent();
+    	this.reloadIfDirty();
     }
 });
+

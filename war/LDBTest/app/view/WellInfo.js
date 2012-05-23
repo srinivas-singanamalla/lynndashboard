@@ -1,6 +1,6 @@
-Ext.define('LDBTest.view.ShortPropertyInfo', {
-    extend: 'Ext.Container',
-    xtype: 'shortpropertyinfo',
+Ext.define('LDBTest.view.WellInfo', {
+    extend: 'Ext.Panel',
+    xtype: 'wellinfo',
     requires: [
       'Ext.XTemplate'
     ],
@@ -8,7 +8,7 @@ Ext.define('LDBTest.view.ShortPropertyInfo', {
     config: {
     	startTime:null,
         endTime:null,
-    	baseCls: 'chartpanel',
+//    	baseCls: 'chartpanel',
     	dirty: true,
     	store: null,
     	tpl: null,
@@ -19,7 +19,7 @@ Ext.define('LDBTest.view.ShortPropertyInfo', {
     reloadIfDirty: function() {
 		this.setMasked({xtype: 'loadmask',
 		    message: 'Loading...'});
-		this.getStore().getProxy().setUrl(LDBTest.model.JsonServicesConstants.getPropertyWellInfo('loc'));
+		this.getStore().getProxy().setUrl(this.getProxyUrl());
 		this.getStore().load(function(records, operation, success) {
 	    	if (success) {
 	    		this.setData(operation.getResponse());
@@ -28,6 +28,10 @@ Ext.define('LDBTest.view.ShortPropertyInfo', {
 	    		this.setMasked(false);
 	    	}
 	    }, this);
+    },
+    
+    getProxyUrl: function() {
+    	return LDBTest.model.JsonServicesConstants.getPropertyWellInfo();
     },
     
     outOfSync: function() {
@@ -45,11 +49,9 @@ Ext.define('LDBTest.view.ShortPropertyInfo', {
     	this.setEndTime(endtime);
     },
     
-    initialize: function() {
-    	var me = this;
+    getTemplate: function() {
     	var template = new Ext.XTemplate(
     			'<div class="centerwellinfo">',
-    				'<div><h2 style="color:white; font-weight: bold; text-decoration: underline; margin:bottom:5px;">Well Location Data:</h2></div>',
                     '<table id="planetlist">',
                         '<tpl for=".">',
                         '<tr class="{[this.listClasses(xindex, xcount)]}">',
@@ -79,8 +81,15 @@ Ext.define('LDBTest.view.ShortPropertyInfo', {
                 }
                    
             );
-    	this.setTpl(template);
+    	return template;
+    },
+    				
+    initialize: function() {
+    	var me = this;
+    	
+    	this.setTpl(this.getTemplate());
     	this.setStore(Ext.create('LDBTest.store.PropertyInfoStore', {id: 'PropertyInfoStore'}));
     	this.reloadIfDirty();
     }
+    
 });
