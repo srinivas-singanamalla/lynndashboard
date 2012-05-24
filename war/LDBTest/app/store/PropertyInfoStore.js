@@ -25,7 +25,6 @@ Ext.define("LDBTest.store.PropertyInfoStore", {
         grouper: {
             groupFn: function(record) {
             	var x = record.get('Group');
-            	console.log(x);
                 return x;
             },
             sortProperty: 'Label'

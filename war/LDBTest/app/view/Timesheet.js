@@ -134,7 +134,6 @@ Ext.define('LDBTest.view.Timesheet', {
     	singleton.setEndTime(endDate.getTime());
 		console.log(startDate.getTime());
 		console.log(endDate.getTime());
-		debugger;
 		var carousel = Ext.ComponentQuery.query('dbcarousel')[0];
 		carousel.getActiveItem().getAt(0).reloadIfDirty();
 		this.hide();

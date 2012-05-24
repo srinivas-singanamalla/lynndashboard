@@ -57,7 +57,6 @@ Ext.define('LDBTest.view.SearchNavigation', {
     },
     
     pushDashboard: function(config) {
-    	debugger;
     	if (this.getDashboard() == null) {
     		this.setDashboard(
     			Ext.create('LDBTest.view.DashboardCarousel', {
