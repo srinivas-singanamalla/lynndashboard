@@ -50,8 +50,8 @@ Ext.define("LDBTest.view.HierarchySearch", {
 		            displayField: 'DisplayName',
 		            valueField: 'Name',
 		            options: [
-		                      {DisplayName:"Business Unit",Name:"BusinessUnit"},
 		                      {DisplayName:"Division",Name:"Division"},
+		                      {DisplayName:"Business Unit",Name:"BusinessUnit"},
 		                      {DisplayName:"District",Name:"District"},
 		                      {DisplayName:"Area",Name:"Area"},
 		                      {DisplayName:"SubArea",Name:"SubArea"}
@@ -79,7 +79,7 @@ Ext.define("LDBTest.view.HierarchySearch", {
 		                
 		                proxy: {
 		                	type: 'jsonp',
-		                	url: LDBTest.model.JsonServicesConstants.getOrgNamesUrl('BusinessUnit', 'WellCompletion'),
+		                	url: LDBTest.model.JsonServicesConstants.getOrgNamesUrl('Division', 'WellCompletion'),
 		                    reader: {
 		                        type: 'json'
 		                    }

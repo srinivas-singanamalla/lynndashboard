@@ -36,20 +36,19 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
                 		console.log(nStr);
                         return(nStr).toFixed(2);
                     };
-                panel.setHtml([
-                      '<b>Units in MCFe</b>', 
-                      '<br></br>',
+                    panel.setHtml([
+//                      '<b>Units in MCFe</b>', 
+//                      '<br></br>',
                       '<ul>',
                     //'<li><b>Year: </b>' + storeItem.get('year') + '</li>',
-                    '<li><b>Water: </b> ' + commify(storeItem.get('Water')) + '</li>',
-                    '<li><b>Oil: </b> ' + commify(storeItem.get('Oil')) + '</li>',
-                    '<li><b>Gas: </b> ' + commify(storeItem.get('Gas')) + '</li>',
-                    '<li><b>NGL: </b> ' + commify(storeItem.get('NGL')) + '</li>',
-                    '<li><b>Total: </b> ' + commify(storeItem.get('Total')) + '</li>',
-                    '<li><b>Forecast: </b> ' + commify(storeItem.get('Forecast')) + '</li>',
+                    '<li><b>Water: </b> ' + commify(storeItem.get('Water')) + ' BBL</li>',
+                    '<li><b>Oil: </b> ' + commify(storeItem.get('Oil')) + ' BBL</li>',
+                    '<li><b>Gas: </b> ' + commify(storeItem.get('Gas')) + ' MCFe</li>',
+                    '<li><b>NGL: </b> ' + commify(storeItem.get('NGL')) + ' BBL</li>',
+                    '<li><b>Total: </b> ' + commify(storeItem.get('Total')) + ' MCFe</li>',
+                    '<li><b>Forecast: </b> ' + commify(storeItem.get('Forecast')) + ' MCFe</li>',
                     '</ul>'
-                ].join(''));
-
+                    ].join(''));
                 }
             }
         }],
@@ -72,18 +71,18 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
                         stroke: '#555'
                     }
                 }
-            }/*,
+            },
             {
                 type: 'Category',
                 position: 'bottom',
                 fields: ['AnalysisDate'],
-                title: 'Analysis Date',
+                title: 'Analysis Date'/*,
                 label: {
                     rotate: {
                         degrees: 45
                     }
-                }
-            }*/
+                }*/
+            }
         ],
         legend: {
             position: Ext.os.is.Phone ? 'left' : 'top'

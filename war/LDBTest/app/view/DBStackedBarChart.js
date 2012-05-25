@@ -24,19 +24,28 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
             duration: 750
         },
         */
-        interactions: [{
-        	type: 'togglestacked',
-        	event: 'doubletap'
-        },
+        interactions: [
         {
             type: 'iteminfo',
             gesture: 'tap',
             listeners: {
-            	/*
-                show: function (interaction, item, panel) {
-                    //EnergyApp.popup(item, panel);
+            	show: function (interaction, item, panel) {
+                	var storeItem = item.storeItem,
+                    commify = function (nStr) {
+                		console.log(nStr);
+                        return(nStr).toFixed(0);
+                    };
+                    panel.setHtml([
+//                      '<b>Units in MCFe</b>', 
+//                      '<br></br>',
+                      '<ul>',
+                    //'<li><b>Year: </b>' + storeItem.get('year') + '</li>',
+                    '<li><b>CashFlow: $</b> ' + commify(storeItem.get('CashFlow')) + '</li>',
+                    '<li><b>TotalExpense: $</b> ' + commify(storeItem.get('TotalExpense')) + '</li>',
+                    '<li><b>Revenue: $</b> ' + commify(storeItem.get('Revenue')) + '</li>',
+                    '</ul>'
+                    ].join(''));
                 }
-                */
             }
         }],
         

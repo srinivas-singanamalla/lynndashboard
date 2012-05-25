@@ -7,7 +7,7 @@ Ext.define('LDBTest.view.Timesheet', {
 	           ],
 	config: {
 		startVal: 0,
-		endVal: 24,
+		endVal: 12,
 		items: [
                 
 				{
@@ -47,9 +47,9 @@ Ext.define('LDBTest.view.Timesheet', {
                     id: 'timesliderfield',
                     name: 'multiple_slider',
 //                    values: [1314835200, 1317340800],
-                    values: [0, 24],
+                    values: [0, 12],
                     minValue: 0,
-                    maxValue: 24
+                    maxValue: 12
 //                    increment: 86 
                 },
                 {
@@ -118,12 +118,12 @@ Ext.define('LDBTest.view.Timesheet', {
 	
 	onResetTap: function() {
 		Ext.getCmp('timesliderfield').reset();
-		this.setUIValue(0, 24);
+		this.setUIValue(0, 12);
 	},
 	
 	onDoneTap: function() {
 		var mts = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-		var yrs = [2011, 2010, 2009];
+		var yrs = [2012, 2011, 2010];
 		var singleton = LDBTest.model.DBSingleton,
 		vals = Ext.getCmp('timesliderfield').getValue(),
 		stmtyear = LDBTest.model.DBSingleton.toMonthYear(vals[0]),

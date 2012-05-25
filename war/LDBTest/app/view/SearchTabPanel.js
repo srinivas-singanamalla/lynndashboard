@@ -9,12 +9,12 @@ Ext.define('LDBTest.view.SearchTabPanel', {
 //    	iconCls: 'search',
     	title: 'Select a Well',
         items: [
-			{
-				xtype: 'propertysearch'
-			},
 			
 			{
 				xtype: 'hierarchysearch'
+			},
+			{
+				xtype: 'propertysearch'
 			}
         ]
     }

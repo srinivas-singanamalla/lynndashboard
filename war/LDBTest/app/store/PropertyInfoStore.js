@@ -17,7 +17,7 @@ Ext.define("LDBTest.store.PropertyInfoStore", {
         fields: [
                  {name:'Value',mapping:'Value', type: 'String'},
                  {name:'Label',mapping:'Label', type: 'String'},
-                 {name:'Group', type: 'String'}
+                 {name:'Group', mapping:'Group', type: 'String'}
              ],
         
         autoLoad: false,
@@ -26,8 +26,9 @@ Ext.define("LDBTest.store.PropertyInfoStore", {
             groupFn: function(record) {
             	var x = record.get('Group');
                 return x;
-            },
+            }/*,
             sortProperty: 'Label'
+            */
         }
     }
 });

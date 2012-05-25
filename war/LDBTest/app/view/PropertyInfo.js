@@ -20,9 +20,12 @@ Ext.define('LDBTest.view.PropertyInfo', {
 		dirty: true,
 		itemTpl: '<div style="margin-right:0px;"><p style="width: 400px; float: right; text-align: right;">{Value}</p><h2 style="">{Label} </h2></div>',
 		emptyText: '<div style="margin-top: 20px; text-align: center">No Matching Items</div>',
-		grouped: true
+		grouped: true,
+		scrollable: {
+		    direction: 'vertical',
+		    directionLock: true
+		}
 	},
-    
 	
 	reloadIfDirty: function() {
 		this.setMasked({xtype: 'loadmask',

@@ -73,6 +73,10 @@ Ext.define('LDBTest.store.HierarchyListStore', {
         autoLoad: false
     },
     
+    gcf: function() {
+    	
+    },
+    
     loadpostRequest: function(jsonData, ui) {
     	ui.setMasked({xtype: 'loadmask'});
 		this.getProxy().setUrl(LDBTest.model.JsonServicesConstants.getHierarchyWelllistUrl(jsonData['ProductionPointName'], jsonData['OrgLevel'], jsonData['PropertyID']));
