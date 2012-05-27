@@ -66,7 +66,9 @@ Ext.define('LDBTest.model.DBSingleton', {
 	},
 	
 	years: function() {
-		return [2012, 2011, 2010];
+		var today = new Date(),
+        curryear = today.getFullYear();
+		return [curryear, curryear - 1, curryear- 2, curryear - 3];
 	},
 	
 	getTimeRange: function() {

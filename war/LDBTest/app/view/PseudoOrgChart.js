@@ -250,7 +250,7 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         	topColor: 'lightgray',
         	bottomColor: 'lightgray',
         	topText: 'Daily Average Volume',
-        	centerText: record.get('DailyAvgVolume') + ' MCFed',
+        	centerText: record.get('DailyAvgVolume') + ' ' + LDBTest.model.DBSingleton.getVolumeRateType(),
         	bottomText: 'From Forecast',
         	forecastVal: record.get('DailyAvgVolumeVariance'),
         	topTextFont: 'bold 18px Arial',

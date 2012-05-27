@@ -6,8 +6,8 @@ Ext.define('LDBTest.view.Timesheet', {
 	           'Ext.Button'
 	           ],
 	config: {
-		startVal: 0,
-		endVal: 11,
+		startVal: LDBTest.model.DBSingleton.getDefaultTimeRange()[0],
+		endVal: LDBTest.model.DBSingleton.getDefaultTimeRange()[1],
 		items: [
                 
 				{
@@ -46,9 +46,9 @@ Ext.define('LDBTest.view.Timesheet', {
                     xtype: 'sliderfield',
                     id: 'timesliderfield',
                     name: 'multiple_slider',
-                    values: [0, 11],
-                    minValue: 0,
-                    maxValue: 11
+                    values: LDBTest.model.DBSingleton.getDefaultTimeRange(),
+                    minValue: LDBTest.model.DBSingleton.getDefaultTimeRange()[0],
+                    maxValue: LDBTest.model.DBSingleton.getDefaultTimeRange()[1]
 //                    increment: 86 
                 },
                 {
@@ -106,9 +106,9 @@ Ext.define('LDBTest.view.Timesheet', {
 	
 	
 	
-	setUIValue: function(val1, val2) {
-		Ext.getCmp('startTimeLabel').setHtml('<b>Start Time:</b>  ' + '<span style="color:red;">' + LDBTest.model.DBSingleton.convertToFmtDate(val1) + '</span>');
-        Ext.getCmp('endTimeLabel').setHtml('<b>End Time:</b>  ' + '<span style="color:red;">' + LDBTest.model.DBSingleton.convertToFmtDate(val2, true) + '</span>');
+	setUIValue: function(values) {
+		Ext.getCmp('startTimeLabel').setHtml('<b>Start Time:</b>  ' + '<span style="color:red;">' + LDBTest.model.DBSingleton.convertToFmtDate(values[0]) + '</span>');
+        Ext.getCmp('endTimeLabel').setHtml('<b>End Time:</b>  ' + '<span style="color:red;">' + LDBTest.model.DBSingleton.convertToFmtDate(values[1], true) + '</span>');
 	},
 	
 	onCancelTap: function() {
@@ -117,12 +117,12 @@ Ext.define('LDBTest.view.Timesheet', {
 	
 	onResetTap: function() {
 		Ext.getCmp('timesliderfield').reset();
-		this.setUIValue(0, 11);
+		this.setUIValue(LDBTest.model.DBSingleton.getDefaultTimeRange());
 	},
 	
 	onDoneTap: function() {
-		var mts = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-		var yrs = [2012, 2011, 2010];
+		var mts = LDBTest.model.DBSingleton.months();
+		var yrs = LDBTest.model.DBSingleton.years();
 		var singleton = LDBTest.model.DBSingleton,
 		vals = Ext.getCmp('timesliderfield').getValue(),
 		stmtyear = LDBTest.model.DBSingleton.toMonthYear(vals[0]),
@@ -145,7 +145,7 @@ Ext.define('LDBTest.view.Timesheet', {
 	
 	onDrag: function(sliderfield, slider, thumb, value, evtObj, eOpts) {
         console.log(thumb);
-        this.setUIValue(thumb[0], thumb[1]);
+        this.setUIValue(thumb);
     },
     
     onDragend: function(sliderfield, slider, thumb, value, evtObj, eOpts) {
