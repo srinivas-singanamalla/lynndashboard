@@ -55,9 +55,11 @@ Ext.define("LDBTest.view.DashboardCarousel", {
                 items: [
                   {
                     xtype: 'segmentedbutton',
+                    allowDepress: false,
                     itemId: 'switchViewsSegment',
+                    allowMultiple: false,
                     defaults: {
-                    	pressedCls: 'x-button-pressed'
+                    	//pressedCls: 'x-button-pressed'
                     },
                     items: 
                     	[
@@ -82,7 +84,54 @@ Ext.define("LDBTest.view.DashboardCarousel", {
 		                    	console.log("button" + button.getText());
 		                    } }
 		               ]
+                  },
+                  
+                  {
+                	  xtype: 'spacer'
+                  },
+                  {
+                	  xtype: 'segmentedbutton',
+                	  allowDepress: false,
+                	  allowMultiple: false,
+                      defaults: {
+                      	//pressedCls: 'x-button-pressed'
+                      },
+                      items: 
+                      	[
+  		                    { text:'MCFe', pressed: true, handler: function(button) {
+  		                    	LDBTest.model.DBSingleton.setVolumeType(1);
+  		                    	Ext.ComponentQuery.query('dbcarousel')[0].reloadIfDirty();
+  		                    } },
+  		                  { text:'BOe', handler: function(button) {
+  		                	LDBTest.model.DBSingleton.setVolumeType(2);
+  		                	Ext.ComponentQuery.query('dbcarousel')[0].reloadIfDirty();
+		                    } }
+  		                ]
+                  },
+                  {
+                	  xtype: 'spacer'
+                  },
+                  {
+                	  xtype: 'segmentedbutton',
+                	  allowDepress: false,
+                	  allowMultiple: false,
+                      defaults: {
+//                      	pressedCls: 'x-button-pressed'
+                      },
+                      items: 
+                      	[
+  		                    { text:'Net', pressed: true, handler: function(button) {
+  		                    	LDBTest.model.DBSingleton.setProfitType(1);
+  		                    	Ext.ComponentQuery.query('dbcarousel')[0].reloadIfDirty();
+//  		              			this.element.addCls(item.getPressedCls());
+  		                    } },
+  		                  { text:'Gross', handler: function(button) {
+  		                	LDBTest.model.DBSingleton.setProfitType(2);
+  		                	Ext.ComponentQuery.query('dbcarousel')[0].reloadIfDirty();
+		                    } }
+  		                ]
                   }
+                  
                 ]
             },
             
@@ -146,7 +195,8 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     			} else {
     				newactiveItem.getAt(0).reloadIfDirty && newactiveItem.getAt(0).reloadIfDirty();
     			}
-    	    	this.setTitle(newactiveItem.getAt(0).getTitle() + ' - ' + LDBTest.model.DBSingleton.getWellrecord().get('WellCompletionName') + ' ' + time);
+//    	    	this.setTitle(newactiveItem.getAt(0).getTitle() + ' - ' + LDBTest.model.DBSingleton.getWellrecord().get('WellCompletionName') + ' ' + time);
+    	    	this.setBarTitle(true);
         	}
     		
     		Ext.get('changeTimeInterval').show();
@@ -154,6 +204,17 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     	
 //    	this.reloadOrCreateCard(container, newActiveItem, oldActiveItem, eOpts);
     	
+    },
+    
+    setBarTitle: function(appendtime) {
+    	var newactiveItem = this.getActiveItem(),
+    	time = LDBTest.model.DBSingleton.getTimeRange(),
+    	title = newactiveItem.getAt(0).getTitle() + ' - ' + LDBTest.model.DBSingleton.getWellrecord().get('WellCompletionName');
+    	
+    	if (appendtime) {
+    		title += ' ' + time;
+    	}
+    	this.setTitle(title);
     },
     
     onDeactivate: function( container, newActiveItem, oldActiveItem, eOpts ) {
@@ -212,12 +273,14 @@ Ext.define("LDBTest.view.DashboardCarousel", {
     		itemcoll = segmented.getItems(),
     		item = itemcoll.get(activeIndex);
     		
+    		/*
     		itemcoll.each(function(thisitem, index, length){
     			thisitem.element.removeCls(thisitem.getPressedCls());
     		});
-    		
+    		*/
     		if (item.isXType('button')) {
-    			item.element.addCls(item.getPressedCls());
+    			//item.element.addCls(item.getPressedCls());
+    			segmented.setPressedButtons([item]);
     		}
     	}
     },
@@ -253,5 +316,9 @@ Ext.define("LDBTest.view.DashboardCarousel", {
 	    	}
 	    	this.setTitle(fulltitle);
     	}
+    },
+    
+    reloadIfDirty: function() {
+    	this.getActiveItem().getAt(0).reloadIfDirty();
     }
 });

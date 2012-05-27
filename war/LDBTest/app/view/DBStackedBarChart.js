@@ -7,13 +7,15 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
 	           'Ext.chart.series.StackedColumn'
 	           ],
     config: {
-        title: 'Net Profitability Analysis',
+        title: 'Profitability Analysis',
         iconCls: 'column',
         cls: 'chartpanel',
         autoSize: true,
         dirty: true,
         startTime:null,
         endTime:null,
+        profitType: 1,
+        volumeType: 1,
 //        width: '800',
 //        height: '400',
         shadow: true,
@@ -39,10 +41,10 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
 //                      '<b>Units in MCFe</b>', 
 //                      '<br></br>',
                       '<ul>',
-                    //'<li><b>Year: </b>' + storeItem.get('year') + '</li>',
-                    '<li><b>CashFlow: $</b> ' + commify(storeItem.get('CashFlow')) + '</li>',
-                    '<li><b>TotalExpense: $</b> ' + commify(storeItem.get('TotalExpense')) + '</li>',
+                    '<li><b>Date: </b>' + storeItem.get('AnalysisDate') + '</li>',
                     '<li><b>Revenue: $</b> ' + commify(storeItem.get('Revenue')) + '</li>',
+                    '<li><b>TotalExpense: $</b> ' + commify(storeItem.get('TotalExpense')) + '</li>',
+                    '<li><b>CashFlow: $</b> ' + commify(storeItem.get('CashFlow')) + '</li>',
                     '</ul>'
                     ].join(''));
                 }
@@ -59,7 +61,7 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
                 },
                 adjustMinimumByMajorUnit: 0,
                 fields: ['Revenue', 'TotalExpense', 'CashFlow'],
-                title: 'Million BTUs',
+                title: 'Dollars',
                 grid: {
                     odd: {
                         stroke: '#777'
@@ -141,16 +143,23 @@ Ext.define("LDBTest.view.DBStackedBarChart", {
     outOfSync: function() {
     	var singleton = LDBTest.model.DBSingleton,
     	sttime = singleton.getStartTime(),
-    	endtime = singleton.getEndTime();
-    	return this.getDirty() || (this.getStartTime() !== sttime || this.getEndTime() !== endtime);
+    	endtime = singleton.getEndTime(),
+    	volType = singleton.getVolumeType(),
+    	profType = singleton.getProfitType();
+    	return this.getDirty() || (this.getStartTime() !== sttime || this.getEndTime() !== endtime) || 
+    	(this.getVolumeType() !== volType) || (this.getProfitType() !== profType);
     },
     
     syncTime: function() {
     	var singleton = LDBTest.model.DBSingleton,
     	sttime = singleton.getStartTime(),
-    	endtime = singleton.getEndTime();
+    	endtime = singleton.getEndTime(),
+    	volType = singleton.getVolumeType(),
+    	profType = singleton.getProfitType();
     	this.setStartTime(sttime);
     	this.setEndTime(endtime);
+    	this.setVolumeType(volType);
+    	this.setProfitType(profType);
     },
     
     initialize: function() {

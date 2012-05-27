@@ -7,7 +7,7 @@ Ext.define('LDBTest.view.Timesheet', {
 	           ],
 	config: {
 		startVal: 0,
-		endVal: 12,
+		endVal: 11,
 		items: [
                 
 				{
@@ -46,10 +46,9 @@ Ext.define('LDBTest.view.Timesheet', {
                     xtype: 'sliderfield',
                     id: 'timesliderfield',
                     name: 'multiple_slider',
-//                    values: [1314835200, 1317340800],
-                    values: [0, 12],
+                    values: [0, 11],
                     minValue: 0,
-                    maxValue: 12
+                    maxValue: 11
 //                    increment: 86 
                 },
                 {
@@ -109,7 +108,7 @@ Ext.define('LDBTest.view.Timesheet', {
 	
 	setUIValue: function(val1, val2) {
 		Ext.getCmp('startTimeLabel').setHtml('<b>Start Time:</b>  ' + '<span style="color:red;">' + LDBTest.model.DBSingleton.convertToFmtDate(val1) + '</span>');
-        Ext.getCmp('endTimeLabel').setHtml('<b>End Time:</b>  ' + '<span style="color:red;">' + LDBTest.model.DBSingleton.convertToFmtDate(val2) + '</span>');
+        Ext.getCmp('endTimeLabel').setHtml('<b>End Time:</b>  ' + '<span style="color:red;">' + LDBTest.model.DBSingleton.convertToFmtDate(val2, true) + '</span>');
 	},
 	
 	onCancelTap: function() {
@@ -118,7 +117,7 @@ Ext.define('LDBTest.view.Timesheet', {
 	
 	onResetTap: function() {
 		Ext.getCmp('timesliderfield').reset();
-		this.setUIValue(0, 12);
+		this.setUIValue(0, 11);
 	},
 	
 	onDoneTap: function() {
@@ -136,6 +135,7 @@ Ext.define('LDBTest.view.Timesheet', {
 		console.log(endDate.getTime());
 		var carousel = Ext.ComponentQuery.query('dbcarousel')[0];
 		carousel.getActiveItem().getAt(0).reloadIfDirty();
+		carousel.setBarTitle(true);
 		this.hide();
 	},
 	

@@ -25,6 +25,8 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
 		startTime: null,
 		
 		endTime: null,
+		profitType: 1,
+        volumeType: 1,
 		
 		store: null,
 		
@@ -136,16 +138,23 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
     outOfSync: function() {
     	var singleton = LDBTest.model.DBSingleton,
     	sttime = singleton.getStartTime(),
-    	endtime = singleton.getEndTime();
-    	return this.getStartTime() !== sttime || this.getEndTime() !== endtime;
+    	endtime = singleton.getEndTime(),
+    	volType = singleton.getVolumeType(),
+    	profType = singleton.getProfitType();
+    	return this.getDirty() || (this.getStartTime() !== sttime || this.getEndTime() !== endtime) || 
+    	(this.getVolumeType() !== volType) || (this.getProfitType() !== profType);
     },
     
     syncTime: function() {
     	var singleton = LDBTest.model.DBSingleton,
     	sttime = singleton.getStartTime(),
-    	endtime = singleton.getEndTime();
+    	endtime = singleton.getEndTime(),
+    	volType = singleton.getVolumeType(),
+    	profType = singleton.getProfitType();
     	this.setStartTime(sttime);
     	this.setEndTime(endtime);
+    	this.setVolumeType(volType);
+    	this.setProfitType(profType);
     },
     
     initialize: function() {
@@ -291,7 +300,7 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         	h: 0.75*bbox.h,
         	topColor: 'url(#nglGradient)',
         	bottomColor: 'white',
-        	topText: 'Oil',
+        	topText: 'NGL',
         	centerText: record.get('Oil') + ' BbLd',
         	bottomText: 'From Forecast',
         	forecastVal: record.get('OilVariance'),

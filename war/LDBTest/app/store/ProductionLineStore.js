@@ -9,6 +9,9 @@ Ext.define("LDBTest.store.ProductionLineStore", {
             name: 'AnalysisDate',
             type: 'String'
         }, {
+            name: 'StrDT',
+            type: 'String'
+        },{
             name: 'Gas',
             type: 'double'
         }, {

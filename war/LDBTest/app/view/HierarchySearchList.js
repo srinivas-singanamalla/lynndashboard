@@ -12,10 +12,10 @@ Ext.define('LDBTest.view.HierarchySearchList', {
     
     	itemTpl: '<div style="margin-right:50px;">' +
     				'<div style="width: 500px; float: right; text-align: right;">' +
-    					'<span class="header">Status:<span style="color:red">{Status}</span> Status Date: <span style="color:red">{StatusDate}</span></span><br/>{NetCashFlow}' +
+    					'<span class="header">Status:<span style="color:red">{Status}</span> Status Date: <span style="color:red">{StatusDate}</span></span><br/>Net: {StrNet}' +
     				'</div>' +
     				'<div>' +
-    					'<span class="header">{WellCompletionName} </span> <br/>{GrossCashFlow} (Gross)' +
+    					'<span class="header">{WellCompletionName} </span> <br/>Gross:{StrGross}' +
     				'</div>' +
     			'</div>',
     	onItemDisclosure: true

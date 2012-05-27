@@ -6314,11 +6314,14 @@ audio {
 /* line 50, ../themes/stylesheets/sencha-touch/default/_mixins.scss */
 .x-button.x-button-pressing, .x-button.x-button-pressing:after, .x-button.x-button-pressed, .x-button.x-button-pressed:after, .x-button.x-button-active, .x-button.x-button-active:after, .x-toolbar .x-button.x-button-pressing, .x-toolbar .x-button.x-button-pressing:after, .x-toolbar .x-button.x-button-pressed, .x-toolbar .x-button.x-button-pressed:after, .x-toolbar .x-button.x-button-active, .x-toolbar .x-button.x-button-active:after {
   background-image: none;
+  /* added by srini, customized */
+  color: red;
   background-color: #c4c4c4;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ababab), color-stop(10%, #b8b8b8), color-stop(65%, #c4c4c4), color-stop(100%, #c6c6c6));
   background-image: -webkit-linear-gradient(top, #ababab, #b8b8b8 10%, #c4c4c4 65%, #c6c6c6);
   background-image: linear-gradient(top, #ababab, #b8b8b8 10%, #c4c4c4 65%, #c6c6c6);
 }
+
 /* line 65, ../themes/stylesheets/sencha-touch/default/widgets/_buttons.scss */
 .x-button .x-button-icon {
   width: 2.1em;

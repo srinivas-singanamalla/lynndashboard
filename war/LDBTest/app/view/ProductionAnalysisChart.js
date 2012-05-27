@@ -11,11 +11,13 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
 	           ],
     config: {
     	
-        title: 'Net Production Analysis',
+        title: 'Production Analysis',
         iconCls: 'line',
         cls: 'chartpanel',
         startTime:null,
         endTime:null,
+        profitType: 1,
+        volumeType: 1,
         autoSize: true,
 //        width: '400',
 //        height: '200',
@@ -37,17 +39,15 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
                         return(nStr).toFixed(2);
                     };
                     panel.setHtml([
-//                      '<b>Units in MCFe</b>', 
-//                      '<br></br>',
                       '<ul>',
-                    //'<li><b>Year: </b>' + storeItem.get('year') + '</li>',
-                    '<li><b>Water: </b> ' + commify(storeItem.get('Water')) + ' BBL</li>',
-                    '<li><b>Oil: </b> ' + commify(storeItem.get('Oil')) + ' BBL</li>',
-                    '<li><b>Gas: </b> ' + commify(storeItem.get('Gas')) + ' MCFe</li>',
-                    '<li><b>NGL: </b> ' + commify(storeItem.get('NGL')) + ' BBL</li>',
-                    '<li><b>Total: </b> ' + commify(storeItem.get('Total')) + ' MCFe</li>',
-                    '<li><b>Forecast: </b> ' + commify(storeItem.get('Forecast')) + ' MCFe</li>',
-                    '</ul>'
+	                    '<li><b>Date: </b>' + storeItem.get('StrDT') + '</li>',
+	                    '<li><b>Water: </b> ' + commify(storeItem.get('Water')) + ' BBL</li>',
+	                    '<li><b>Oil: </b> ' + commify(storeItem.get('Oil')) + ' BBL</li>',
+	                    '<li><b>Gas: </b> ' + commify(storeItem.get('Gas')) + ' MCFe</li>',
+	                    '<li><b>NGL: </b> ' + commify(storeItem.get('NGL')) + ' BBL</li>',
+	                    '<li><b>Total: </b> ' + commify(storeItem.get('Total')) + ' MCFe</li>',
+	                    '<li><b>Forecast: </b> ' + commify(storeItem.get('Forecast')) + ' MCFe</li>',
+                     '</ul>'
                     ].join(''));
                 }
             }
@@ -62,7 +62,7 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
                 },
                 adjustMinimumByMajorUnit: 0,
                 fields: ['Water', 'Oil', 'Gas', 'Forecast', 'NGL', 'Total'],
-                title: 'Production Rate (MCFe)',
+                title: 'Volume',
                 grid: {
                     odd: {
                         stroke: '#777'
@@ -75,13 +75,13 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
             {
                 type: 'Category',
                 position: 'bottom',
-                fields: ['AnalysisDate'],
-                title: 'Analysis Date'/*,
+                fields: ['StrDT'],
+                title: 'Analysis Date',
                 label: {
                     rotate: {
                         degrees: 45
                     }
-                }*/
+                }
             }
         ],
         legend: {
@@ -198,16 +198,23 @@ Ext.define("LDBTest.view.ProductionAnalysisChart", {
     outOfSync: function() {
     	var singleton = LDBTest.model.DBSingleton,
     	sttime = singleton.getStartTime(),
-    	endtime = singleton.getEndTime();
-    	return this.getDirty() || (this.getStartTime() !== sttime || this.getEndTime() !== endtime);
+    	endtime = singleton.getEndTime(),
+    	volType = singleton.getVolumeType(),
+    	profType = singleton.getProfitType();
+    	return this.getDirty() || (this.getStartTime() !== sttime || this.getEndTime() !== endtime) || 
+    	(this.getVolumeType() !== volType) || (this.getProfitType() !== profType);
     },
     
     syncTime: function() {
     	var singleton = LDBTest.model.DBSingleton,
     	sttime = singleton.getStartTime(),
-    	endtime = singleton.getEndTime();
+    	endtime = singleton.getEndTime(),
+    	volType = singleton.getVolumeType(),
+    	profType = singleton.getProfitType();
     	this.setStartTime(sttime);
     	this.setEndTime(endtime);
+    	this.setVolumeType(volType);
+    	this.setProfitType(profType);
     },
     
     initialize: function() {

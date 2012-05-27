@@ -22,6 +22,14 @@ Ext.define('LDBTest.store.HierarchyListStore', {
             type: 'String'
         },
         {
+        	name: 'StrGross',
+            type: 'String'
+        },
+        {
+        	name: 'StrNet',
+            type: 'String'
+        },
+        {
         	name: 'GrossCashFlow',
             type: 'double'
         },

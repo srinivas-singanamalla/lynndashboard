@@ -11,6 +11,8 @@ Ext.define('LDBTest.view.DashboardSummary', {
     	layout: 'vbox',
     	startTime:null,
         endTime:null,
+        profitType: 1,
+        volumeType: 1,
         title: 'Summary',
     	items: [
     	        { xtype: 'container', 

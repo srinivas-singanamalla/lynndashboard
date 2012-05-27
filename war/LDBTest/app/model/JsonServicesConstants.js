@@ -9,9 +9,8 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
     	callback: '',
     	
         baseUrl: function() {
-            // 'this' in static methods refer to the class itself
-//            return 'http://50.57.145.54:8089/Json2/WcfServices/WellProfitabilitySvc.svc/';
             return 'http://50.57.145.54:8087/Json2/JsonServices/WellProfitabilitySvc.svc/';
+//            return 'http://dev.dw.linnenergy.com:8087/JsonWellProfitability/JsonServices/WellProfitabilitySvc.svc/';
         },
         
         getOrgTypesUrl: function() {
@@ -49,6 +48,8 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         	return 'linnproxy.jsonp';
         },
         
+        
+        
         getProductionPlotUrl: function() {
         	var singleton = LDBTest.model.DBSingleton,
         	record = singleton.getWellrecord(),
@@ -57,9 +58,11 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         	propId = singleton.getPropertyID() && singleton.getPropertyID(),
         	prodpoint = singleton.getProdPoint() && singleton.getProdPoint().get('Name'),
         	wellcompletionId = record && record.get('WellCompletionCode'),
+        	volType = singleton.getVolumeRateType(),
+        	profType = singleton.netOrGrossType(),
         	supplypointId = record && record.get('SupplyPointID');
         	
-        	return this.baseUrl() + 'ProductionPlotList/' + prodpoint + '/' + 'Net' + '/' + 'MCFe' + '/' + propId + '/' + 'Month' + '/' + sttime + '/' + endtime + this.callback;
+        	return this.baseUrl() + 'ProductionPlotList/' + prodpoint + '/' + profType + '/' + volType + '/' + propId + '/' + 'Month' + '/' + sttime + '/' + endtime + this.callback;
         },
         
         getProfitabilityPlotUrl: function() {
@@ -67,12 +70,14 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         	record = singleton.getWellrecord(),
         	sttime = singleton.getStartTimeInSecs(),
         	endtime = singleton.getEndTimeInSecs(),
+        	volType = singleton.getVolumeRateType(),
+        	profType = singleton.netOrGrossType(),
         	prodpoint = singleton.getProdPoint() && singleton.getProdPoint().get('Name'),
         	propId = singleton.getPropertyID() && singleton.getPropertyID(),
         	wellcompletionId = record && record.get('WellCompletionCode'),
         	supplypointId = record && record.get('SupplyPointID');
         	
-        	return this.baseUrl() + 'ProfitabilityAnalysisList/' + prodpoint + '/' + 'Net' + '/' + 'MCFe' + '/' + propId + '/' + 'Month' + '/' + sttime + '/' + endtime + this.callback;
+        	return this.baseUrl() + 'ProfitabilityAnalysisList/' + prodpoint + '/' + profType + '/' + volType + '/' + propId + '/' + 'Month' + '/' + sttime + '/' + endtime + this.callback;
         },
         
         getKPIPlotUrl: function() {
@@ -80,11 +85,13 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         	record = singleton.getWellrecord(),
         	sttime = singleton.getStartTimeInSecs(),
         	endtime = singleton.getEndTimeInSecs(),
+        	volType = singleton.getVolumeRateType(),
+        	profType = singleton.netOrGrossType(),
         	prodpoint = singleton.getProdPoint() && singleton.getProdPoint().get('Name'),
         	propId = singleton.getPropertyID() && singleton.getPropertyID(),
         	wellcompletionId = record && record.get('WellCompletionCode'),
         	supplypointId = record && record.get('SupplyPointID');
-	    	return this.baseUrl() + 'KPIList/' + prodpoint + '/' + 'Net' + '/' + 'MCFe' + '/' + propId + '/' + 'Month' + '/' + sttime + '/' + endtime + this.callback;
+	    	return this.baseUrl() + 'KPIList/' + prodpoint + '/' + profType + '/' + volType + '/' + propId + '/' + 'Month' + '/' + sttime + '/' + endtime + this.callback;
         },
         
         getExpenseBreakdownUrl: function() {
@@ -92,11 +99,13 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         	record = singleton.getWellrecord(),
         	sttime = singleton.getStartTimeInSecs(),
         	endtime = singleton.getEndTimeInSecs(),
+        	volType = singleton.getVolumeRateType(),
+        	profType = singleton.netOrGrossType(),
         	prodpoint = singleton.getProdPoint() && singleton.getProdPoint().get('Name'),
         	propId = singleton.getPropertyID() && singleton.getPropertyID(),
         	wellcompletionId = record && record.get('WellCompletionCode'),
         	supplypointId = record && record.get('SupplyPointID');
-	    	return this.baseUrl() + 'ExpenseBreakDown/' + prodpoint + '/' + 'Net' + '/' + 'MCFe' + '/' + propId + '/' + 'Month' + '/' + sttime + '/' + endtime + this.callback;
+	    	return this.baseUrl() + 'ExpenseBreakDown/' + prodpoint + '/' + profType + '/' + volType + '/' + propId + '/' + 'Month' + '/' + sttime + '/' + endtime + this.callback;
         },
         
         getPropertyWellInfo: function(input) {
@@ -104,6 +113,8 @@ Ext.define('LDBTest.model.JsonServicesConstants', {
         	record = singleton.getWellrecord(),
         	sttime = singleton.getStartTimeInSecs(),
         	endtime = singleton.getEndTimeInSecs(),
+        	volType = singleton.getVolumeRateType(),
+        	profType = singleton.netOrGrossType(),
         	propId = singleton.getPropertyID() && singleton.getPropertyID(),
         	infotype = 'WellCombinedData';
         	
