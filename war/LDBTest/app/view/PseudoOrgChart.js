@@ -255,8 +255,8 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         	forecastVal: record.get('DailyAvgVolumeVariance'),
         	topTextFont: 'bold 18px Arial',
         	centerTextFont: 'bold italic 18px Arial',
-        	bottomTextFont: 'bold 12px Arial',
-        	forecastFont: 'bold 12px Arial'
+        	bottomTextFont: 'bold 0.6em Arial',
+        	forecastFont: '0.6em Arial'
         }));
 		
 		spritesArray.push(this.getSpritesArray({
@@ -270,10 +270,10 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         	centerText: record.get('Gas') + ' MCFed',
         	bottomText: 'From Forecast',
         	forecastVal: record.get('GasVariance'),
-        	topTextFont: 'bold 12px Arial',
+        	topTextFont: 'bold 1em Arial',
         	centerTextFont: 'bold italic 14px Arial',
-        	bottomTextFont: 'bold 12px Arial',
-        	forecastFont: 'bold 12px Arial'
+        	bottomTextFont: 'bold 0.6em Arial',
+        	forecastFont: '0.6em Arial'
         }));
 		
 		spritesArray.push(this.getSpritesArray({
@@ -287,10 +287,10 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         	centerText: record.get('NGL') + ' BbLd',
         	bottomText: 'From Forecast',
         	forecastVal: record.get('NGLVariance'),
-        	topTextFont: 'bold 12px Arial',
+        	topTextFont: 'bold 1em Arial',
         	centerTextFont: 'bold italic 14px Arial',
-        	bottomTextFont: 'bold 12px Arial',
-        	forecastFont: 'bold 12px Arial'
+        	bottomTextFont: 'bold 0.6em Arial',
+        	forecastFont: '0.6em Arial'
         }));
 		
 		spritesArray.push(this.getSpritesArray({
@@ -304,10 +304,10 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
         	centerText: record.get('Oil') + ' BbLd',
         	bottomText: 'From Forecast',
         	forecastVal: record.get('OilVariance'),
-        	topTextFont: 'bold 12px Arial',
+        	topTextFont: 'bold 1em Arial',
         	centerTextFont: 'bold italic 14px Arial',
-        	bottomTextFont: 'bold 12px Arial',
-        	forecastFont: 'bold 12px Arial'
+        	bottomTextFont: 'bold 0.6em Arial',
+    	forecastFont: '0.6em Arial'
         }));
 		
 		return spritesArray;
@@ -395,7 +395,7 @@ Ext.define("LDBTest.view.PseudoOrgChart", {
                     stroke: 'black',
                     font: ff,
                     x: x + 0.5*w,
-                    y: y + 0.91*h,
+                    y: y + 0.93*h,
                     text: fv,
                     group: textGroup,
                     'text-anchor': 'center'
